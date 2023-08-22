@@ -1,17 +1,28 @@
 from django.db import models
-from edc_constants.choices import YES_NO
+from edc_constants.choices import YES_NO, YES_NO_NA
 from edc_consent.validators import eligible_if_yes
+from edc_consent.managers import ConsentManager as FacetConsentManager
+from edc_search.model_mixins import SearchSlugManager
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
 from edc_consent.model_mixins import ConsentModelMixin
 from django_crypto_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
-from edc_consent.field_mixins import IdentityFieldsMixin
+from edc_consent.field_mixins import IdentityFieldsMixin, ReviewFieldsMixin
 from edc_consent.field_mixins import PersonalFieldsMixin, VulnerabilityFieldsMixin
 from ...choices import IDENTITY_TYPE, GENDER_OTHER
 from edc_base.model_fields import OtherCharField
-from .model_mixins.review_fields_mixin import ReviewFieldsMixin
+from edc_base.sites import CurrentSiteManager
+from edc_base.model_managers import HistoricalRecords
+from edc_base.utils import get_utcnow
+
+
+class ConsentManager(FacetConsentManager, SearchSlugManager, models.Manager):
+
+    def get_by_natural_key(self, subject_identifier, version):
+        return self.get(
+            subject_identifier=subject_identifier, version=version)
 
 
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
@@ -32,6 +43,7 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     consent_datetime = models.DateTimeField(
         verbose_name='Consent date and time',
         help_text='Date and time of consent.',
+        default=get_utcnow,
         null=True)
 
     identity_type = models.CharField(
@@ -53,11 +65,25 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
         validators=[eligible_if_yes, ],
         help_text='If no, participant is not eligible.')
 
+    child_consent = models.CharField(
+        max_length=3,
+        verbose_name='Are you willing to consent for your child’s participation in FLOURISH?',
+        choices=YES_NO_NA,
+        help_text='If ‘No’ ineligible for study participation')
+
     is_eligible = models.BooleanField(
         default=True,
         editable=False)
 
     gender_other = OtherCharField()
+
+    objects = ConsentManager()
+
+    consent = FacetConsentManager()
+
+    on_site = CurrentSiteManager()
+
+    history = HistoricalRecords()
 
     def __str__(self):
         return f'{self.subject_identifier} V{self.version}'
@@ -76,3 +102,4 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     class Meta:
         app_label = 'flourish_facet'
         verbose_name = 'Facet Consent'
+        verbose_name_plural = 'Facet Consent'
