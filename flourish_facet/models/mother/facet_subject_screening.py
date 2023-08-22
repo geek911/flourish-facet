@@ -13,6 +13,10 @@ from edc_base.model_mixins import BaseUuidModel
 class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
                             BaseUuidModel):
 
+    screening_identifier = models.CharField(
+        verbose_name='Screening identifier',
+        max_length=50)
+
     report_datetime = models.DateTimeField(
         verbose_name='Report Time and Date',
         default=get_utcnow,
@@ -44,3 +48,4 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
     class Meta:
         app_label = 'flourish_facet'
         verbose_name = 'Facet Study Screening'
+        verbose_name_plural = 'Facet Study Screening'

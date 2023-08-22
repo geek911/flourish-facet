@@ -1,5 +1,9 @@
-from edc_constants.constants import OTHER, MALE, FEMALE
+from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, NEVER, PARTICIPANT, UNKNOWN
 from django.utils.translation import ugettext_lazy as _
+from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY
+from edc_visit_tracking.constants import COMPLETED_PROTOCOL_VISIT, MISSED_VISIT, \
+    LOST_VISIT, SCHEDULED, UNSCHEDULED
+
 
 REASONS_UNWILLING_FACET = (
     ('unable_to_provide_consent ', 'Mother unavailable to provide consent'),
@@ -22,3 +26,111 @@ GENDER_OTHER = (
     (FEMALE, _('Female')),
     (OTHER, _('Other')),
 )
+
+CHILD_IDENTITY_TYPE = (
+    ('country_id', 'Country ID number'),
+    ('birth_cert', 'Birth Certificate number'),
+    ('country_id_rcpt', 'Country ID receipt'),
+    ('passport', 'Passport'),
+    (OTHER, 'Other'),
+)
+
+CHILD_CONSENT_VERSION = (
+    ('1', 'Consent version 1'),
+    ('2', 'Consent version 2'),
+    ('2.1', 'Consent version 2.1'),
+    ('3', 'Consent version 3')
+)
+
+YES_NO_DNK = (
+    (YES, YES),
+    (NO, NO),
+    (DONT_KNOW, 'Do not know')
+)
+
+POS_NEG_IND = (
+    (POS, 'Positive'),
+    (NEG, 'Negative'),
+    (IND, 'Indeterminate')
+)
+
+AGE_BREASTFEEDING_ENDED = (
+    ('older_than_6_weeks', 'Older than 6 weeks'),
+    ('under_6_weeks', 'Under six weeks'),
+    (DONT_KNOW, 'Do not know')
+
+)
+
+VISIT_REASON = [
+    (SCHEDULED, 'Scheduled visit/contact'),
+    (MISSED_VISIT, 'Missed Scheduled visit'),
+    (UNSCHEDULED,
+     'Unscheduled visit at which lab samples or data are being submitted'),
+    (LOST_VISIT, 'Lost to follow-up (use only when taking subject off study)'),
+    (FAILED_ELIGIBILITY, 'Subject failed enrollment eligibility'),
+    (COMPLETED_PROTOCOL_VISIT, 'Subject has completed the study')
+]
+
+INFO_PROVIDER = (
+    ('MOTHER', 'Mother'),
+    ('GRANDMOTHER', 'Grandmother'),
+    ('FATHER', 'Father'),
+    ('GRANDFATHER', 'Grandfather'),
+    ('SIBLING', 'Sibling'),
+    ('self', 'Self'),
+    (OTHER, 'Other'),
+)
+
+VISIT_STUDY_STATUS = (
+    (ON_STUDY, 'On study'),
+    (OFF_STUDY,
+     'Off study-no further follow-up (including death); use only '
+     'for last study contact'),
+)
+ALIVE_DEAD_UNKNOWN = (
+    (ALIVE, 'Alive'),
+    (DEAD, 'Dead'),
+    (UNKNOWN, 'Unknown'),
+)
+
+VISIT_INFO_SOURCE = [
+    (PARTICIPANT, 'Clinic visit with participant'),
+    ('other_contact',
+     'Other contact with participant (for example telephone call)'),
+    ('other_doctor',
+     'Contact with external health care provider/medical doctor'),
+    ('family',
+     'Contact with family or designated person who can provide information'),
+    ('chart', 'Hospital chart or other medical record'),
+    (OTHER, 'Other')]
+
+WEIGHT_RECORDED = [
+    ('with infant scale, normal mode', 'With infant scale ,normal mode'),
+    ('with infant scale, using hold function',
+     'With infant scale, using hold function'),
+    ('with adult scale, using tare function',
+     'With adult scale, using tare function')
+]
+
+OCCURENCES = [
+    ('never', 'Never'),
+    ('rarely/sometimes', 'Rarely/Sometimes'),
+    ('often', 'Often'),
+]
+
+MATERNAL_VISIT_STUDY_STATUS = (
+    (ON_STUDY, 'On study'),
+    (OFF_STUDY,
+     'Off study-no further follow-up (including death); use only '
+     'for last study contact'),
+)
+
+DRUG_COMBINATION = [
+    ('TDF_+_3TC_+EFV', 'TDF + 3TC +EFV'),
+    ('TDF_+_3TC_+_DTG', 'TDF + 3TC+ DTG'),
+    ('AZT_+_3TC_+_EFV', 'AZT + 3TC +EFV'),
+    ('AZT_+ 3TC_+_ATV/r', 'AZT + 3TC +ATV/r'),
+    ('TDF_+_3TC_+_ATV/r', 'TDF + 3TC + ATV/r'),
+    ('TDF_+_3TC_+_LPV/r', 'TDF + 3TC + LPV/r'),
+    ('other_regimen_specify', 'Other regimen, specify')
+]
