@@ -1,6 +1,6 @@
 from django.db import models
 from ...choices import WEIGHT_RECORDED
-from .model_mixins.crf_model_mixin import CrfModelMixin
+from ..model_mixins import CrfModelMixin
 from edc_constants.choices import YES_NO
 
 

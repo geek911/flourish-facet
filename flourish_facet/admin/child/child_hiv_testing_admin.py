@@ -3,7 +3,7 @@ from ...models import ChildHivTesting
 from ...admin_site import flourish_facet_admin
 from ...forms import ChildHivTestingForm
 from edc_model_admin import audit_fieldset_tuple
-from .modeladmin_mixins import CrfModelAdminMixin
+from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(ChildHivTesting, site=flourish_facet_admin)
@@ -13,6 +13,8 @@ class ChildHivTestingAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': [
+                'facet_visit',
+                'report_datetime',
                 'child_tested',
                 'reason_not_tested',
                 'child_tested_6_weeks',

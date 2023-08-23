@@ -1,3 +1,2 @@
 from .child_hiv_testing_admin import ChildHivTestingAdmin
-from .facet_child_visit_admin import FacetChildVisitAdmin
 from .child_anthropometry_admin import ChildAnthropomentryAdmin
