@@ -134,3 +134,11 @@ DRUG_COMBINATION = [
     ('TDF_+_3TC_+_LPV/r', 'TDF + 3TC + LPV/r'),
     ('other_regimen_specify', 'Other regimen, specify')
 ]
+
+REASONS_REGIMEN_CHANGE = [
+    ('drug_resistance', 'Drug resistance'),
+    ('side_effects', 'Side Effects'),
+    ('recommendations_in_pregnancy', 'Recommendations in pregnancy'),
+    (DONT_KNOW, 'Do not know'),
+    ('other_specify', 'Other specify')
+]
