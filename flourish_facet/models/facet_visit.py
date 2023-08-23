@@ -10,21 +10,21 @@ from edc_constants.constants import ALIVE, PARTICIPANT, NOT_APPLICABLE
 from edc_metadata.model_mixins.creates import CreatesMetadataModelMixin
 from edc_protocol.validators import date_not_before_study_start
 from edc_reference.model_mixins import ReferenceModelMixin
-from edc_appointment.models import Appointment
 from edc_visit_tracking.constants import MISSED_VISIT
 from edc_visit_tracking.managers import VisitModelManager
 from edc_visit_tracking.model_mixins import VisitModelMixin, CaretakerFieldsMixin
-from ...choices import VISIT_INFO_SOURCE, ALIVE_DEAD_UNKNOWN, VISIT_REASON, MATERNAL_VISIT_STUDY_STATUS
+from ..choices import VISIT_INFO_SOURCE, ALIVE_DEAD_UNKNOWN, VISIT_REASON, MATERNAL_VISIT_STUDY_STATUS
+from .appointment import Appointment
 
 
 class CurrentSiteManager(VisitModelManager, BaseCurrentSiteManager):
     pass
 
 
-class MaternalVisit(VisitModelMixin, CreatesMetadataModelMixin,
-                    ReferenceModelMixin, RequiresConsentFieldsModelMixin,
-                    CaretakerFieldsMixin, SiteModelMixin, BaseUuidModel):
-    """ Maternal visit form 
+class FacetVisit(VisitModelMixin, CreatesMetadataModelMixin,
+                 ReferenceModelMixin, RequiresConsentFieldsModelMixin,
+                 CaretakerFieldsMixin, SiteModelMixin, BaseUuidModel):
+    """ Facet  visit form 
     """
 
     appointment = models.OneToOneField(Appointment, on_delete=models.PROTECT)
@@ -103,5 +103,5 @@ class MaternalVisit(VisitModelMixin, CreatesMetadataModelMixin,
 
     class Meta(VisitModelMixin.Meta):
         app_label = 'flourish_facet'
-        verbose_name = 'Maternal Visit'
-        verbose_name_plural = 'Maternal Visit'
+        verbose_name = 'Facet Visit'
+        verbose_name_plural = 'Facet Visit'

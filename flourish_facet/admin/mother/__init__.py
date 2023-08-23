@@ -1,4 +1,3 @@
 from .facet_consent_admin import FacetConsentAdmin
 from .facet_subject_screening_admin import FacetSubjectScreeningAdmin
 from .household_hunger_scale_admin import HouseholdHungerScaleAdmin
-from .maternal_visit_admin import MaternalVisitAdmin

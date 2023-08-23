@@ -3,7 +3,7 @@ from ...admin_site import flourish_facet_admin
 from ...forms import ChildAnthropometryForm
 from ...models import ChildAnthropometry
 from edc_model_admin import audit_fieldset_tuple
-from .modeladmin_mixins import CrfModelAdminMixin
+from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(ChildAnthropometry, site=flourish_facet_admin)
@@ -13,6 +13,8 @@ class ChildAnthropomentryAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': (
+                'facet_visit',
+                'report_datetime',
                 'has_oedema',
                 'weight_1',
                 'weight_2',
