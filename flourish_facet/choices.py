@@ -105,11 +105,8 @@ VISIT_INFO_SOURCE = [
     (OTHER, 'Other')]
 
 WEIGHT_RECORDED = [
-    ('with infant scale, normal mode', 'With infant scale ,normal mode'),
-    ('with infant scale, using hold function',
-     'With infant scale, using hold function'),
-    ('with adult scale, using tare function',
-     'With adult scale, using tare function')
+    ('with_infant_scale', 'With infant scale'),
+    ('with_adult_scale,', 'With adult scale,')
 ]
 
 OCCURENCES = [
@@ -141,4 +138,12 @@ REASONS_REGIMEN_CHANGE = [
     ('recommendations_in_pregnancy', 'Recommendations in pregnancy'),
     (DONT_KNOW, 'Do not know'),
     ('other_specify', 'Other specify')
+]
+
+OCCURENCES_MORE = [
+    ('never', 'Never'),
+    ('rarely', 'Rarely'),
+    ('sometimes', 'Sometimes'),
+    ('fairly_often', 'Fairly often'),
+    ('frequently', 'Frequently'),
 ]

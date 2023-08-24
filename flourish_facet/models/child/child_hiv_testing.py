@@ -79,7 +79,7 @@ class ChildHivTesting(CrfModelMixin):
             'If you already stopped breastfeeding your child,''How old was your child when you stopped breastfeeding?'),
         choices=AGE_BREASTFEEDING_ENDED,
         max_length=20,
-        help_text='If Older than six weeks go to question 12,If under six weeks End form'
+        help_text='End form'
     )
 
     class Meta:
