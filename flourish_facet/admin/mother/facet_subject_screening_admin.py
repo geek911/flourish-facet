@@ -14,6 +14,7 @@ class FacetSubjectScreeningAdmin(ModelAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': [
+                'subject_identifier'
                 'report_datetime',
                 'facet_participation',
                 'reasons_unwilling_part',

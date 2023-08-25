@@ -1,0 +1,30 @@
+from django.contrib import admin
+from ...admin_site import flourish_facet_admin
+from ...models import IntimatePartnerViolence
+from ...forms import IntimatePartnerViolenceForm
+from edc_model_admin import audit_fieldset_tuple
+from ..modeladmin_mixins import CrfModelAdminMixin
+
+
+@admin.register(IntimatePartnerViolence, site=flourish_facet_admin)
+class IntimatePartnerViolenceAdmin(CrfModelAdminMixin):
+    form = IntimatePartnerViolenceForm
+    fieldsets = (
+        (None, {
+            'fields': (
+                'facet_visit',
+                'report_datetime',
+                'physically_hurt',
+                'insult_talk',
+                'threaten',
+                'scream_curse',
+            )
+        }), audit_fieldset_tuple
+    )
+
+    radio_fields = {
+        'physically_hurt': admin.HORIZONTAL,
+        'insult_talk': admin.HORIZONTAL,
+        'threaten': admin.HORIZONTAL,
+        'scream_curse': admin.HORIZONTAL
+    }

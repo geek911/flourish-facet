@@ -13,7 +13,7 @@ from edc_base.model_mixins import BaseUuidModel
 class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
                             BaseUuidModel):
 
-    screening_identifier = models.CharField(
+    subject_identifier = models.CharField(
         verbose_name='Screening identifier',
         max_length=50)
 
