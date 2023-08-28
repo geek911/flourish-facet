@@ -30,7 +30,6 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
                 'identity',
                 'identity_type',
                 'confirm_identity',
-                'version',
                 'consent_datetime'
             ]}
          ),)
