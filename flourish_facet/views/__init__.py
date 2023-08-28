@@ -1,1 +1,2 @@
-from .facet_consent_listview import FacetConsentListboardView
+from .mother import FacetMotherConsentListboardView
+from .child import FacetChildConsentListboardView

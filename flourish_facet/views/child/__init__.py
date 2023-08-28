@@ -1,0 +1,1 @@
+from .facet_child_consent_listview import FacetChildConsentListboardView

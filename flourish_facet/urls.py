@@ -19,8 +19,9 @@ from .admin_site import flourish_facet_admin
 from django.urls import path
 from edc_dashboard import UrlConfig
 from django.views.generic.base import RedirectView
-from .views import FacetConsentListboardView
-from .patterns import subject_identifier, screening_identifier, study_maternal_identifier
+from .views import FacetMotherConsentListboardView
+from .views import FacetChildConsentListboardView
+from .patterns import subject_identifier, child_subject_identifier
 
 
 app_name = 'flourish_facet'
@@ -30,12 +31,17 @@ urlpatterns = [
     # path('', RedirectView.as_view(url='admin/'), name='home_url'),
 ]
 
-flourish_facet_consent_listboard_url_config = UrlConfig(
-    url_name='flourish_facet_consent_listboard_url',
-    view_class=FacetConsentListboardView,
-    label='flourish_facet_consent_listboard',
+facet_mother_listboard_url_config = UrlConfig(
+    url_name='facet_mother_listboard_url',
+    view_class=FacetMotherConsentListboardView,
+    label='facet_mother_listboard',
     identifier_label='subject_identifier',
     identifier_pattern=subject_identifier)
 
+facet_child_listboard_url_config = UrlConfig(
+    url_name='facet_child_listboard_url',
+    view_class=FacetChildConsentListboardView,
+    label='facet_child_listboard',)
 
-urlpatterns += flourish_facet_consent_listboard_url_config.listboard_urls
+urlpatterns += facet_mother_listboard_url_config.listboard_urls
+urlpatterns += facet_child_listboard_url_config.listboard_urls
