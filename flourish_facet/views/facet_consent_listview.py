@@ -21,4 +21,5 @@ class FacetConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     model_wrapper_cls = FacetConsentModelWrapper
     navbar_name = 'flourish_facet'
     navbar_selected_item = 'flourish_facet_listboard'
-    # search_form_url = 'subject_listboard_url'
+
+    
