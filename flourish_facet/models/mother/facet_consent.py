@@ -1,12 +1,12 @@
 from django.db import models
 from edc_constants.choices import YES_NO, YES_NO_NA
 from edc_consent.validators import eligible_if_yes
-from edc_consent.managers import ConsentManager as FacetConsentManager
+from edc_consent.managers import ConsentManager
 from edc_search.model_mixins import SearchSlugManager
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
-from edc_consent.model_mixins import ConsentModelMixin
+from .model_mixins import FacetConsentModelMixin
 from django_crypto_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
 from edc_consent.field_mixins import IdentityFieldsMixin, ReviewFieldsMixin
@@ -18,16 +18,18 @@ from edc_base.model_managers import HistoricalRecords
 from edc_base.utils import get_utcnow
 
 
-class ConsentManager(FacetConsentManager, SearchSlugManager, models.Manager):
+class FacetConsentManager(ConsentManager,
+                          SearchSlugManager, models.Manager):
 
     def get_by_natural_key(self, subject_identifier, version):
         return self.get(
             subject_identifier=subject_identifier, version=version)
 
 
-class FacetConsent(ConsentModelMixin, SiteModelMixin,
-                   NonUniqueSubjectIdentifierFieldMixin, IdentityFieldsMixin, ReviewFieldsMixin,
-                   PersonalFieldsMixin, VulnerabilityFieldsMixin, BaseUuidModel):
+class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
+                   NonUniqueSubjectIdentifierFieldMixin, IdentityFieldsMixin,
+                   ReviewFieldsMixin, PersonalFieldsMixin,
+                   VulnerabilityFieldsMixin, BaseUuidModel):
 
     subject_screening_model = 'flourish.facetsubjectscreening'
 
