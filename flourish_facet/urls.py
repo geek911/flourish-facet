@@ -16,7 +16,26 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from .admin_site import flourish_facet_admin
+from django.urls import path
+from edc_dashboard import UrlConfig
+from django.views.generic.base import RedirectView
+from .views import FacetConsentListboardView
+from .patterns import subject_identifier, screening_identifier, study_maternal_identifier
+
+
+app_name = 'flourish_facet'
 
 urlpatterns = [
     path('admin/', flourish_facet_admin.urls),
+    # path('', RedirectView.as_view(url='admin/'), name='home_url'),
 ]
+
+flourish_facet_consent_listboard_url_config = UrlConfig(
+    url_name='flourish_facet_consent_listboard_url',
+    view_class=FacetConsentListboardView,
+    label='flourish_facet_consent_listboard',
+    identifier_label='subject_identifier',
+    identifier_pattern=subject_identifier)
+
+
+urlpatterns += flourish_facet_consent_listboard_url_config.listboard_urls
