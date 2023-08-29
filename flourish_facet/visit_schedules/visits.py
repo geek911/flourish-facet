@@ -17,5 +17,5 @@ child_visit = Visit(
     rbase=relativedelta(days=28),
     crfs=child_crfs)
 
-mother_schedule.add_visit(mother_schedule)
+mother_schedule.add_visit(mother_visit)
 child_schedule.add_visit(child_visit)
