@@ -1,1 +1,2 @@
 from .facet_child_consent_listview import FacetChildConsentListboardView
+from .facet_child_dashboard import FacetChildDashboardView
