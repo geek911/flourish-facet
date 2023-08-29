@@ -19,7 +19,10 @@ class OnScheduleModelMixin(BaseOnScheduleModelMixin, BaseUuidModel):
         verbose_name="Associated Child Identifier",
         max_length=50)
 
-    schedule_name = models.CharField(max_length=25, blank=True, null=True)
+    schedule_name = models.CharField(
+        max_length=50,
+        null=True,
+        blank=True)
 
     on_site = CurrentSiteManager()
 
@@ -36,6 +39,7 @@ class OnScheduleModelMixin(BaseOnScheduleModelMixin, BaseUuidModel):
 
     class Meta:
         unique_together = ('subject_identifier', 'schedule_name')
+        app_label = 'flourish_facet'
         abstract = True
 
 

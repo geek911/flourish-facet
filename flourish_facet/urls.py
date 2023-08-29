@@ -21,6 +21,7 @@ from edc_dashboard import UrlConfig
 from django.views.generic.base import RedirectView
 from .views import FacetMotherConsentListboardView
 from .views import FacetChildConsentListboardView
+from .views import FacetMotherDashboardView
 from .patterns import subject_identifier, child_subject_identifier
 
 
@@ -38,10 +39,22 @@ facet_mother_listboard_url_config = UrlConfig(
     identifier_label='subject_identifier',
     identifier_pattern=subject_identifier)
 
+
+facet_mother_dashboard_url_config = UrlConfig(
+    url_name='facet_mother_dashboard_url',
+    view_class=FacetMotherDashboardView,
+    label='facet_mother_dashboard',
+    identifier_label='subject_identifier',
+    identifier_pattern=subject_identifier)
+
+
 facet_child_listboard_url_config = UrlConfig(
     url_name='facet_child_listboard_url',
     view_class=FacetChildConsentListboardView,
     label='facet_child_listboard',)
 
+
+
 urlpatterns += facet_mother_listboard_url_config.listboard_urls
+urlpatterns += facet_mother_dashboard_url_config.dashboard_urls
 urlpatterns += facet_child_listboard_url_config.listboard_urls
