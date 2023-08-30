@@ -18,7 +18,7 @@ class Appointment(AppointmentModelMixin, SiteModelMixin, BaseUuidModel):
 
     site = models.ForeignKey(
         Site, on_delete=models.PROTECT, null=True, editable=False,
-        related_name='pre_appointment_site')
+        related_name='facet_appointment_site')
 
     on_site = CurrentSiteManager()
 
