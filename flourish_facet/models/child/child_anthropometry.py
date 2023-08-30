@@ -1,7 +1,8 @@
 from django.db import models
 from ...choices import WEIGHT_RECORDED
-from .model_mixins.crf_model_mixin import CrfModelMixin
+from ..model_mixins import CrfModelMixin
 from edc_constants.choices import YES_NO
+from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class ChildAnthropometry(CrfModelMixin):
@@ -16,18 +17,21 @@ class ChildAnthropometry(CrfModelMixin):
         verbose_name='Child’s weight (1st measurement)',
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(2.0), MaxValueValidator(12.0)],
         help_text="Measured in Kilograms (kg)"
     )
     weight_2 = models.DecimalField(
         verbose_name='Child’s weight (2nd measurement)',
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(2.0), MaxValueValidator(12.0)],
         help_text="Measured in Kilograms (kg)"
     )
     weight_3 = models.DecimalField(
         verbose_name='Child’s weight (3rd measurement)',
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(2.0), MaxValueValidator(12.0)],
         blank=True,
         null=True,
         help_text="Measured in Kilograms (kg),"
@@ -43,18 +47,21 @@ class ChildAnthropometry(CrfModelMixin):
         verbose_name='Child’s length (1st measurement)',
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(40), MaxValueValidator(125)],
         help_text="Measured in Centimeters (cm)"
     )
     length_2 = models.DecimalField(
         verbose_name='Child’s length (2nd measurement)',
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(40), MaxValueValidator(125)],
         help_text="Measured in Centimeters (cm)"
     )
     length_3 = models.DecimalField(
         verbose_name='Child’s length (3rd measurement)',
         max_digits=5,
         decimal_places=2,
+        validators=[MinValueValidator(40), MaxValueValidator(125)],
         blank=True,
         null=True,
         help_text="Measured in Centimeters (cm),"

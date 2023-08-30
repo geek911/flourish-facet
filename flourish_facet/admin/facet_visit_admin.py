@@ -1,15 +1,15 @@
 from django.contrib import admin
-from ...models import MaternalVisit
-from ...forms import MaternalVisitForm
-from ...admin_site import flourish_facet_admin
+from ..models import FacetVisit
+from ..forms import FacetVisitForm
+from ..admin_site import flourish_facet_admin
 from edc_model_admin import audit_fieldset_tuple
 from edc_visit_schedule.fieldsets import visit_schedule_fieldset_tuple
 from edc_visit_tracking.modeladmin_mixins import VisitModelAdminMixin
 
 
-@admin.register(MaternalVisit, site=flourish_facet_admin)
-class MaternalVisitAdmin(VisitModelAdminMixin, admin.ModelAdmin):
-    form = MaternalVisitForm
+@admin.register(FacetVisit, site=flourish_facet_admin)
+class FacetVisitAdmin(VisitModelAdminMixin, admin.ModelAdmin):
+    form = FacetVisitForm
 
     fieldsets = (
         (None, {

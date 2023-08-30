@@ -3,7 +3,7 @@ from ...models.mother import FacetSubjectScreening
 from ...admin_site import flourish_facet_admin
 from ...forms.mother import FacetSubjectScreeningForm
 from edc_model_admin import audit_fieldset_tuple
-from .modeladmin_mixins import ModelAdminMixin
+from ..modeladmin_mixins import ModelAdminMixin
 
 
 @admin.register(FacetSubjectScreening, site=flourish_facet_admin)
@@ -14,6 +14,7 @@ class FacetSubjectScreeningAdmin(ModelAdminMixin, admin.ModelAdmin):
     fieldsets = (
         (None, {
             'fields': [
+                'subject_identifier'
                 'report_datetime',
                 'facet_participation',
                 'reasons_unwilling_part',

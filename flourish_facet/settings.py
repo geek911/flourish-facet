@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+import configparser
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,9 +27,13 @@ SECRET_KEY = '6_wzf@h97nx(i%6or4#_-zmj&f^rn!51hp=^a11h1iv(g+44&u'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+APP_NAME = 'flourish_facet'
+
 ALLOWED_HOSTS = []
 
+SITE_ID = 40
 
+ETC_DIR = os.path.join('/etc/', APP_NAME)
 # Application definition
 
 INSTALLED_APPS = [
@@ -37,6 +43,20 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'django_q',
+    'flourish_facet.apps.AppConfig',
+    'django_crypto_fields.apps.AppConfig',
+    'django_extensions',
+    'edc_consent.apps.AppConfig',
+    'edc_device.apps.AppConfig',
+    'edc_identifier.apps.AppConfig',
+    'edc_protocol.apps.AppConfig',
+    'edc_timepoint.apps.AppConfig',
+    'edc_visit_schedule.apps.AppConfig',
+    'flourish_facet.apps.EdcVisitTrackingAppConfig',
+    'flourish_facet.apps.EdcAppointmentAppConfig',
+    'flourish_facet.apps.EdcBaseAppConfig',
 ]
 
 MIDDLEWARE = [
@@ -99,11 +119,16 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+DASHBOARD_URL_NAMES = {}
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
+
+LANGUAGES = (
+    ('tn', 'Setswana'),
+    ('en', 'English'))
 
 TIME_ZONE = 'UTC'
 

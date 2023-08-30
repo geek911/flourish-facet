@@ -1,11 +1,11 @@
 from django import forms
 from edc_base.sites import SiteModelFormMixin
 from edc_form_validators import FormValidatorMixin
-from ...models import MaternalVisit
+from ..models import FacetVisit
 
 
-class MaternalVisitForm(SiteModelFormMixin, FormValidatorMixin, forms.ModelForm):
+class FacetVisitForm(SiteModelFormMixin, FormValidatorMixin, forms.ModelForm):
 
     class Meta:
-        model = MaternalVisit
+        model = FacetVisit
         fields = '__all__'

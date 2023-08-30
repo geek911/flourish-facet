@@ -8,7 +8,7 @@ from edc_reference.model_mixins import ReferenceModelMixin
 from edc_visit_schedule.model_mixins import SubjectScheduleCrfModelMixin
 from edc_visit_tracking.model_mixins import CrfModelMixin as BaseCrfModelMixin
 from edc_visit_tracking.model_mixins import PreviousVisitModelMixin
-from ..maternal_visit import MaternalVisit
+from ..facet_visit import FacetVisit
 
 
 class CrfModelMixin(BaseCrfModelMixin, SubjectScheduleCrfModelMixin, RequiresConsentFieldsModelMixin,
@@ -19,21 +19,21 @@ class CrfModelMixin(BaseCrfModelMixin, SubjectScheduleCrfModelMixin, RequiresCon
     """
 
     offschedule_compare_dates_as_datetimes = True
-    maternal_visit = models.OneToOneField(MaternalVisit, on_delete=PROTECT)
+    facet_visit = models.OneToOneField(FacetVisit, on_delete=PROTECT)
     crf_date_validator_cls = None
 
     @property
     def subject_identifier(self):
-        return self.maternal_visit.appointment.subject_identifier
+        return self.facet_visit.appointment.subject_identifier
 
     @property
     def visit_code(self):
-        return self.maternal_visit.visit_code
+        return self.facet_visit.visit_code
 
     def natural_key(self):
-        return self.maternal_visit.natural_key()
+        return self.facet_visit.natural_key()
 
-    natural_key.dependencies = ['flourish_facet.maternalvisit']
+    natural_key.dependencies = ['flourish_facet.facetvisit']
 
     class Meta:
         abstract = True
