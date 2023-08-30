@@ -39,8 +39,8 @@ class CrfModelAdminMixin(VisitTrackingCrfModelAdminMixin,
     show_save_next = True
     show_cancel = True
 
-    post_url_on_delete_name = settings.DASHBOARD_URL_NAMES.get(
-        'subject_dashboard_url')
+    # post_url_on_delete_name = settings.DASHBOARD_URL_NAMES.get(
+    #     'subject_dashboard_url')
 
     def post_url_on_delete_kwargs(self, request, obj):
         return dict(

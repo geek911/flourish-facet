@@ -72,21 +72,11 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
         choices=YES_NO,
         help_text='If no, participant is not eligible.')
 
-    child_age_at_enrollment = models.DecimalField(
-        decimal_places=2,
-        max_digits=4)
-
     consent_datetime = models.DateTimeField(
         verbose_name='Consent date and time',
         validators=[
             datetime_not_before_study_start,
             datetime_not_future])
-
-    version = models.CharField(
-        verbose_name='Consent version',
-        max_length=4,
-        choices=CHILD_CONSENT_VERSION,
-        blank=True)
 
     caregiver_visit_count = models.IntegerField(
         validators=[MinValueValidator(1), MaxValueValidator(3)],
