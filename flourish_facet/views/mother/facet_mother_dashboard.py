@@ -24,9 +24,21 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     visit_model_wrapper_cls = MotherVisitModelWrapper
     navbar_name = 'flourish_facet'
     visit_attr = 'facetvisit'
+    infant_links = True
+    mother_infant_study = True
+    maternal_links = False
+    infant_dashboard_include_value = 'flourish_facet/dashboard_links.html'
+    infant_subject_dashboard_url = 'facet_child_dashboard_url'
+
+    child_consent_model = 'flourish_facet.motherchildconsent'
+
     @property
     def consent_cls(self):
         return django_apps.get_model(self.consent_model)
+
+    @property
+    def child_consent_cls(self):
+        return django_apps.get_model(self.child_consent_model)
 
     @property
     def consent_object(self):
@@ -77,12 +89,16 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         """Returns a generator of wrapped consents.
         """
         return (self.consent_model_wrapper_cls(obj) for obj in self.consents)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['visit_schedules'] = {'f_mother_visit_schedule': self.visit_schedules.get('f_mother_visit_schedule')}
+        visit_schedules = {'f_mother_visit_schedule': self.visit_schedules.get(
+            'f_mother_visit_schedule')}
+        context.update(
+            visit_schedules=visit_schedules,
+            mother_infant_study=self.mother_infant_study
+        )
         return context
-
 
     def set_current_schedule(self, onschedule_model_obj=None,
                              schedule=None, visit_schedule=None,
@@ -102,3 +118,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
                 subject_identifier=self.subject_identifier)
         except ObjectDoesNotExist:
             return None
+
+    @property
+    def mother_infant_study(self):
+        return self.child_consent_cls.objects.filter(facet_consent=self.consent_object).first()
