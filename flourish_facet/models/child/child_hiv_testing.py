@@ -43,35 +43,14 @@ class ChildHivTesting(CrfModelMixin):
         verbose_name='Have you ever breastfed your child?',
         max_length=15,
         choices=YES_NO_DNK,
-        help_text='If no, go to question 13 , If yes go to question 9'
+        help_text='If no, go to question 10 , If yes go to question 9'
     )
 
     child_breastfeeding = models.CharField(
         verbose_name='Are you currently still breatfeeding your child ?',
         max_length=15,
         choices=YES_NO_DNK,
-        help_text='If no, go to question 13 ,If yes go to question 10'
-    )
-    child_breastfed_tested = models.CharField(
-        verbose_name='If your child is breastfeeding ,have they been tested for HIV at the last 3 months',
-        max_length=15,
-        choices=YES_NO_DNK,
-        help_text='If no, go to question 12 , If yes go to question 11'
-    )
-
-    child_breastfed_tested_result = models.CharField(
-        verbose_name=(
-            'If your child is breastfeeding and they were tested for HIV in the last 3 months,'' what was their result?'),
-        choices=POS_NEG_IND,
-        max_length=15,
-        help_text='If Positive, take off-study , If Negative End form'
-    )
-
-    reason_not_tested_3_months = models.TextField(
-        max_length=250,
-        blank=True,
-        null=True,
-        verbose_name="If your child was not tested in the last 3 months, what was the reason? "
+        help_text='If no, go to question 10 ,If yes go to question 10'
     )
 
     child_breastfed_end = models.CharField(

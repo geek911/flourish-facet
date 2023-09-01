@@ -22,9 +22,6 @@ class ChildHivTestingAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'reason_not_tested_6_weeks',
                 'child_breastfed',
                 'child_breastfeeding',
-                'child_breastfed_tested',
-                'child_breastfed_tested_result',
-                'reason_not_tested_3_months',
                 'child_breastfed_end'
             ]}), audit_fieldset_tuple
     )
@@ -35,7 +32,5 @@ class ChildHivTestingAdmin(CrfModelAdminMixin, admin.ModelAdmin):
         'hiv_result_6_weeks': admin.VERTICAL,
         'child_breastfed': admin.VERTICAL,
         'child_breastfeeding': admin.VERTICAL,
-        'child_breastfed_tested': admin.VERTICAL,
-        'child_breastfed_tested_result': admin.VERTICAL,
         'child_breastfed_end': admin.VERTICAL,
     }
