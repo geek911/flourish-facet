@@ -22,4 +22,14 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     navbar_name = 'flourish_facet'
     navbar_selected_item = 'flourish_consent_listboard'
 
+
+
+    def get_queryset_filter_options(self, request, *args, **kwargs):
+        options = super().get_queryset_filter_options(request, *args, **kwargs)
+        if kwargs.get('subject_identifier'):
+            options.update(
+                {'subject_identifier': kwargs.get('subject_identifier')})
+        return options
+
+
     

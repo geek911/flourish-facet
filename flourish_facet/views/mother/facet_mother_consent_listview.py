@@ -9,8 +9,11 @@ from edc_navbar import NavbarViewMixin
 from ...model_wrappers import FacetConsentModelWrapper
 
 
-class FacetMotherConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
-                                ListboardView):
+class FacetMotherConsentListboardView(EdcBaseViewMixin,
+                                      NavbarViewMixin,
+                                      ListboardFilterViewMixin,
+                                      SearchFormViewMixin,
+                                      ListboardView):
 
     listboard_template = 'facet_mother_listboard_template'
     listboard_url = 'facet_mother_listboard_url'
@@ -22,4 +25,4 @@ class FacetMotherConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     navbar_name = 'flourish_facet'
     navbar_selected_item = 'facet_mother_listboard'
 
-    
+    search_form_url = 'subject_listboard_url'
