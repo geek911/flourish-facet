@@ -27,7 +27,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     infant_links = True
     mother_infant_study = True
     maternal_links = False
-    infant_dashboard_include_value = 'flourish_facet/dashboard_links.html'
+    infant_dashboard_include_value = 'flourish_facet/mother/dashboard/dashboard_links.html'
     infant_subject_dashboard_url = 'facet_child_dashboard_url'
 
     child_consent_model = 'flourish_facet.motherchildconsent'
