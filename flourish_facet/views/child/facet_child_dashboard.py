@@ -9,7 +9,7 @@ from edc_navbar import NavbarViewMixin
 from edc_subject_dashboard.view_mixins import SubjectDashboardViewMixin
 from ...model_wrappers import (
     FacetChildConsentModelWrapper, ChildAppointmentModelWrapper,
-    ChildVisitModelWrapper)
+    ChildVisitModelWrapper, LocatorModelWrapper)
 
 class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
                                NavbarViewMixin, BaseDashboardView):
@@ -19,6 +19,9 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     consent_model = 'flourish_facet.motherchildconsent'
     consent_model_wrapper_cls = FacetChildConsentModelWrapper
     visit_model_wrapper_cls = ChildVisitModelWrapper
+    subject_locator_model = 'flourish_caregiver.caregiverlocator'
+    subject_locator_model_wrapper_cls = LocatorModelWrapper
+    
     navbar_name = 'flourish_facet'
     visit_attr = 'facetvisit'
     @property

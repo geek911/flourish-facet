@@ -1,4 +1,9 @@
+from typing import Optional
 from django.contrib import admin
+from django.http.request import HttpRequest
+from django.http.response import HttpResponse
+from django.urls import reverse
+from django.conf import settings
 from ...models.mother import FacetConsent
 from ...admin_site import flourish_facet_admin
 from ...forms.mother import FacetConsentForm
@@ -49,6 +54,7 @@ class FacetConsentAdmin(ModelAdminBasicMixin, SimpleHistoryAdmin,
 
     form = FacetConsentForm
     inlines = [MotherChildConsentInline, ]
+
 
     fieldsets = (
         (None, {
@@ -115,6 +121,11 @@ class FacetConsentAdmin(ModelAdminBasicMixin, SimpleHistoryAdmin,
 
     )
     search_fields = ('subject_identifier', 'dob')
+
+    def response_add(self, request, obj):
+        facet_mother_dashboard_url = settings.DASHBOARD_URL.get('facet_mother_dashboard_url')
+        return HttpResponse(reverse(
+            'flourish_facet:facet_mother_dashboard_url', args=(obj.subject_identifier,)))
 
 
 @admin.register(MotherChildConsent, site=flourish_facet_admin)

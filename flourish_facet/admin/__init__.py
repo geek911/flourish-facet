@@ -6,5 +6,6 @@ from .mother import IntimatePartnerViolenceAdmin
 from .child import ChildHivTestingAdmin
 from .facet_visit_admin import FacetVisitAdmin
 from .child import ChildAnthropomentryAdmin
-from .facet_mother_offschedule_admin import FacetMotherOffScheduleAdmin
+from .child import FacetChildOffScheduleAdmin
+from .mother import FacetMotherOffScheduleAdmin
 from .facet_appointment_admin import FacetAppointmentAdmin

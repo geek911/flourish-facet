@@ -17,6 +17,7 @@ class FacetSubjectScreeningAdmin(ModelAdminMixin, admin.ModelAdmin):
                 'subject_identifier',
                 'report_datetime',
                 'facet_participation',
+                'hiv_testing',
                 'reasons_unwilling_part',
                 'reasons_unwilling_part_other',
 
@@ -27,4 +28,5 @@ class FacetSubjectScreeningAdmin(ModelAdminMixin, admin.ModelAdmin):
     radio_fields = {
         'facet_participation': admin.VERTICAL,
         'reasons_unwilling_part': admin.VERTICAL,
+        'hiv_testing': admin.VERTICAL,
     }
