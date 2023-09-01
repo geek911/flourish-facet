@@ -29,7 +29,7 @@ def facet_consent_on_post_save(sender, instance, raw, created, **kwargs):
           dispatch_uid='facet_child_consent_on_post_save')
 def facet_child_consent_on_post_save(sender, instance, raw, created, **kwargs):
     """
-    - Put mother on schedule
+    - Put child on schedule
     """
 
     _, schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
