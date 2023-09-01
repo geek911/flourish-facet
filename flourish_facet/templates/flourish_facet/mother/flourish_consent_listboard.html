@@ -1,0 +1,42 @@
+{% extends "edc_dashboard/listboard.html" %}
+{% load edc_base_extras %}
+{% load flourish_facet_extras %}
+
+
+
+{% block listboard_table_header %}
+
+<th>#</th>
+<th>Flourish Consents</th>
+<th>Subject Identifier</th>
+<th>Age</th>
+<th>User Created</th>
+<th>Date Modified</th>
+{% endblock listboard_table_header %}
+
+
+{% block listboard_table_button_column %}
+
+<td style="white-space: nowrap">
+    <div class="btn-group">
+        {% listboard_button "FACET Screening" result.facet_screening_wrapper.href result.facet_screening_obj %}
+        {% if result.facet_screening_obj %}
+        {% listboard_button "FACET Consent" result.facet_consent_wrapper.href result.facet_consent_obj %}
+        {% endif %}
+    </div>
+</td>
+{% endblock %}
+
+
+{% block listboard_table_columns %}
+
+
+<td>{{ result.subject_identifier }}</td>
+<td>{% age_in_years result.object.dob %}yrs {{ result.object.dob|date:"SHORT_DATE_FORMAT" }}</td>
+<td>{{ result.object.consent_datetime|date:"SHORT_DATE_FORMAT" }}</td>
+<td>{{ result.user_created }}</td>
+<td>{{ result.object.modified|date:"SHORT_DATETIME_FORMAT" }}</td>
+
+
+
+{% endblock listboard_table_columns %}

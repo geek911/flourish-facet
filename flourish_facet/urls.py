@@ -20,6 +20,7 @@ from django.urls import path
 from edc_dashboard import UrlConfig
 from django.views.generic.base import RedirectView
 from .views import FacetMotherConsentListboardView
+from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
@@ -37,6 +38,13 @@ facet_mother_listboard_url_config = UrlConfig(
     url_name='facet_mother_listboard_url',
     view_class=FacetMotherConsentListboardView,
     label='facet_mother_listboard',
+    identifier_label='subject_identifier',
+    identifier_pattern=subject_identifier)
+
+flourish_consent_listboard_url_config = UrlConfig(
+    url_name='facet_flourish_consent_listboard_url',
+    view_class=FlourishConsentListboardView,
+    label='flourish_consent_listboard',
     identifier_label='subject_identifier',
     identifier_pattern=subject_identifier)
 
@@ -64,6 +72,7 @@ facet_child_dashboard_url_config = UrlConfig(
 
 
 urlpatterns += facet_mother_listboard_url_config.listboard_urls
+urlpatterns += flourish_consent_listboard_url_config.listboard_urls
 urlpatterns += facet_mother_dashboard_url_config.dashboard_urls
 urlpatterns += facet_child_listboard_url_config.listboard_urls
 urlpatterns += facet_child_dashboard_url_config.dashboard_urls
