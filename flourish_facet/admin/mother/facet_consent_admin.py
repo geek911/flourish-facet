@@ -1,7 +1,7 @@
 from typing import Optional
 from django.contrib import admin
 from django.http.request import HttpRequest
-from django.http.response import HttpResponse
+from django.http.response import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
 from ...models.mother import FacetConsent
@@ -12,7 +12,7 @@ from edc_model_admin import StackedInlineMixin
 from ...models import MotherChildConsent
 from ...forms import MotherChildConsentForm
 from simple_history.admin import SimpleHistoryAdmin
-from edc_model_admin import ModelAdminBasicMixin
+from ..modeladmin_mixins import ModelAdminMixin
 
 
 class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin,
@@ -49,7 +49,7 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
 
 
 @admin.register(FacetConsent, site=flourish_facet_admin)
-class FacetConsentAdmin(ModelAdminBasicMixin, SimpleHistoryAdmin,
+class FacetConsentAdmin(ModelAdminMixin, SimpleHistoryAdmin,
                         admin.ModelAdmin):
 
     form = FacetConsentForm
@@ -121,11 +121,6 @@ class FacetConsentAdmin(ModelAdminBasicMixin, SimpleHistoryAdmin,
 
     )
     search_fields = ('subject_identifier', 'dob')
-
-    def response_add(self, request, obj):
-        facet_mother_dashboard_url = settings.DASHBOARD_URL.get('facet_mother_dashboard_url')
-        return HttpResponse(reverse(
-            'flourish_facet:facet_mother_dashboard_url', args=(obj.subject_identifier,)))
 
 
 @admin.register(MotherChildConsent, site=flourish_facet_admin)
