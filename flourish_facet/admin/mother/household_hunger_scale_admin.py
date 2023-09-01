@@ -7,7 +7,7 @@ from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(HouseholdHungerScale, site=flourish_facet_admin)
-class HouseholdHungerScaleAdmin(admin.ModelAdmin):
+class HouseholdHungerScaleAdmin(CrfModelAdminMixin):
     form = HouseholdHungerScaleForm
 
     fieldsets = (

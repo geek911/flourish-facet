@@ -60,3 +60,5 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         app_label = 'flourish_facet'
         verbose_name = 'Facet Study Screening'
         verbose_name_plural = 'Facet Study Screening'
+        unique_together = (('subject_identifier',),)
+

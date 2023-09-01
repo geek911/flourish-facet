@@ -105,3 +105,5 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
         app_label = 'flourish_facet'
         verbose_name = 'Facet Consent'
         verbose_name_plural = 'Facet Consent'
+        unique_together = (('subject_identifier',),)
+

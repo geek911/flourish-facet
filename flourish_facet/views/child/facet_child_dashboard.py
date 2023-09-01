@@ -106,7 +106,7 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     def set_current_schedule(self, onschedule_model_obj=None,
                              schedule=None, visit_schedule=None,
                              is_onschedule=True):
-        # breakpoint()
+        # int()
         if onschedule_model_obj and is_onschedule:
             self.current_schedule = schedule
             self.current_visit_schedule = visit_schedule
@@ -133,8 +133,6 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         model_cls = self.subject_locator_model_cls
 
         subject_identifier = self.consent_object.facet_consent.subject_identifier
-
-        breakpoint()
 
         try:
             subject_locator = model_cls.objects.get(
