@@ -9,3 +9,4 @@ from .child import ChildAnthropomentryAdmin
 from .child import FacetChildOffScheduleAdmin
 from .mother import FacetMotherOffScheduleAdmin
 from .facet_appointment_admin import FacetAppointmentAdmin
+from .mother import SocioDemographicDataAdmin

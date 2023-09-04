@@ -8,3 +8,4 @@ from .child import MotherChildConsentForm
 from .child import ChildHivTestingForm
 from .child import ChildAnthropometryForm
 from .facet_appointment_form import FacetAppointmentForm
+from .mother import FacetSocioDemographicDataForm, FacetHouseHoldDetailsForm
