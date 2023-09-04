@@ -4,6 +4,11 @@ from django.http.request import HttpRequest
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.conf import settings
+from django.apps import apps as django_apps
+from dateutil.relativedelta import relativedelta
+from edc_model_admin import StackedInlineMixin
+from functools import partialmethod
+from edc_base.utils import get_utcnow
 from ...models.mother import FacetConsent
 from ...admin_site import flourish_facet_admin
 from ...forms.mother import FacetConsentForm
@@ -19,6 +24,7 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
                                admin.StackedInline):
     model = MotherChildConsent
     form = MotherChildConsentForm
+    caregiver_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
 
     extra = 0
     max_num = 1
@@ -42,6 +48,42 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
     radio_fields = {'gender': admin.VERTICAL,
                     'child_test': admin.VERTICAL,
                     'identity_type': admin.VERTICAL, }
+    
+    @property
+    def caregiver_child_consent_cls(self):
+        return django_apps.get_model(self.caregiver_child_consent_model)
+
+    def get_formset(self, request, obj, **kwargs):
+        initial = []
+
+        subject_identifier = request.GET.get('subject_identifier', None)
+
+        if subject_identifier:
+
+            children = self.caregiver_child_consent_cls.objects.filter(
+                first_name__isnull=False,
+                last_name__isnull=False,
+                subject_consent__subject_identifier=subject_identifier,)
+
+            for child in children:
+                age = relativedelta(get_utcnow().date(),
+                                    child.child_dob).months
+
+                if age <= 6:
+                    initial.append({
+                        'first_name': child.first_name,
+                        'last_name': child.last_name,
+                        'gender': child.gender,
+                        'child_dob': child.child_dob,
+                        'subject_identifier': child.subject_identifier})
+
+            self.extra = len(initial)
+
+        formset = super().get_formset(request, obj, **kwargs)
+        formset.__init__ = partialmethod(formset.__init__, initial=initial)
+
+        return formset
+
 
     def save_model(self, request, obj, form, change):
         super(MotherChildConsentInline, self).save_model(
@@ -54,7 +96,6 @@ class FacetConsentAdmin(ModelAdminMixin, SimpleHistoryAdmin,
 
     form = FacetConsentForm
     inlines = [MotherChildConsentInline, ]
-
 
     fieldsets = (
         (None, {
