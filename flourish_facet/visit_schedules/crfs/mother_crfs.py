@@ -7,4 +7,5 @@ mother_crfs = FormsCollection(
     Crf(show_order=4, model='flourish_facet.facetsociodemographicdata'),
     Crf(show_order=5, model='flourish_facet.depressionscreeningphq9'),
     Crf(show_order=6, model='flourish_facet.depressionscreeningedinburgh'),
+    Crf(show_order=7, model='flourish_facet.anxietyscreeninggad7'),
     name='facet_enrollment')
