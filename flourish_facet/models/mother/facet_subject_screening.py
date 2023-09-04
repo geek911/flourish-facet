@@ -13,10 +13,6 @@ from edc_base.model_mixins import BaseUuidModel
 class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
                             BaseUuidModel):
 
-    subject_identifier = models.CharField(
-        verbose_name='Screening identifier',
-        max_length=50)
-
     report_datetime = models.DateTimeField(
         verbose_name='Report Time and Date',
         default=get_utcnow,

@@ -4,7 +4,6 @@ import os
 from setuptools import find_packages
 from setuptools import setup
 
-
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     README = readme.read()
 
@@ -13,17 +12,17 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 setup(
     name='flourish-facet',
-    version='0.0.0',
+    version='0.0.1',
     author=u'Software Engineering & Data Management',
     author_email='se-dmc@bhp.org.bw',
     packages=find_packages(),
     include_package_data=True,
     url='https://github.com/flourishbhp/flourish-facet',
     license='GPL license, see LICENSE',
-    description='pre flourish.',
+    description='flourish facet.',
     long_description=README,
     zip_safe=False,
-    keywords='django pre flourish',
+    keywords='django flourish',
     classifiers=[
         'Environment :: Web Environment',
         'Framework :: Django',
