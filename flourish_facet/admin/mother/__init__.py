@@ -5,3 +5,4 @@ from .maternal_hiv_art_admin import MaternalHivArtAdmin
 from .initimate_partner_violence_admin import IntimatePartnerViolenceAdmin
 from .facet_mother_offschedule_admin import FacetMotherOffScheduleAdmin
 from .social_demographic_data_admin import SocioDemographicDataAdmin
+from .depression_screening_phq9_admin import DepressionScreeningPhq9Admin
