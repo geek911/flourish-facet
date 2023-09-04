@@ -11,6 +11,9 @@ class MotherAppointmentModelWrapper(BaseAppointmentModelWrapper):
     dashboard_url_name = settings.DASHBOARD_URL_NAMES.get(
         'facet_mother_dashboard_url')
     visit_model_wrapper_cls = MotherVisitModelWrapper
+
+    next_url_attrs = ['subject_identifier', 'appointment']
+
     next_url_name = settings.DASHBOARD_URL_NAMES.get('facet_mother_dashboard_url')
 
     @property
