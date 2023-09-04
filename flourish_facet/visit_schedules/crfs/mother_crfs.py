@@ -6,5 +6,5 @@ mother_crfs = FormsCollection(
     Crf(show_order=3, model='flourish_facet.maternalhivart'),
     Crf(show_order=4, model='flourish_facet.facetsociodemographicdata'),
     Crf(show_order=5, model='flourish_facet.depressionscreeningphq9'),
-
+    Crf(show_order=6, model='flourish_facet.depressionscreeningedinburgh'),
     name='facet_enrollment')

@@ -10,3 +10,4 @@ from .child import ChildAnthropometryForm
 from .facet_appointment_form import FacetAppointmentForm
 from .mother import FacetSocioDemographicDataForm, FacetHouseHoldDetailsForm
 from .mother import DepressionScreeningPhq9Form
+from .mother import DepressionScreeningEdinBurghForm
