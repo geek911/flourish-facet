@@ -47,7 +47,7 @@ class CrfModelAdminMixin(VisitTrackingCrfModelAdminMixin,
     def post_url_on_delete_kwargs(self, request, obj):
         return dict(
             subject_identifier=obj.subject_identifier,
-            appointment=str(obj.subject_visit.appointment.id))
+            appointment=str(obj.facet_visit.appointment.id))
 
     def view_on_site(self, obj):
         dashboard_url_name = settings.DASHBOARD_URL_NAMES.get(
@@ -55,8 +55,8 @@ class CrfModelAdminMixin(VisitTrackingCrfModelAdminMixin,
         try:
             url = reverse(
                 dashboard_url_name, kwargs=dict(
-                    subject_identifier=obj.subject_visit.subject_identifier,
-                    appointment=str(obj.subject_visit.appointment.id)))
+                    subject_identifier=obj.facet_visit.subject_identifier,
+                    appointment=str(obj.facet_visit.appointment.id)))
         except NoReverseMatch:
             url = super().view_on_site(obj)
         return url

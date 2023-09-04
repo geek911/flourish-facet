@@ -1,7 +1,7 @@
 from django import forms
 from django.db.models import ManyToManyField
 from edc_constants.constants import YES, NO, NOT_APPLICABLE
-from flourish_form_validations.form_validators import SocioDemographicDataFormValidator
+from ...form_validators import SocioDemographicDataFormValidator
 from itertools import chain
 from ...models import FacetSocioDemographicData, FacetHouseHoldDetails
 from ..form_mixins import SubjectModelFormMixin

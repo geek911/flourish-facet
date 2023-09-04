@@ -2,3 +2,4 @@ from .facet_consent_validation import FacetConsentFormValidator
 from .child_hiv_testing_validation import ChildHivTestingFormValidator
 from .child_anthropometry_validation import ChildAnthropometryFormValidator
 from .facet_subject_screening_validation import FacetSubjectScreeningValidator
+from .socio_demographic_data_form_validator import SocioDemographicDataFormValidator
