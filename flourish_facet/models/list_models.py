@@ -7,3 +7,7 @@ class ArtChallenges(ListModelMixin, BaseUuidModel):
 
 class PartnerReaction(ListModelMixin, BaseUuidModel):
     pass
+
+
+class ExpenseContributors(ListModelMixin, BaseUuidModel):
+    pass
