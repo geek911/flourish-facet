@@ -17,21 +17,47 @@ from django.contrib import admin
 from django.urls import path
 from .admin_site import flourish_facet_admin
 from django.urls import path
+from django.apps import apps as django_apps
 from edc_dashboard import UrlConfig
 from django.views.generic.base import RedirectView
+from django.apps import apps as django_apps
+from django.conf import settings
+from django.contrib import admin
+from django.contrib.auth.views import LogoutView
+from django.urls import include, path
+from django.views.generic.base import RedirectView
+from edc_action_item.admin_site import edc_action_item_admin
+from edc_appointment.admin_site import edc_appointment_admin
+from edc_identifier.admin_site import edc_identifier_admin
 from .views import FacetMotherConsentListboardView
 from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
-from .patterns import subject_identifier, child_subject_identifier
-
+from .views import AdministrationView
+from .patterns import subject_identifier
+from .admin_site import flourish_facet_admin
 
 app_name = 'flourish_facet'
 
+app_config = django_apps.get_app_config(app_name)
+
+
 urlpatterns = [
     path('admin/', flourish_facet_admin.urls),
-    # path('', RedirectView.as_view(url='admin/'), name='home_url'),
+        path('accounts/', include('edc_base.auth.urls')),
+    path('admin/', include('edc_base.auth.urls')),
+
+    path('admin/', admin.site.urls),
+    path('admin/', flourish_facet_admin.urls),
+
+    path('admin/', edc_identifier_admin.urls),
+    path('admin/', edc_appointment_admin.urls),
+    path('admin/', edc_action_item_admin.urls),
+
+    path('administration/', AdministrationView.as_view(),
+         name='administration_url'),
+
 ]
 
 facet_mother_listboard_url_config = UrlConfig(

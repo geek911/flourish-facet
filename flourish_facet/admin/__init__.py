@@ -13,3 +13,5 @@ from .child import ChildAnthropomentryAdmin
 from .child import FacetChildOffScheduleAdmin
 from .facet_visit_admin import FacetVisitAdmin
 from .facet_appointment_admin import FacetAppointmentAdmin
+from .facet_onschedule_admin import OnScheduleFacetMotherAdmin
+from .facet_onschedule_admin import OnScheduleFacetChildAdmin
