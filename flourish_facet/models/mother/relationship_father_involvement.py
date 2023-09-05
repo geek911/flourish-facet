@@ -2,7 +2,6 @@ from django.db import models
 from flourish_caregiver.models.list_models import HouseholdMember
 from flourish_caregiver.models.model_mixins import RelationshipFatherInvolvementMixin
 from flourish_facet.models.model_mixins.crf_model_mixin import CrfModelMixin
-from edc_constants.choices import YES_NO
 
 
 class FacetRelationshipFatherInvolvement(RelationshipFatherInvolvementMixin, CrfModelMixin):

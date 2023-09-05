@@ -1,0 +1,13 @@
+from flourish_caregiver.forms.form_mixins import SubjectModelFormMixin
+from ...models import FacetCaregiverGadReferral
+
+from flourish_form_validations.form_validators import CaregiverReferralFormValidator
+
+
+class FacetCaregiverGadReferralForm(SubjectModelFormMixin):
+
+    form_validator_cls = CaregiverReferralFormValidator
+
+    class Meta:
+        model = FacetCaregiverGadReferral
+        fields = '__all__'
