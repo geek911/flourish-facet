@@ -48,7 +48,7 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
     radio_fields = {'gender': admin.VERTICAL,
                     'child_test': admin.VERTICAL,
                     'identity_type': admin.VERTICAL, }
-    
+
     @property
     def caregiver_child_consent_cls(self):
         return django_apps.get_model(self.caregiver_child_consent_model)
@@ -83,7 +83,6 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
         formset.__init__ = partialmethod(formset.__init__, initial=initial)
 
         return formset
-
 
     def save_model(self, request, obj, form, change):
         super(MotherChildConsentInline, self).save_model(
@@ -147,9 +146,6 @@ class FacetConsentAdmin(ModelAdminMixin, SimpleHistoryAdmin,
 
     list_display = (
         'subject_identifier',
-        'verified_by',
-        'is_verified',
-        'is_verified_datetime',
         'first_name',
         'initials',
         'gender',
@@ -192,9 +188,6 @@ class MotherChildConsentAdmin(admin.ModelAdmin):
                     'identity_type': admin.VERTICAL}
 
     list_display = ('subject_identifier',
-                    'verified_by',
-                    'is_verified',
-                    'is_verified_datetime',
                     'first_name',
                     'last_name',
                     'gender',
@@ -205,6 +198,6 @@ class MotherChildConsentAdmin(admin.ModelAdmin):
                     'user_created',
                     'user_modified')
 
-    list_filter = ('is_verified',
-                   'gender',
-                   'identity_type')
+    list_filter = (
+        'gender',
+        'identity_type')

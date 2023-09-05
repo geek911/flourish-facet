@@ -6,9 +6,6 @@ class FacetSubjectScreeningValidator(FormValidator):
     def clean(self):
         super().clean()
 
-        self.required_if(YES, field='facet_participation',
-                         field_required='hiv_testing')
-
         self.required_if(NO, field='facet_participation',
                          field_required='reasons_unwilling_part')
 

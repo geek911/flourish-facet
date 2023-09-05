@@ -16,7 +16,7 @@ from edc_base.model_fields import OtherCharField
 from edc_base.sites import CurrentSiteManager
 from edc_base.model_managers import HistoricalRecords
 from edc_base.utils import get_utcnow
-
+from .eligibility import FacetConsentEligibility
 
 class FacetConsentManager(ConsentManager,
                           SearchSlugManager, models.Manager):
@@ -74,7 +74,7 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
         help_text='If ‘No’ ineligible for study participation')
 
     is_eligible = models.BooleanField(
-        default=True,
+        default=False,
         editable=False)
 
     gender_other = OtherCharField()
@@ -99,6 +99,17 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
 
     @property
     def consent_version(self):
+
+        eligible = FacetConsentEligibility(
+            consent_to_participate = self.consent_to_participate,
+            child_consent= self.child_consent,
+            assentment_score=self.assessment_score,
+            study_questions=self.study_questions,
+            consent_signature=self.consent_signature,
+            consent_copy=self.consent_copy)
+        
+        self.is_eligible = eligible.is_eligible
+        
         return self.version
 
     class Meta:

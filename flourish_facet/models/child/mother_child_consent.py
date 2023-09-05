@@ -14,11 +14,11 @@ from edc_protocol.validators import datetime_not_before_study_start
 from django.core.validators import MaxValueValidator, MinValueValidator
 from edc_consent.field_mixins import VerificationFieldsMixin
 from edc_base.model_mixins import BaseUuidModel
+from .child_consent_eligibility import ChildConsentEligibility
 
 
 class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
-                         IdentityFieldsMixin, PersonalFieldsMixin,
-                         VerificationFieldsMixin, BaseUuidModel):
+                         IdentityFieldsMixin, PersonalFieldsMixin, BaseUuidModel):
 
     facet_consent = models.ForeignKey(
         FacetConsent,
@@ -76,7 +76,23 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
         validators=[
             datetime_not_before_study_start,
             datetime_not_future])
-    
+
+    is_eligible = models.BooleanField(
+        default=False,
+        editable=False)
+
+    def save(self, *args, **kwargs):
+
+        eligibile = ChildConsentEligibility(
+            child_dob=self.consent_datetime.date(),
+            child_test=self.child_test,
+            consent_date=self.consent_datetime.date()
+        )
+
+        self.is_eligible = eligibile.is_eligible
+
+        return super().save(*args, **kwargs)
+
     class Meta:
         app_label = 'flourish_facet'
         verbose_name = 'Mother Consent On Behalf Of Child'

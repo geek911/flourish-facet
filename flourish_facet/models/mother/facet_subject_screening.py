@@ -8,6 +8,7 @@ from ...choices import REASONS_UNWILLING_FACET
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
+from .eligibility.screening_eligibility import FacetScreeningEligibility
 
 
 class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
@@ -29,14 +30,6 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         help_text='Ineligible for Facet Study if No'
     )
 
-    hiv_testing = models.CharField(
-        verbose_name='Participant willing to go under HIV testing?',
-        choices=YES_NO,
-        max_length=10,
-        null=True,
-        blank=True,
-        help_text='Ineligible for Facet Study if No'
-    )
 
     reasons_unwilling_part = models.CharField(
         verbose_name='Reasons unable to obtain an informed consent for Facet study',
@@ -52,8 +45,13 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         editable=False)
 
     def save(self, *args, **kwargs):
-        self.is_eligible = self.facet_participation == YES\
-            and self.hiv_testing == YES
+
+
+        eligible = FacetScreeningEligibility(
+            facet_participation=self.facet_participation
+        )
+
+        self.is_eligible = eligible.is_eligible
         super().save(*args, **kwargs)
 
     class Meta:
