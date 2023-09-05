@@ -51,8 +51,6 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
 
         subject_identifiers = self.flourish_child_consent_cls.objects.filter(
             child_dob__range=[dates_before, today],
-            first_name__isnull=False,
-            last_name__isnull=False,
         ).values_list('subject_consent__subject_identifier', flat=True)
 
         return queryset.filter(subject_identifier__in=subject_identifiers, 
