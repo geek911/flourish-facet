@@ -50,7 +50,6 @@ class ChildHivTesting(CrfModelMixin):
         verbose_name='Are you currently still breatfeeding your child ?',
         max_length=15,
         choices=YES_NO_DNK,
-        help_text='If no, go to question 10 ,If yes go to question 10'
     )
 
     child_breastfed_end = models.CharField(
@@ -58,7 +57,6 @@ class ChildHivTesting(CrfModelMixin):
             'If you already stopped breastfeeding your child,''How old was your child when you stopped breastfeeding?'),
         choices=AGE_BREASTFEEDING_ENDED,
         max_length=20,
-        help_text='End form'
     )
 
     class Meta:
