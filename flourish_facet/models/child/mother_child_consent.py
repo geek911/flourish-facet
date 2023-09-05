@@ -1,4 +1,5 @@
 from django.db import models
+from edc_base.utils import age, get_utcnow
 from ..mother import FacetConsent
 from django_crypto_fields.fields import FirstnameField, LastnameField
 from django_crypto_fields.fields import IdentityField
@@ -29,18 +30,16 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
         max_length=50)
 
     first_name = FirstnameField(
-        null=True, blank=True)
+        verbose_name="First name"
+    )
 
     last_name = LastnameField(
-        verbose_name="Last name",
-        null=True, blank=True)
+        verbose_name="Last name")
 
     gender = models.CharField(
         verbose_name="Gender",
         choices=GENDER,
-        max_length=1,
-        null=True,
-        blank=True)
+        max_length=1,)
 
     identity = IdentityField(
         verbose_name='Identity number',
@@ -77,22 +76,7 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
         validators=[
             datetime_not_before_study_start,
             datetime_not_future])
-
-    caregiver_visit_count = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(3)],
-        blank=True,
-        null=True)
-
-    is_eligible = models.BooleanField(
-        default=False,
-        editable=False)
-
-    ineligibility = models.TextField(
-        verbose_name="Reason not eligible",
-        max_length=150,
-        null=True,
-        editable=False)
-
+    
     class Meta:
         app_label = 'flourish_facet'
         verbose_name = 'Mother Consent On Behalf Of Child'

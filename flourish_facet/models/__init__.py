@@ -9,8 +9,9 @@ from .mother import FacetHouseHoldDetails, FacetSocioDemographicData
 from .mother import AnxietyScreeningGad7
 from .child import MotherChildConsent
 from .child import ChildHivTesting
-from .appointment import Appointment
+from .child import FacetChildSocioDemographic
 from .child import ChildAnthropometry
+from .appointment import Appointment
 from .facet_visit import FacetVisit
 from .model_mixins import CrfModelMixin
 from .onschedule import OnScheduleFacetChild, OnScheduleFacetMother

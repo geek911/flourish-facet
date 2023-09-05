@@ -8,7 +8,7 @@ from django.core.exceptions import ValidationError
 
 class FacetConsentForm(FormValidatorMixin,
                        forms.ModelForm):
-    # form_validator_cls = FacetConsentFormValidator
+    form_validator_cls = FacetConsentFormValidator
 
     subject_identifier = forms.CharField(
         label='Facet Subject Identifier',
