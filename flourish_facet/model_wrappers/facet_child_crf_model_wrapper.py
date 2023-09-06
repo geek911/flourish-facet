@@ -5,7 +5,7 @@ from edc_visit_schedule.model_wrappers import (
 
 class FacetChildCrfModelWrapper(BaseCrfModelWrapper):
 
-    visit_model_attr = 'facet_visit'
+    visit_model_attr = 'facetvisit'
 
     next_url_attrs = ['appointment', 'subject_identifier']
     querystring_attrs = [visit_model_attr]

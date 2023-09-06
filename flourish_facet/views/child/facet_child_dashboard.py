@@ -27,7 +27,7 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     maternal_links = True
     maternal_dashboard_include_value = 'flourish_facet/child/dashboard/dashboard_links.html'
     maternal_subject_dashboard_url = 'facet_mother_dashboard_url'
-    crf_metadata_wrappers_cls = FacetChildCrfModelWrapper
+    # crf_metadata_wrappers_cls = FacetChildCrfModelWrapper
     navbar_name = 'flourish_facet'
     visit_attr = 'facetvisit'
 

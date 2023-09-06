@@ -6,7 +6,7 @@ from edc_search.model_mixins import SearchSlugManager
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
-from .model_mixins import FacetConsentModelMixin
+from edc_consent.model_mixins import ConsentModelMixin
 from django_crypto_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
 from edc_consent.field_mixins import IdentityFieldsMixin, ReviewFieldsMixin
@@ -17,20 +17,14 @@ from edc_base.sites import CurrentSiteManager
 from edc_base.model_managers import HistoricalRecords
 from edc_base.utils import get_utcnow
 from .eligibility import FacetConsentEligibility
-
-class FacetConsentManager(ConsentManager,
-                          SearchSlugManager, models.Manager):
-
-    def get_by_natural_key(self, subject_identifier, version):
-        return self.get(
-            subject_identifier=subject_identifier, version=version)
+from django.apps import apps as django_apps
 
 
-class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
+
+class FacetConsent(ConsentModelMixin, SiteModelMixin,
                    NonUniqueSubjectIdentifierFieldMixin, IdentityFieldsMixin,
                    ReviewFieldsMixin, PersonalFieldsMixin,
                    VulnerabilityFieldsMixin, BaseUuidModel):
-
     subject_screening_model = 'flourish.facetsubjectscreening'
 
     initials = EncryptedCharField(
@@ -79,12 +73,6 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
 
     gender_other = OtherCharField()
 
-    objects = ConsentManager()
-
-    consent = FacetConsentManager()
-
-    on_site = CurrentSiteManager()
-
     history = HistoricalRecords()
 
     def __str__(self):
@@ -99,17 +87,6 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
 
     @property
     def consent_version(self):
-
-        eligible = FacetConsentEligibility(
-            consent_to_participate = self.consent_to_participate,
-            child_consent= self.child_consent,
-            assentment_score=self.assessment_score,
-            study_questions=self.study_questions,
-            consent_signature=self.consent_signature,
-            consent_copy=self.consent_copy)
-        
-        self.is_eligible = eligible.is_eligible
-        
         return self.version
 
     class Meta:
@@ -117,4 +94,4 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
         verbose_name = 'Facet Consent'
         verbose_name_plural = 'Facet Consent'
         unique_together = (('subject_identifier',),)
-
+        consent_group = django_apps.get_app_config('edc_consent').default_consent_group

@@ -177,7 +177,6 @@ class MotherChildConsentAdmin(admin.ModelAdmin):
                 'identity',
                 'identity_type',
                 'confirm_identity',
-                'version',
                 'consent_datetime'
             ]
         }), audit_fieldset_tuple

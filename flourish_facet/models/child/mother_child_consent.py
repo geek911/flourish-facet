@@ -30,11 +30,16 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
         max_length=50)
 
     first_name = FirstnameField(
-        verbose_name="First name"
+        verbose_name="First name",
+        blank=True,
+        null=True
     )
 
     last_name = LastnameField(
-        verbose_name="Last name")
+        verbose_name="Last name",
+        blank=True,
+        null=True
+    )
 
     gender = models.CharField(
         verbose_name="Gender",
@@ -80,6 +85,8 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
     is_eligible = models.BooleanField(
         default=False,
         editable=False)
+
+    version = models.CharField(default='1', max_length=3)
 
     def save(self, *args, **kwargs):
 
