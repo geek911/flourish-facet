@@ -1,4 +1,4 @@
-from flourish_form_validations.form_validators import CaregiverReferralFUFormValidator
+from ...form_validators import CaregiverReferralFUFormValidator
 
 from ...models import FacetCaregiverGadReferralFU
 from flourish_caregiver.forms.form_mixins import SubjectModelFormMixin
