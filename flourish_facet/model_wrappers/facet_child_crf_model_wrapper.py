@@ -4,12 +4,9 @@ from edc_visit_schedule.model_wrappers import (
 
 
 class FacetChildCrfModelWrapper(BaseCrfModelWrapper):
-
-    visit_model_attr = 'facetvisit'
-
+    visit_model_attr = 'facet_visit'
     next_url_attrs = ['appointment', 'subject_identifier']
     querystring_attrs = [visit_model_attr]
-
     next_url_name = settings.DASHBOARD_URL_NAMES.get('facet_child_dashboard_url')
 
     @property
