@@ -26,7 +26,14 @@ def facet_consent_on_post_save(sender, instance, raw, created, **kwargs):
                 schedule_name='mother_facet_schedule'
         )
 
-        child_consent = instance.motherchildconsent_set.first()
+
+@receiver(post_save, weak=False, sender=MotherChildConsent,
+          dispatch_uid='facet_consent_on_post_save')
+def facet_child_consent_on_post_save(sender, instance, raw, created, **kwargs):
+    """
+    - Put child on schedule
+    """
+    with transaction.atomic():
 
         _, child_schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
             onschedule_model='flourish_facet.onschedulefacetchild',
@@ -34,6 +41,6 @@ def facet_consent_on_post_save(sender, instance, raw, created, **kwargs):
         )
 
         child_schedule.put_on_schedule(
-            subject_identifier=child_consent.subject_identifier,
+            subject_identifier=instance.subject_identifier,
             schedule_name='child_facet_schedule'
         )
