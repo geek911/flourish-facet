@@ -67,9 +67,9 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
 
             for child in children:
                 age = relativedelta(get_utcnow().date(),
-                                    child.child_dob).months
+                                    child.child_dob)
 
-                if age <= 6:
+                if age.years == 0 and age.months <= 6:
                     initial.append({
                         'first_name': child.first_name,
                         'last_name': child.last_name,

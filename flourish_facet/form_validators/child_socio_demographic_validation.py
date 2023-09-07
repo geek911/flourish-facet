@@ -20,7 +20,7 @@ class ChildSocioDemographicFormValidator(FormValidator):
 
     def clean(self):
         self.subject_identifier = self.cleaned_data.get(
-            'child_visit').appointment.subject_identifier
+            'facet_visit').appointment.subject_identifier
         super().clean()
 
         self.validate_consent_version_obj(self.subject_identifier)
@@ -48,17 +48,17 @@ class ChildSocioDemographicFormValidator(FormValidator):
 
     def validate_child_stay_with_caregiver(self, cleaned_data=None):
         caregiver_subject_identifier = self.caregiver_subject_identifier
-        child_visit_code_sequence = self.cleaned_data.get(
-            'child_visit').visit_code_sequence
-        child_visit = self.cleaned_data.get('child_visit').appointment.visit_code
-        maternal_visit_code = str(child_visit) + 'M'
+        facet_visit_code_sequence = self.cleaned_data.get(
+            'facet_visit').visit_code_sequence
+        facet_visit = self.cleaned_data.get('facet_visit').appointment.visit_code
+        mother_visit_code = str(facet_visit)
         caregiver_model_objs = self.caregiver_socio_demographic_cls.objects.filter(
-            maternal_visit__visit_code=maternal_visit_code,
-            maternal_visit__visit_code_sequence=child_visit_code_sequence,
-            maternal_visit__subject_identifier=caregiver_subject_identifier,
+            facet_visit__visit_code=mother_visit_code,
+            facet_visit__visit_code_sequence=facet_visit_code_sequence,
+            facet_visit__subject_identifier=caregiver_subject_identifier,
         )
         for caregiver_model_obj in caregiver_model_objs:
-            corresponding_visit = caregiver_model_obj.maternal_visit
+            corresponding_visit = caregiver_model_obj.facet_visit
             corresponding_onschedule_model = corresponding_visit.schedule.onschedule_model
             corresponding_onschedule_cls = django_apps.get_model(
                 corresponding_onschedule_model)
