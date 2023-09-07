@@ -60,10 +60,14 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
 
         if subject_identifier:
 
+            anc_subject_identifiers = self.antenatal_enrollment_cls.objects.values_list('subject_identifier')
+
+
             children = self.caregiver_child_consent_cls.objects.filter(
                 first_name__isnull=False,
                 last_name__isnull=False,
-                subject_consent__subject_identifier=subject_identifier,)
+                subject_consent__subject_identifier=subject_identifier,
+                subject_consent__subject_identifier__in=anc_subject_identifiers)
 
             for child in children:
                 age = relativedelta(get_utcnow().date(),

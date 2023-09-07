@@ -12,7 +12,7 @@ from .child import MotherChildConsent
           dispatch_uid='facet_consent_on_post_save')
 def facet_consent_on_post_save(sender, instance, raw, created, **kwargs):
     """
-    - Put mother & child on schedule
+    - Put mother on schedule
     """
 
     with transaction.atomic():
