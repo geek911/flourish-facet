@@ -16,4 +16,3 @@ class ReferralFormMixin(models.Model):
 
     class Meta:
         abstract = True
-        app_label = 'flourish_caregiver'
