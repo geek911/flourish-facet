@@ -6,6 +6,17 @@ no_url_namespace = True if settings.APP_NAME == 'flourish_facet' else False
 
 flourish_facet = Navbar(name='flourish_facet')
 
+
+flourish_facet.append_item(
+    NavbarItem(
+        name='flourish_consent_listboard',
+        title='flourish_consent_listboard',
+        label='Flourish Consent Listboard',
+        fa_icon='far fa-user-circle',
+        url_name=settings.DASHBOARD_URL_NAMES[
+            'facet_flourish_consent_listboard_url'],
+        no_url_namespace=no_url_namespace))
+
 flourish_facet.append_item(
     NavbarItem(
         name='facet_mother_listboard',

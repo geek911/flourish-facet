@@ -6,7 +6,7 @@ from edc_search.model_mixins import SearchSlugManager
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
-from .model_mixins import FacetConsentModelMixin
+from edc_consent.model_mixins import ConsentModelMixin
 from django_crypto_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
 from edc_consent.field_mixins import IdentityFieldsMixin, ReviewFieldsMixin
@@ -16,21 +16,15 @@ from edc_base.model_fields import OtherCharField
 from edc_base.sites import CurrentSiteManager
 from edc_base.model_managers import HistoricalRecords
 from edc_base.utils import get_utcnow
+from .eligibility import FacetConsentEligibility
+from django.apps import apps as django_apps
 
 
-class FacetConsentManager(ConsentManager,
-                          SearchSlugManager, models.Manager):
 
-    def get_by_natural_key(self, subject_identifier, version):
-        return self.get(
-            subject_identifier=subject_identifier, version=version)
-
-
-class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
+class FacetConsent(ConsentModelMixin, SiteModelMixin,
                    NonUniqueSubjectIdentifierFieldMixin, IdentityFieldsMixin,
                    ReviewFieldsMixin, PersonalFieldsMixin,
                    VulnerabilityFieldsMixin, BaseUuidModel):
-
     subject_screening_model = 'flourish.facetsubjectscreening'
 
     initials = EncryptedCharField(
@@ -74,16 +68,10 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
         help_text='If ‘No’ ineligible for study participation')
 
     is_eligible = models.BooleanField(
-        default=True,
+        default=False,
         editable=False)
 
     gender_other = OtherCharField()
-
-    objects = ConsentManager()
-
-    consent = FacetConsentManager()
-
-    on_site = CurrentSiteManager()
 
     history = HistoricalRecords()
 
@@ -105,3 +93,5 @@ class FacetConsent(FacetConsentModelMixin, SiteModelMixin,
         app_label = 'flourish_facet'
         verbose_name = 'Facet Consent'
         verbose_name_plural = 'Facet Consent'
+        unique_together = (('subject_identifier',),)
+        consent_group = django_apps.get_app_config('edc_consent').default_consent_group

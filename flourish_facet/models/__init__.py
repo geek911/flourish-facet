@@ -1,5 +1,6 @@
 from .mother import *
 from .child import *
+from .appointment import Appointment
 from .facet_visit import FacetVisit
 from .model_mixins import CrfModelMixin
 from .onschedule import OnScheduleFacetChild, OnScheduleFacetMother

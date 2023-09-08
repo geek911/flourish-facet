@@ -1,0 +1,18 @@
+{% if maternal_links %}
+<table class="table table-condensed">
+    <thead></thead>
+    <tbody>
+	        <tr>
+	        <td>
+                <div class="btn-group">
+                    <a id="btn-subject-dashboard-{{subject_identifier}}" class="btn btn-primary btn-sm" role="button"
+               
+                   title="Go to child's dashboard" href="{% url facet_mother_dashboard_url mother_subject_identifier %}">
+                   <i class="far fa-user-circle fa-sm"></i> Dashboard  <i class="fa fa-share"></i></a>
+               </div>
+               
+			</td>
+			</tr>
+    </tbody>
+</table>
+{% endif %}

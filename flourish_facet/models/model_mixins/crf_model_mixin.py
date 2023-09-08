@@ -8,6 +8,7 @@ from edc_reference.model_mixins import ReferenceModelMixin
 from edc_visit_schedule.model_mixins import SubjectScheduleCrfModelMixin
 from edc_visit_tracking.model_mixins import CrfModelMixin as BaseCrfModelMixin
 from edc_visit_tracking.model_mixins import PreviousVisitModelMixin
+from django.apps import apps as django_apps
 from ..facet_visit import FacetVisit
 
 

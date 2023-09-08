@@ -9,18 +9,34 @@ from edc_navbar import NavbarViewMixin
 from edc_subject_dashboard.view_mixins import SubjectDashboardViewMixin
 from ...model_wrappers import (
     FacetChildConsentModelWrapper, ChildAppointmentModelWrapper,
-    ChildVisitModelWrapper)
+    ChildVisitModelWrapper, LocatorModelWrapper, FacetChildCrfModelWrapper)
+
 
 class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
-                               NavbarViewMixin, BaseDashboardView):
+                              NavbarViewMixin, BaseDashboardView):
     dashboard_url = 'facet_child_dashboard_url'
     dashboard_template = 'facet_child_dashboard_template'
     appointment_model_wrapper_cls = ChildAppointmentModelWrapper
     consent_model = 'flourish_facet.motherchildconsent'
     consent_model_wrapper_cls = FacetChildConsentModelWrapper
     visit_model_wrapper_cls = ChildVisitModelWrapper
+    subject_locator_model = 'flourish_caregiver.caregiverlocator'
+    subject_locator_model_wrapper_cls = LocatorModelWrapper
+    infant_links = False
+    mother_infant_study = True
+    maternal_links = True
+    maternal_dashboard_include_value = 'flourish_facet/child/dashboard/dashboard_links.html'
+    maternal_subject_dashboard_url = 'facet_mother_dashboard_url'
+    # crf_metadata_wrappers_cls = FacetChildCrfModelWrapper
     navbar_name = 'flourish_facet'
     visit_attr = 'facetvisit'
+
+    child_consent_model = 'flourish_facet.motherchildconsent'
+
+    @property
+    def child_consent_cls(self):
+        return django_apps.get_model(self.child_consent_model)
+
     @property
     def consent_cls(self):
         return django_apps.get_model(self.consent_model)
@@ -74,17 +90,23 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         """Returns a generator of wrapped consents.
         """
         return (self.consent_model_wrapper_cls(obj) for obj in self.consents)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['visit_schedules'] = {'f_child_visit_schedule': self.visit_schedules.get('f_child_visit_schedule')}
-        return context
+        visit_schedules = {
+            'f_child_visit_schedule': self.visit_schedules.get('f_child_visit_schedule')}
 
+        context.update(
+            visit_schedules=visit_schedules,
+            mother_subject_identifier = self.consent_object.facet_consent.subject_identifier,
+        )
+        return context
+    
 
     def set_current_schedule(self, onschedule_model_obj=None,
                              schedule=None, visit_schedule=None,
                              is_onschedule=True):
-        # breakpoint()
+        # int()
         if onschedule_model_obj and is_onschedule:
             self.current_schedule = schedule
             self.current_visit_schedule = visit_schedule
@@ -99,3 +121,24 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
                 subject_identifier=self.subject_identifier)
         except ObjectDoesNotExist:
             return None
+        
+
+    
+    @property
+    def subject_locator(self):
+        """Returns a model instance either saved or unsaved.
+
+        If a save instance does not exits, returns a new unsaved instance.
+        """
+        model_cls = self.subject_locator_model_cls
+
+        subject_identifier = self.consent_object.facet_consent.subject_identifier
+
+        try:
+            subject_locator = model_cls.objects.get(
+                subject_identifier=subject_identifier)
+        except ObjectDoesNotExist:
+            subject_locator = model_cls(
+                subject_identifier=subject_identifier)
+        return subject_locator
+

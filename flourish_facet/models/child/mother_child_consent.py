@@ -1,4 +1,5 @@
 from django.db import models
+from edc_base.utils import age, get_utcnow
 from ..mother import FacetConsent
 from django_crypto_fields.fields import FirstnameField, LastnameField
 from django_crypto_fields.fields import IdentityField
@@ -13,11 +14,11 @@ from edc_protocol.validators import datetime_not_before_study_start
 from django.core.validators import MaxValueValidator, MinValueValidator
 from edc_consent.field_mixins import VerificationFieldsMixin
 from edc_base.model_mixins import BaseUuidModel
+from .child_consent_eligibility import ChildConsentEligibility
 
 
 class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
-                         IdentityFieldsMixin, PersonalFieldsMixin,
-                         VerificationFieldsMixin, BaseUuidModel):
+                         IdentityFieldsMixin, PersonalFieldsMixin, BaseUuidModel):
 
     facet_consent = models.ForeignKey(
         FacetConsent,
@@ -29,18 +30,21 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
         max_length=50)
 
     first_name = FirstnameField(
-        null=True, blank=True)
+        verbose_name="First name",
+        blank=True,
+        null=True
+    )
 
     last_name = LastnameField(
         verbose_name="Last name",
-        null=True, blank=True)
+        blank=True,
+        null=True
+    )
 
     gender = models.CharField(
         verbose_name="Gender",
         choices=GENDER,
-        max_length=1,
-        null=True,
-        blank=True)
+        max_length=1,)
 
     identity = IdentityField(
         verbose_name='Identity number',
@@ -78,20 +82,23 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
             datetime_not_before_study_start,
             datetime_not_future])
 
-    caregiver_visit_count = models.IntegerField(
-        validators=[MinValueValidator(1), MaxValueValidator(3)],
-        blank=True,
-        null=True)
-
     is_eligible = models.BooleanField(
         default=False,
         editable=False)
 
-    ineligibility = models.TextField(
-        verbose_name="Reason not eligible",
-        max_length=150,
-        null=True,
-        editable=False)
+    version = models.CharField(default='1', max_length=3)
+
+    def save(self, *args, **kwargs):
+
+        eligibile = ChildConsentEligibility(
+            child_dob=self.consent_datetime.date(),
+            child_test=self.child_test,
+            consent_date=self.consent_datetime.date()
+        )
+
+        self.is_eligible = eligibile.is_eligible
+
+        return super().save(*args, **kwargs)
 
     class Meta:
         app_label = 'flourish_facet'

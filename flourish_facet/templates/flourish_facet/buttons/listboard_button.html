@@ -1,0 +1,10 @@
+<a id="facetscreening_add_{{ screening_identifier }}" title="{{ title }}"
+    
+    {% if exists %}
+        class="btn btn-success btn-sm"
+    {% else %}
+        class="btn btn-warning btn-sm"
+    {% endif %}
+    data-toggle="tooltip" data-placement="right" href="{{ href }}">
+    {{ title }}
+</a>

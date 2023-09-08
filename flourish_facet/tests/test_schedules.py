@@ -1,7 +1,7 @@
 from django.test import TestCase, tag
 from edc_base.utils import get_utcnow
 from edc_constants.constants import NO, YES
-from ..models.mother.eligibility import FacetEligibility
+from ..models.mother.eligibility.screening_eligibility import FacetScreeningEligibility
 from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 from ..models import OnScheduleFacetChild, OnScheduleFacetMother
 
@@ -29,7 +29,7 @@ class TestSchedule(TestCase):
                 base_appt_datetime=get_utcnow()
         )
     def test_facet_participation_ineligible(self):
-        eligibility = FacetEligibility(
+        eligibility = FacetScreeningEligibility(
             facet_participation=NO,
         )
         self.assertFalse(eligibility.is_eligible)
