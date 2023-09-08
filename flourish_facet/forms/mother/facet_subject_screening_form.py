@@ -4,6 +4,7 @@ from ...form_validators import FacetSubjectScreeningValidator
 
 
 class FacetSubjectScreeningForm(forms.ModelForm):
+    
     form_validator_cls = FacetSubjectScreeningValidator
 
     class Meta:

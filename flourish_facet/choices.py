@@ -1,6 +1,6 @@
 from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, NEVER, PARTICIPANT, UNKNOWN
 from django.utils.translation import ugettext_lazy as _
-from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY
+from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY, NOT_APPLICABLE
 from edc_visit_tracking.constants import COMPLETED_PROTOCOL_VISIT, MISSED_VISIT, \
     LOST_VISIT, SCHEDULED, UNSCHEDULED
 
@@ -146,4 +146,28 @@ OCCURENCES_MORE = [
     ('sometimes', 'Sometimes'),
     ('fairly_often', 'Fairly often'),
     ('frequently', 'Frequently'),
+]
+
+REASON_CHILD_NOT_TESTED = [
+    (NOT_APPLICABLE, 'Not applicable'),
+    ('not_sought_clinic',
+     'Mother or caregiver have not yet sought to clinic'),
+    ('could_not_book',
+     'Mother or caregiver went to the clinic but could not get a booking'),
+    ('health_worker_na',
+     'Health worker responsible for testing not available'),
+    ('father_not_willling',
+     'Child’s father does not want child to be tested'),
+    ('family_not_willling',
+     'Family other than child’s father does not want child to be tested'),
+    ('work_constraints',
+     'Mother or caregiver work constraints'),
+    ('no_transport_fare',
+     'Mother or caregiver did not have transport fare to go to clinic for testing'),
+    ('hiv_testing_kits_na', 'HIV Testing kits not available'),
+    ('mother_forgot',
+     'Mother or caregiver forgot and did not take child for testing'),
+    ('d_m_not_working', 'Diagnostic machines not working'),
+    ('no_apparent_reason', 'No apparent reason'),
+    ('other_specify', 'Other specify')
 ]
