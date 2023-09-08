@@ -15,6 +15,7 @@ from edc_model_admin import (
     FormAsJSONModelAdminMixin, ModelAdminRedirectOnDeleteMixin)
 from edc_visit_tracking.modeladmin_mixins import (
     CrfModelAdminMixin as VisitTrackingCrfModelAdminMixin)
+from ..models import Appointment
 
 
 class ModelAdminMixin(ModelAdminNextUrlRedirectMixin,
@@ -38,18 +39,19 @@ class CrfModelAdminMixin(VisitTrackingCrfModelAdminMixin,
 
     show_save_next = True
     show_cancel = True
+    # appointment_model_cls = Appointment
 
-    # post_url_on_delete_name = settings.DASHBOARD_URL_NAMES.get(
-    #     'subject_dashboard_url')
+    post_url_on_delete_name = settings.DASHBOARD_URL_NAMES.get(
+        'facet_mother_dashboard_url')
 
     def post_url_on_delete_kwargs(self, request, obj):
         return dict(
-            subject_identifier=obj.facet_visit.subject_identifier,
+            subject_identifier=obj.subject_identifier,
             appointment=str(obj.facet_visit.appointment.id))
 
     def view_on_site(self, obj):
         dashboard_url_name = settings.DASHBOARD_URL_NAMES.get(
-            'subject_dashboard_url')
+            'facet_mother_dashboard_url')
         try:
             url = reverse(
                 dashboard_url_name, kwargs=dict(
@@ -58,65 +60,3 @@ class CrfModelAdminMixin(VisitTrackingCrfModelAdminMixin,
         except NoReverseMatch:
             url = super().view_on_site(obj)
         return url
-
-    def get_appointment(self, request):
-        """Returns the appointment instance for this request or None.
-        """
-        appointment_model_cls = django_apps.get_model(self.appointment_model)
-        return appointment_model_cls.objects.get(
-            pk=request.GET.get('appointment'))
-        return None
-
-    def get_previous_instance(self, request, instance=None, **kwargs):
-        """Returns a model instance that is the first occurrence of a previous
-        instance relative to this object's appointment.
-        """
-        obj = None
-        appointment = instance or self.get_instance(request)
-
-        if appointment:
-            while appointment:
-                options = {
-                    '{}__appointment'.format(self.model.visit_model_attr()):
-                        self.get_previous_appt_instance(appointment)
-                }
-                try:
-                    obj = self.model.objects.get(**options)
-                except ObjectDoesNotExist:
-                    pass
-                else:
-                    break
-                appointment = self.get_previous_appt_instance(appointment)
-        return obj
-
-    def get_previous_appt_instance(self, appointment):
-        try:
-            appointment = appointment.__class__.objects.filter(
-                subject_identifier=appointment.subject_identifier,
-                visit_schedule_name=appointment.visit_schedule_name,
-                schedule_name__endswith=appointment.schedule_name[-11:],
-                timepoint_datetime__lt=appointment.timepoint_datetime,
-                visit_code_sequence=0).latest('timepoint_datetime')
-        except appointment.__class__.DoesNotExist:
-            return None
-        else:
-            return appointment
-
-    def get_instance(self, request):
-        try:
-            appointment = self.get_appointment(request)
-        except ObjectDoesNotExist:
-            return None
-        else:
-            return appointment
-
-    def get_key(self, request, obj=None):
-        schedule_name = None
-        if self.get_previous_instance(request):
-            try:
-                model_obj = self.get_instance(request)
-            except ObjectDoesNotExist:
-                schedule_name = None
-            else:
-                schedule_name = model_obj.schedule_name
-        return schedule_name

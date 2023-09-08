@@ -8,6 +8,7 @@ from ...choices import REASONS_UNWILLING_FACET
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
+from .eligibility.screening_eligibility import FacetScreeningEligibility
 
 
 class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
@@ -24,6 +25,8 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         max_length=10,
         help_text='Ineligible for Facet Study if No'
     )
+
+
     reasons_unwilling_part = models.CharField(
         verbose_name='Reasons unable to obtain an informed consent for Facet study',
         choices=REASONS_UNWILLING_FACET,
@@ -38,10 +41,18 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         editable=False)
 
     def save(self, *args, **kwargs):
-        self.is_eligibile = self.facet_participation == YES
+
+
+        eligible = FacetScreeningEligibility(
+            facet_participation=self.facet_participation
+        )
+
+        self.is_eligible = eligible.is_eligible
         super().save(*args, **kwargs)
 
     class Meta:
         app_label = 'flourish_facet'
         verbose_name = 'Facet Study Screening'
         verbose_name_plural = 'Facet Study Screening'
+        unique_together = (('subject_identifier',),)
+

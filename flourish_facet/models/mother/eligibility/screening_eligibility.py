@@ -1,7 +1,7 @@
 from edc_constants.constants import NO
 
 
-class FacetEligibility:
+class FacetScreeningEligibility:
     def __init__(self, facet_participation=None):
         self.error_message = []
         self.facet_participation = facet_participation

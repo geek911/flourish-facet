@@ -5,3 +5,6 @@ from .facet_child_visit_model_wrapper import ChildVisitModelWrapper
 from .facet_mother_appointment_model_wrapper import MotherAppointmentModelWrapper
 from .facet_mother_visit_model_wrapper import MotherVisitModelWrapper
 from .facet_mother_locator_model_wrapper import LocatorModelWrapper
+from .flourish_consent_model_wrapper import FlourishConsentModelWrapper
+from .facet_mother_crf_model_wrapper import FacetMotherCrfModelWrapper
+from .facet_child_crf_model_wrapper import FacetChildCrfModelWrapper
