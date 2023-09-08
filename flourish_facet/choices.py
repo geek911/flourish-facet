@@ -1,6 +1,6 @@
 from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, NEVER, PARTICIPANT, UNKNOWN
 from django.utils.translation import ugettext_lazy as _
-from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY
+from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY, NOT_APPLICABLE
 from edc_visit_tracking.constants import COMPLETED_PROTOCOL_VISIT, MISSED_VISIT, \
     LOST_VISIT, SCHEDULED, UNSCHEDULED
 
@@ -146,4 +146,28 @@ OCCURENCES_MORE = [
     ('sometimes', 'Sometimes'),
     ('fairly_often', 'Fairly often'),
     ('frequently', 'Frequently'),
+]
+
+REASON_CHILD_NOT_TESTED = [
+    (NOT_APPLICABLE, 'Not applicable'),
+    ('mother_or_caregiver_have_not_yet_sought_to_clinic',
+     'Mother or caregiver have not yet sought to clinic'),
+    ('mother_or_caregiver_went_to_the_clinic_but_could_not_get_a_booking',
+     'Mother or caregiver went to the clinic but could not get a booking'),
+    ('health_worker_responsible_for_testing_not_available',
+     'Health worker responsible for testing not available'),
+    ('child’s_father_does_not_want_child_to_be_tested',
+     'Child’s father does not want child to be tested'),
+    ('family_other_than_child’s_father_does_not_want_child_to_be_tested',
+     'Family other than child’s father does not want child to be tested'),
+    ('mother_or_caregiver_work_constraints',
+     'Mother or caregiver work constraints'),
+    ('mother_or_caregiver_did_not_have_transport_fare_to_go_to_clinic_for_testing',
+     'Mother or caregiver did not have transport fare to go to clinic for testing'),
+    ('hiv_testing_kits_not_available', 'HIV Testing kits not available'),
+    ('mother_or_caregiver_forgot_and_did_not_take_child_for_testing',
+     'Mother or caregiver forgot and did not take child for testing'),
+    ('diagnostic_machines_not_working', 'Diagnostic machines not working'),
+    ('no_apparent_reason', 'No apparent reason'),
+    ('other_specify', 'Other specify')
 ]

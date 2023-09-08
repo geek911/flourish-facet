@@ -1,4 +1,5 @@
 from .mother_child_consent import MotherChildConsent
 from .child_hiv_testing import ChildHivTesting
 from .child_anthropometry import ChildAnthropometry
+from .child_neurodevelopment_screening import ChildNeurodevelopmentScreening
 from .infant_behaviour_questionnaire import InfantBehaviourQuestionnaire
