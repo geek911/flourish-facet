@@ -7,6 +7,7 @@ from edc_visit_schedule.fieldsets import visit_schedule_fieldset_tuple
 from edc_visit_tracking.modeladmin_mixins import VisitModelAdminMixin
 from .modeladmin_mixins import ModelAdminMixin
 
+
 @admin.register(FacetVisit, site=flourish_facet_admin)
 class FacetVisitAdmin(ModelAdminMixin, VisitModelAdminMixin, admin.ModelAdmin):
     form = FacetVisitForm

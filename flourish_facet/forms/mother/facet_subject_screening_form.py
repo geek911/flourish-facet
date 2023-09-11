@@ -4,7 +4,7 @@ from ...form_validators import FacetSubjectScreeningValidator
 from edc_form_validators import FormValidatorMixin
 
 
-class FacetSubjectScreeningForm(FormValidatorMixin,forms.ModelForm):
+class FacetSubjectScreeningForm(FormValidatorMixin, forms.ModelForm):
     form_validator_cls = FacetSubjectScreeningValidator
 
     class Meta:

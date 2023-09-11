@@ -10,7 +10,8 @@ class FacetMotherCrfModelWrapper(BaseCrfModelWrapper):
     next_url_attrs = ['appointment', 'subject_identifier']
     querystring_attrs = [visit_model_attr]
 
-    next_url_name = settings.DASHBOARD_URL_NAMES.get('facet_mother_dashboard_url')
+    next_url_name = settings.DASHBOARD_URL_NAMES.get(
+        'facet_mother_dashboard_url')
 
     @property
     def facet_visit(self):

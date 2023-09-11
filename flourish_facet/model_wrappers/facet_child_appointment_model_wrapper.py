@@ -11,7 +11,8 @@ class ChildAppointmentModelWrapper(BaseAppointmentModelWrapper):
     dashboard_url_name = settings.DASHBOARD_URL_NAMES.get(
         'facet_child_dashboard_url')
     visit_model_wrapper_cls = ChildVisitModelWrapper
-    next_url_name = settings.DASHBOARD_URL_NAMES.get('facet_child_dashboard_url')
+    next_url_name = settings.DASHBOARD_URL_NAMES.get(
+        'facet_child_dashboard_url')
 
     @property
     def wrapped_visit(self):

@@ -9,6 +9,7 @@ from ..form_mixins import SubjectModelFormMixin
 
 class FacetSocioDemographicDataForm(SubjectModelFormMixin, forms.ModelForm):
     form_validator_cls = SocioDemographicDataFormValidator
+
     class Meta:
         model = FacetSocioDemographicData
         fields = '__all__'

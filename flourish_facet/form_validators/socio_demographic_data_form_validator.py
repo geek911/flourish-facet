@@ -4,7 +4,6 @@ from edc_constants.constants import OTHER, YES
 from edc_form_validators import FormValidator
 
 
-
 class SocioDemographicDataFormValidator(FormValidator):
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
     preg_women_screening_model = 'flourish_caregiver.screeningpregwomen'

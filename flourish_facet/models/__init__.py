@@ -19,4 +19,3 @@ from .offschedule import FacetChildOffSchedule, FacetMotherOffSchedule
 from .death_report import FacetDeathReport
 from .list_models import *
 from .signals import *
-

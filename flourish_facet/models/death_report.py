@@ -7,9 +7,8 @@ from edc_search.model_mixins import SearchSlugModelMixin
 from flourish_prn.models import DeathReportModelMixin
 
 
-
 class FacetDeathReport(ActionModelMixin, SiteModelMixin,
-                             SearchSlugModelMixin, DeathReportModelMixin, BaseUuidModel):
+                       SearchSlugModelMixin, DeathReportModelMixin, BaseUuidModel):
     tracking_identifier_prefix = 'FD'
 
     objects = SubjectIdentifierManager()

@@ -25,6 +25,7 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
     model = MotherChildConsent
     form = MotherChildConsentForm
     caregiver_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
+    antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
 
     extra = 0
     max_num = 1
@@ -53,6 +54,10 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
     def caregiver_child_consent_cls(self):
         return django_apps.get_model(self.caregiver_child_consent_model)
 
+    @property
+    def antenatal_enrollment_cls(self):
+        return django_apps.get_model(self.antenatal_enrollment_model)
+
     def get_formset(self, request, obj, **kwargs):
         initial = []
 
@@ -60,8 +65,8 @@ class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin
 
         if subject_identifier:
 
-            anc_subject_identifiers = self.antenatal_enrollment_cls.objects.values_list('subject_identifier')
-
+            anc_subject_identifiers = self.antenatal_enrollment_cls.objects.values_list(
+                'subject_identifier')
 
             children = self.caregiver_child_consent_cls.objects.filter(
                 first_name__isnull=False,

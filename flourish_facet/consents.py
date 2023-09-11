@@ -18,11 +18,10 @@ facet_consent_v1 = Consent(
     gender=[FEMALE,])
 
 
-
 facet_child_consent_v1 = Consent(
     'flourish_facet.motherchildconsent',
     version='1',
-    gender=[FEMALE,MALE],
+    gender=[FEMALE, MALE],
     start=edc_protocol.study_open_datetime,
     end=edc_protocol.study_close_datetime,)
 

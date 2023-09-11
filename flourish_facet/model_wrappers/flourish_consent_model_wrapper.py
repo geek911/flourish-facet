@@ -95,8 +95,6 @@ class FlourishConsentModelWrapper(ModelWrapper):
 
         flourish_consent_dict = model_to_dict(instance=self.flourish_consent_obj,
                                               fields=target_fields)
-        
-
 
         facet_consent_obj = self.facet_consent_obj or FacetConsent(
             **flourish_consent_dict

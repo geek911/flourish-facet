@@ -13,6 +13,7 @@ class FacetMotherOffSchedule(OffScheduleModelMixin, BaseUuidModel):
     class Meta:
         app_label = 'flourish_facet'
 
+
 class FacetChildOffSchedule(OffScheduleModelMixin, BaseUuidModel):
     class Meta:
         app_label = 'flourish_facet'

@@ -75,7 +75,6 @@ class FacetConsentModelMixin(VerificationFieldsMixin, models.Model):
     def natural_key(self):
         return (self.subject_identifier_as_pk, )
 
-
     @property
     def age_at_consent(self):
         """Returns a relativedelta.
