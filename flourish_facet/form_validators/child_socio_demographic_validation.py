@@ -14,6 +14,8 @@ class ChildSocioDemographicFormValidator(FormValidator):
 
     caregiver_socio_demographic_model = 'flourish_caregiver.sociodemographicdata'
 
+    child_assent_model = 'flourish_child.childassent'
+
     @property
     def caregiver_socio_demographic_cls(self):
         return django_apps.get_model(self.caregiver_socio_demographic_model)
@@ -23,13 +25,7 @@ class ChildSocioDemographicFormValidator(FormValidator):
             'facet_visit').appointment.subject_identifier
         super().clean()
 
-        self.validate_consent_version_obj(self.subject_identifier)
-
-        report_datetime = self.cleaned_data.get('report_datetime')
-
-        self.validate_against_visit_datetime(report_datetime)
         self.validate_other_specify(field='ethnicity')
-        self.validate_child_stay_with_caregiver(cleaned_data=self.cleaned_data)
         self.validate_other_specify(field='toilet_facility')
 
         self.validate_number_of_people_living_in_the_household(
@@ -46,39 +42,6 @@ class ChildSocioDemographicFormValidator(FormValidator):
         caregiver_subject_identifier = '-'.join(subject_identifier)
         return caregiver_subject_identifier
 
-    def validate_child_stay_with_caregiver(self, cleaned_data=None):
-        caregiver_subject_identifier = self.caregiver_subject_identifier
-        facet_visit_code_sequence = self.cleaned_data.get(
-            'facet_visit').visit_code_sequence
-        facet_visit = self.cleaned_data.get('facet_visit').appointment.visit_code
-        mother_visit_code = str(facet_visit)
-        caregiver_model_objs = self.caregiver_socio_demographic_cls.objects.filter(
-            facet_visit__visit_code=mother_visit_code,
-            facet_visit__visit_code_sequence=facet_visit_code_sequence,
-            facet_visit__subject_identifier=caregiver_subject_identifier,
-        )
-        for caregiver_model_obj in caregiver_model_objs:
-            corresponding_visit = caregiver_model_obj.facet_visit
-            corresponding_onschedule_model = corresponding_visit.schedule.onschedule_model
-            corresponding_onschedule_cls = django_apps.get_model(
-                corresponding_onschedule_model)
-            try:
-                corresponding_onschedule_cls.objects.get(
-                    child_subject_identifier=self.subject_identifier,
-                    schedule_name=corresponding_visit.schedule_name
-                )
-
-            except corresponding_onschedule_cls.DoesNotExist:
-                pass
-            else:
-                if caregiver_model_obj.stay_with_child and \
-                        caregiver_model_obj.stay_with_child != cleaned_data.get(
-                        'stay_with_caregiver'):
-                    msg = {'stay_with_caregiver': 'Response should match the response '
-                                                  'provided on the caregiver socio '
-                                                  'demographic data form'}
-                    self._errors.update(msg)
-                    raise ValidationError(msg)
 
     def validate_number_of_people_living_in_the_household(self,
             cleaned_data=None):
@@ -147,7 +110,7 @@ class ChildSocioDemographicFormValidator(FormValidator):
     @property
     def maternal_delivery_obj(self):
         maternal_delivery_model_cls = django_apps.get_model(
-            self.maternal_delivery_model)
+            self.maternalx_delivery_model)
         try:
             model_obj = maternal_delivery_model_cls.objects.get(
                 subject_identifier__istartswith=self.subject_identifier)
