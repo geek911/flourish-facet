@@ -3,7 +3,7 @@ from .mother import FacetSubjectScreeningForm
 from .mother import HouseholdHungerScaleForm
 from .mother import MaternalHivArtForm
 from .mother import IntimatePartnerViolenceForm
-from .mother import FacetSocioDemographicDataForm, FacetHouseHoldDetailsForm
+from .mother import FacetSocioDemographicDataForm
 from .mother import DepressionScreeningPhq9Form
 from .mother import DepressionScreeningEdinBurghForm
 from .mother import AnxietyScreeningGad7Form

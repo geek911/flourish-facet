@@ -5,7 +5,7 @@ from .mother import MaternalHivArt
 from .mother import IntimatePartnerViolence
 from .mother import DepressionScreeningPhq9
 from .mother import DepressionScreeningEdinBurgh
-from .mother import FacetHouseHoldDetails, FacetSocioDemographicData
+from .mother import FacetSocioDemographicData
 from .mother import AnxietyScreeningGad7
 from .child import MotherChildConsent
 from .child import ChildHivTesting

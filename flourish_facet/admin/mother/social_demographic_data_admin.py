@@ -6,33 +6,15 @@ from edc_fieldsets.fieldsets_modeladmin_mixin import FormLabel
 from edc_model_admin import StackedInlineMixin, ModelAdminFormAutoNumberMixin, audit_fieldset_tuple
 
 from ...admin_site import flourish_facet_admin
-from ...forms import FacetSocioDemographicDataForm, FacetHouseHoldDetailsForm
-from ...models import FacetSocioDemographicData, FacetHouseHoldDetails, FacetConsent, FacetVisit
+from ...forms import FacetSocioDemographicDataForm
+from ...models import FacetSocioDemographicData, FacetConsent, FacetVisit
 from ..modeladmin_mixins import CrfModelAdminMixin
 from edc_fieldsets import Fieldsets
-
-
-class HouseHoldDetailsInlineAdmin(StackedInlineMixin, ModelAdminFormAutoNumberMixin, admin.StackedInline):
-    model = FacetHouseHoldDetails
-    form = FacetHouseHoldDetailsForm
-    extra = 0
-    max_num = 0
-
-    fieldsets = (
-        (None, {
-            'fields': (
-                'child_identifier',
-                'stay_with_child', )
-            }),
-        )
-
-    radio_fields = {'stay_with_child': admin.VERTICAL}
 
 
 @admin.register(FacetSocioDemographicData, site=flourish_facet_admin)
 class SocioDemographicDataAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     form = FacetSocioDemographicDataForm
-    inlines = [HouseHoldDetailsInlineAdmin, ]
 
     list_display = ('facet_visit',
                     'marital_status',
@@ -61,7 +43,6 @@ class SocioDemographicDataAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'contributes_to_expenses',
                 'expense_contributors',
                 'expense_contributors_other',
-                'stay_with_child',
                 'number_of_household_members',
             ]}
          ), audit_fieldset_tuple)
@@ -73,5 +54,4 @@ class SocioDemographicDataAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                     'provides_money': admin.VERTICAL,
                     'money_earned': admin.VERTICAL,
                     'contributes_to_expenses': admin.VERTICAL,
-                    'stay_with_child': admin.VERTICAL,
                     'socio_demo_changed': admin.VERTICAL}
