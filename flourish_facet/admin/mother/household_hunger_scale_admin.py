@@ -23,7 +23,7 @@ class HouseholdHungerScaleAdmin(CrfModelAdminMixin):
     )
 
     radio_fields = {
-        'no_food': admin.HORIZONTAL,
-        'no_food_night': admin.HORIZONTAL,
-        'no_food_day_night': admin.HORIZONTAL
+        'no_food': admin.VERTICAL,
+        'no_food_night': admin.VERTICAL,
+        'no_food_day_night': admin.VERTICAL,
     }

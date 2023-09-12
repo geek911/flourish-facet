@@ -23,8 +23,8 @@ class IntimatePartnerViolenceAdmin(CrfModelAdminMixin):
     )
 
     radio_fields = {
-        'physically_hurt': admin.HORIZONTAL,
-        'insult_talk': admin.HORIZONTAL,
-        'threaten': admin.HORIZONTAL,
-        'scream_curse': admin.HORIZONTAL
+        'physically_hurt': admin.VERTICAL,
+        'insult_talk': admin.VERTICAL,
+        'threaten': admin.VERTICAL,
+        'scream_curse': admin.VERTICAL,
     }

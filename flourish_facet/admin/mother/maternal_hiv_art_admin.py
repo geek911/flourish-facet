@@ -52,7 +52,7 @@ class MaternalHivArtAdmin(CrfModelAdminMixin):
                 'comment_end',
 
             )
-        })
+        }) ,audit_fieldset_tuple
     )
 
     radio_fields = {

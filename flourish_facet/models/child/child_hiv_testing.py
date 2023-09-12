@@ -1,6 +1,7 @@
 from django.db import models
 from ..model_mixins import CrfModelMixin
-from ...choices import AGE_BREASTFEEDING_ENDED, POS_NEG_IND, YES_NO_DNK
+from ...choices import AGE_BREASTFEEDING_ENDED, POS_NEG_IND, YES_NO_DNK, REASON_CHILD_NOT_TESTED
+from edc_base.model_fields import OtherCharField
 
 
 class ChildHivTesting(CrfModelMixin):
@@ -9,69 +10,50 @@ class ChildHivTesting(CrfModelMixin):
         verbose_name='Has your child ever been tested for HIV ?',
         max_length=15,
         choices=YES_NO_DNK,
-        help_text='If no, go to question 4 , If yes go to question 5'
+        help_text='If no, go to question 4 , If yes go to question 6'
     )
 
-    reason_not_tested = models.TextField(
-        verbose_name='What isthe reason your child has never been tested for HIV?',
+    reason_not_tested = models.CharField(
+        verbose_name='What is the reason your child has never been tested for HIV?',
         max_length=250,
-        blank=True,
-        null=True,
+        choices=REASON_CHILD_NOT_TESTED
     )
+
+    reason_not_tested_other = OtherCharField()
 
     child_tested_6_weeks = models.CharField(
         verbose_name='Was your child tested for HIV at their 6-week visit?',
         max_length=15,
         choices=YES_NO_DNK,
-        help_text='If no, go to question 7 , If yes go to question 6'
+        help_text='If no, go to question 8 , If yes go to question 7'
     )
 
     hiv_result_6_weeks = models.CharField(
         verbose_name="What was your child’s HIV test result at 6 weeks",
         choices=POS_NEG_IND,
         max_length=15,
-        help_text='If Positive, take off-study , If Negative go to question 8')
+        help_text='If Positive, take off-study , If Negative go to question 10')
 
-    reason_not_tested_6_weeks = models.TextField(
+    reason_not_tested_6_weeks = models.CharField(
         max_length=250,
-        blank=True,
-        null=True,
+        choices=REASON_CHILD_NOT_TESTED,
         verbose_name="If your child was not tested for HIV at their 6-week visit, what was the reason? "
     )
+    reason_not_tested_6_weeks_other = OtherCharField()
 
     child_breastfed = models.CharField(
         verbose_name='Have you ever breastfed your child?',
         max_length=15,
         choices=YES_NO_DNK,
-        help_text='If no, go to question 13 , If yes go to question 9'
+        help_text='If no, go to question 12 , If yes go to question 11'
     )
 
     child_breastfeeding = models.CharField(
         verbose_name='Are you currently still breatfeeding your child ?',
         max_length=15,
-        choices=YES_NO_DNK,
-        help_text='If no, go to question 13 ,If yes go to question 10'
-    )
-    child_breastfed_tested = models.CharField(
-        verbose_name='If your child is breastfeeding ,have they been tested for HIV at the last 3 months',
-        max_length=15,
-        choices=YES_NO_DNK,
-        help_text='If no, go to question 12 , If yes go to question 11'
-    )
-
-    child_breastfed_tested_result = models.CharField(
-        verbose_name=(
-            'If your child is breastfeeding and they were tested for HIV in the last 3 months,'' what was their result?'),
-        choices=POS_NEG_IND,
-        max_length=15,
-        help_text='If Positive, take off-study , If Negative End form'
-    )
-
-    reason_not_tested_3_months = models.TextField(
-        max_length=250,
-        blank=True,
         null=True,
-        verbose_name="If your child was not tested in the last 3 months, what was the reason? "
+        blank=True,
+        choices=YES_NO_DNK,
     )
 
     child_breastfed_end = models.CharField(
@@ -79,7 +61,8 @@ class ChildHivTesting(CrfModelMixin):
             'If you already stopped breastfeeding your child,''How old was your child when you stopped breastfeeding?'),
         choices=AGE_BREASTFEEDING_ENDED,
         max_length=20,
-        help_text='End form'
+        null=True,
+        blank=True,
     )
 
     class Meta:

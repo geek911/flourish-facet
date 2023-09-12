@@ -28,6 +28,6 @@ class ChildAnthropomentryAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     )
 
     radio_fields = {
-        'has_oedema': admin.HORIZONTAL,
+        'has_oedema': admin.VERTICAL,
         'weight_recorded': admin.VERTICAL,
     }

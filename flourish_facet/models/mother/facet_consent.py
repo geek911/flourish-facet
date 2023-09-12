@@ -54,7 +54,7 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
         blank=False)
 
     consent_to_participate = models.CharField(
-        verbose_name='Do you consent to participate in the study?',
+        verbose_name='Do you consent to participate in the facet study?',
         choices=YES_NO,
         max_length=3,
         validators=[eligible_if_yes, ],
@@ -62,7 +62,7 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
 
     child_consent = models.CharField(
         max_length=3,
-        verbose_name='Are you willing to consent for your child’s participation in FLOURISH?',
+        verbose_name='Are you willing to consent for your child’s participation in FACET?',
         choices=YES_NO_NA,
         help_text='If ‘No’ ineligible for study participation')
 
