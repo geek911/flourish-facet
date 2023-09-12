@@ -1,6 +1,7 @@
 from edc_form_validators import FormValidator
 from django.core.exceptions import ValidationError
 from django import forms
+from edc_constants.constants import NO
 import re
 
 
@@ -10,6 +11,8 @@ class FacetConsentFormValidator(FormValidator):
     def clean(self):
         self.clean_full_name_syntax()
         self.clean_initials_with_full_name()
+        self.required_if(NO, field='is_literate', field_required='witness_name' )
+        
 
     def clean_full_name_syntax(self):
         cleaned_data = self.cleaned_data
