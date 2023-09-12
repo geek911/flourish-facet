@@ -1,4 +1,5 @@
 from .mother_child_consent_form import MotherChildConsentForm
 from .child_hiv_testing_form import ChildHivTestingForm
 from .child_anthropometry_form import ChildAnthropometryForm
+from .child_neurodevelopment_screening_form import ChildNeurodevelopmentScreeningForm
 from .child_socio_demographic_form import ChildSocioDemographicForm

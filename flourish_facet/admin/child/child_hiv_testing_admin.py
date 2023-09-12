@@ -17,25 +17,24 @@ class ChildHivTestingAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'report_datetime',
                 'child_tested',
                 'reason_not_tested',
+                'reason_not_tested_other',
                 'child_tested_6_weeks',
                 'hiv_result_6_weeks',
                 'reason_not_tested_6_weeks',
+                'reason_not_tested_6_weeks_other',
                 'child_breastfed',
                 'child_breastfeeding',
-                'child_breastfed_tested',
-                'child_breastfed_tested_result',
-                'reason_not_tested_3_months',
                 'child_breastfed_end'
             ]}), audit_fieldset_tuple
     )
 
     radio_fields = {
         'child_tested': admin.VERTICAL,
+        'reason_not_tested': admin.VERTICAL,
         'child_tested_6_weeks': admin.VERTICAL,
         'hiv_result_6_weeks': admin.VERTICAL,
+        'reason_not_tested_6_weeks': admin.VERTICAL,
         'child_breastfed': admin.VERTICAL,
         'child_breastfeeding': admin.VERTICAL,
-        'child_breastfed_tested': admin.VERTICAL,
-        'child_breastfed_tested_result': admin.VERTICAL,
         'child_breastfed_end': admin.VERTICAL,
     }
