@@ -5,6 +5,7 @@ from ..models.mother.eligibility.screening_eligibility import FacetScreeningElig
 from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 from ..models import OnScheduleFacetChild, OnScheduleFacetMother
 
+
 class TestSchedule(TestCase):
 
     def setUp(self) -> None:
@@ -13,10 +14,7 @@ class TestSchedule(TestCase):
     @tag('ttt')
     def test_put_mother_onschedule(self):
 
-
         schedule_name = 'mother_facet_schedule'
-
-
 
         _, schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
             onschedule_model=OnScheduleFacetMother, name=schedule_name
@@ -24,10 +22,11 @@ class TestSchedule(TestCase):
 
         schedule.put_on_schedule(
             subject_identifier=self.subject_identifier,
-                onschedule_datetime=get_utcnow(),
-                schedule_name=schedule_name,
-                base_appt_datetime=get_utcnow()
+            onschedule_datetime=get_utcnow(),
+            schedule_name=schedule_name,
+            base_appt_datetime=get_utcnow()
         )
+
     def test_facet_participation_ineligible(self):
         eligibility = FacetScreeningEligibility(
             facet_participation=NO,

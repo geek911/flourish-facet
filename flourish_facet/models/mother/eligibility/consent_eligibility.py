@@ -2,14 +2,14 @@ from edc_constants.constants import NO
 
 
 class FacetConsentEligibility:
-    def __init__(self, 
+    def __init__(self,
                  child_consent: str,
                  consent_reviewed: str,
                  assentment_score: str,
                  study_questions: str,
                  consent_signature: str,
                  consent_copy: str):
-        
+
         self.error_message = []
 
         if child_consent == NO:

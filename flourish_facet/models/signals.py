@@ -17,13 +17,13 @@ def facet_consent_on_post_save(sender, instance, raw, created, **kwargs):
 
     with transaction.atomic():
         _, schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
-                onschedule_model='flourish_facet.onschedulefacetmother',
-                name='mother_facet_schedule'
-            )
+            onschedule_model='flourish_facet.onschedulefacetmother',
+            name='mother_facet_schedule'
+        )
 
         schedule.put_on_schedule(
-                subject_identifier=instance.subject_identifier,
-                schedule_name='mother_facet_schedule'
+            subject_identifier=instance.subject_identifier,
+            schedule_name='mother_facet_schedule'
         )
 
 

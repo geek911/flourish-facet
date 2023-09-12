@@ -13,11 +13,10 @@ class AppConfig(DjangoAppConfig):
     admin_site_name = 'flourish_facet_admin'
 
 
-
 class EdcOdkAppConfig(BaseEdcOdkAppConfig):
-    adult_child_study=False
-    adult_consent_model='flourish_caregiver.subjectconsent'
-    child_assent_model='flourish_child.childassent'
+    adult_child_study = False
+    adult_consent_model = 'flourish_caregiver.subjectconsent'
+    child_assent_model = 'flourish_child.childassent'
     clinician_notes_form_ids = {
         'flourish_child': 'child_cliniciannotes_v1.0',
         'flourish_caregiver': 'caregiver_cliniciannotes_v1.0'}
@@ -27,11 +26,10 @@ class EdcOdkAppConfig(BaseEdcOdkAppConfig):
         'flourish_caregiver': 'cliniciannotes'}
 
 
-
-
 class EdcBaseAppConfig(BaseEdcBaseAppConfig):
     project_name = 'Flourish Facet'
     institution = 'Botswana-Harvard AIDS Institute'
+
 
 class EdcAppointmentAppConfig(BaseEdcAppointmentAppConfig):
     configurations = [
@@ -40,6 +38,7 @@ class EdcAppointmentAppConfig(BaseEdcAppointmentAppConfig):
             related_visit_model='flourish_facet.facetvisit',
             appt_type='clinic'),
     ]
+
 
 class EdcVisitTrackingAppConfig(BaseEdcVisitTrackingAppConfig):
     visit_models = {

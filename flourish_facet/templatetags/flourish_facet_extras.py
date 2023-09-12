@@ -16,12 +16,13 @@ def get_item(dictionary, key):
 
         return dictionary.get(key)
 
+
 @register.inclusion_tag('flourish_facet/buttons/consent_button.html')
 def consent_button(model_wrapper):
 
     return dict(
         title='title',
-        model_wrapper = model_wrapper)
+        model_wrapper=model_wrapper)
 
 
 @register.inclusion_tag('flourish_facet/buttons/listboard_button.html')
@@ -30,4 +31,4 @@ def listboard_button(title, href, exists):
     return dict(
         href=href,
         title=title,
-        exists = exists)
+        exists=exists)

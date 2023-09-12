@@ -12,7 +12,9 @@ from ...model_wrappers import (
     FacetConsentModelWrapper, LocatorModelWrapper, FacetMotherCrfModelWrapper)
 
 from flourish_facet.visit_schedules.schedules import mother_schedule
-from flourish_facet.visit_schedules.visit_schedule import  mother_visit_schedule
+from flourish_facet.visit_schedules.visit_schedule import mother_visit_schedule
+
+
 class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
                                NavbarViewMixin, BaseDashboardView):
     dashboard_url = 'facet_mother_dashboard_url'

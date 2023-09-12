@@ -10,7 +10,7 @@ from ...model_wrappers import FacetChildConsentModelWrapper
 
 
 class FacetChildConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
-                                ListboardView):
+                                     ListboardView):
 
     listboard_template = 'facet_child_listboard_template'
     listboard_url = 'facet_child_listboard_url'
@@ -21,5 +21,3 @@ class FacetChildConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     model_wrapper_cls = FacetChildConsentModelWrapper
     navbar_name = 'flourish_facet'
     navbar_selected_item = 'facet_child_listboard'
-
-    

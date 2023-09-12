@@ -14,7 +14,8 @@ class MotherAppointmentModelWrapper(BaseAppointmentModelWrapper):
 
     next_url_attrs = ['subject_identifier', 'appointment']
 
-    next_url_name = settings.DASHBOARD_URL_NAMES.get('facet_mother_dashboard_url')
+    next_url_name = settings.DASHBOARD_URL_NAMES.get(
+        'facet_mother_dashboard_url')
 
     @property
     def wrapped_visit(self):

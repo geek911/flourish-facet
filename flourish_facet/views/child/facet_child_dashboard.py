@@ -27,7 +27,7 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     maternal_links = True
     maternal_dashboard_include_value = 'flourish_facet/child/dashboard/dashboard_links.html'
     maternal_subject_dashboard_url = 'facet_mother_dashboard_url'
-    # crf_metadata_wrappers_cls = FacetChildCrfModelWrapper
+    crf_model_wrapper_cls = FacetChildCrfModelWrapper
     navbar_name = 'flourish_facet'
     visit_attr = 'facetvisit'
 
@@ -98,10 +98,9 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
 
         context.update(
             visit_schedules=visit_schedules,
-            mother_subject_identifier = self.consent_object.facet_consent.subject_identifier,
+            mother_subject_identifier=self.consent_object.facet_consent.subject_identifier,
         )
         return context
-    
 
     def set_current_schedule(self, onschedule_model_obj=None,
                              schedule=None, visit_schedule=None,
@@ -121,9 +120,7 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
                 subject_identifier=self.subject_identifier)
         except ObjectDoesNotExist:
             return None
-        
 
-    
     @property
     def subject_locator(self):
         """Returns a model instance either saved or unsaved.
@@ -141,4 +138,3 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             subject_locator = model_cls(
                 subject_identifier=subject_identifier)
         return subject_locator
-

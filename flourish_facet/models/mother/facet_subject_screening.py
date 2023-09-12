@@ -26,7 +26,6 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         help_text='Ineligible for Facet Study if No'
     )
 
-
     reasons_unwilling_part = models.CharField(
         verbose_name='Reasons unable to obtain an informed consent for Facet study',
         choices=REASONS_UNWILLING_FACET,
@@ -42,7 +41,6 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
 
     def save(self, *args, **kwargs):
 
-
         eligible = FacetScreeningEligibility(
             facet_participation=self.facet_participation
         )
@@ -55,4 +53,3 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
         verbose_name = 'Facet Study Screening'
         verbose_name_plural = 'Facet Study Screening'
         unique_together = (('subject_identifier',),)
-

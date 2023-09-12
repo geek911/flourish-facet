@@ -10,6 +10,7 @@ from ..form_mixins import SubjectModelFormMixin
 class ChildSocioDemographicForm(SubjectModelFormMixin, forms.ModelForm):
 
     form_validator_cls = ChildSocioDemographicFormValidator
+
     class Meta:
         model = FacetChildSocioDemographic
         fields = '__all__'

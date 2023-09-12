@@ -20,7 +20,6 @@ from .eligibility import FacetConsentEligibility
 from django.apps import apps as django_apps
 
 
-
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
                    NonUniqueSubjectIdentifierFieldMixin, IdentityFieldsMixin,
                    ReviewFieldsMixin, PersonalFieldsMixin,
@@ -94,4 +93,5 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
         verbose_name = 'Facet Consent'
         verbose_name_plural = 'Facet Consent'
         unique_together = (('subject_identifier',),)
-        consent_group = django_apps.get_app_config('edc_consent').default_consent_group
+        consent_group = django_apps.get_app_config(
+            'edc_consent').default_consent_group

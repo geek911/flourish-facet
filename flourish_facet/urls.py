@@ -45,7 +45,7 @@ app_config = django_apps.get_app_config(app_name)
 
 urlpatterns = [
     path('admin/', flourish_facet_admin.urls),
-        path('accounts/', include('edc_base.auth.urls')),
+    path('accounts/', include('edc_base.auth.urls')),
     path('admin/', include('edc_base.auth.urls')),
 
     path('admin/', admin.site.urls),
