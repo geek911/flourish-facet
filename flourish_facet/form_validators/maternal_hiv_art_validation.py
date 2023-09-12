@@ -1,4 +1,5 @@
 from edc_form_validators import FormValidator
+from edc_constants.constants import NO
 
 
 class MaternalHivArtFormValidator(FormValidator):
@@ -18,3 +19,8 @@ class MaternalHivArtFormValidator(FormValidator):
 
         self.validate_other_specify(
             field='art_challenges', other_specify_field='art_challenges_other')
+
+        self.not_required_if(NO, field='father_hiv',
+                             field_required='father_hiv_dont')
+        self.not_required_if('Do not know', field='father_hiv',
+                             field_required='father_hiv_no')
