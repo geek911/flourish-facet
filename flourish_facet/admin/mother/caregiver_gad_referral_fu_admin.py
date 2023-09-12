@@ -8,7 +8,7 @@ from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(FacetCaregiverGadReferralFU, site=flourish_facet_admin)
-class FacetCaregiverGadReferralFUAdmin(CrfModelAdminMixin, admin.ModelAdmin):
+class FacetCaregiverGadReferralFUAdmin(admin.ModelAdmin):
 
     form = FacetCaregiverGadReferralFUForm
 

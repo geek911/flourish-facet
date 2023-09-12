@@ -18,3 +18,4 @@ from .initimate_partner_violence_admin import IntimatePartnerViolenceAdmin
 from .maternal_hiv_art_admin import MaternalHivArtAdmin
 from .relationship_father_involvement_admin import FacetRelationshipFatherInvolvementAdmin
 from .social_demographic_data_admin import SocioDemographicDataAdmin
+from .qualitative_interview_audio_uploads_admin import QualitativeInterviewAudioUploadsAdmin

@@ -171,3 +171,21 @@ REASON_CHILD_NOT_TESTED = [
     ('no_apparent_reason', 'No apparent reason'),
     ('other_specify', 'Other specify')
 ]
+
+LOCATION_INTERVIEW = [
+    ('facet_clinic_site', 'Facet clinic site'),
+    ('ra_office', 'RA Office'),
+    ('other_specify', 'Other specify')
+]
+
+LANGUAGES_BOTH = [
+    ('setwana', 'Setswana'),
+    ('english', 'English'),
+    ('both', 'Both'),
+]
+
+COMPLETE_UNVERIFIED = [
+    ('incomplete', 'Incomplete'),
+    ('unverified', 'Unverified'),
+    ('complete', 'Complete')
+]
