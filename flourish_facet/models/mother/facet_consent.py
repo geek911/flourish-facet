@@ -7,6 +7,7 @@ from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
 from edc_consent.model_mixins import ConsentModelMixin
+from edc_search.model_mixins import SearchSlugModelMixin
 from django_crypto_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
 from edc_consent.field_mixins import IdentityFieldsMixin, ReviewFieldsMixin
@@ -20,8 +21,10 @@ from .eligibility import FacetConsentEligibility
 from django.apps import apps as django_apps
 
 
+
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
-                   NonUniqueSubjectIdentifierFieldMixin, IdentityFieldsMixin,
+                   NonUniqueSubjectIdentifierFieldMixin, 
+                   IdentityFieldsMixin, SearchSlugModelMixin,
                    ReviewFieldsMixin, PersonalFieldsMixin,
                    VulnerabilityFieldsMixin, BaseUuidModel):
     subject_screening_model = 'flourish.facetsubjectscreening'
@@ -87,6 +90,11 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     @property
     def consent_version(self):
         return self.version
+    
+    def get_search_slug_fields(self):
+        fields = super().get_search_slug_fields()
+        fields.append('subject_identifier')
+        return fields
 
     class Meta:
         app_label = 'flourish_facet'
