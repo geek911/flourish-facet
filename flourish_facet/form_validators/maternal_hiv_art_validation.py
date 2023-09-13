@@ -22,5 +22,5 @@ class MaternalHivArtFormValidator(FormValidator):
 
         self.not_required_if(NO, field='father_hiv',
                              field_required='father_hiv_dont')
-        self.not_required_if('Do not know', field='father_hiv',
+        self.not_required_if('Dont_know', field='father_hiv',
                              field_required='father_hiv_no')
