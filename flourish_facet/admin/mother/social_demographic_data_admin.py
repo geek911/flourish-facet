@@ -55,3 +55,5 @@ class SocioDemographicDataAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                     'money_earned': admin.VERTICAL,
                     'contributes_to_expenses': admin.VERTICAL,
                     'socio_demo_changed': admin.VERTICAL}
+
+    filter_horizontal = ('expense_contributors',)
