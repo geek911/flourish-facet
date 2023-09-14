@@ -1,4 +1,5 @@
 from edc_list_data import PreloadData
+from edc_constants.constants import OTHER
 
 list_data = {
     'flourish_facet.artchallenges': [
@@ -20,6 +21,16 @@ list_data = {
         ('scared', 'Scared'),
         ('neutral', 'Neutral'),
         ('dont_know', 'Dont know'),
+    ],
+    'flourish_facet.expensecontributors': [
+        ('partner', 'Partner/husband'), ('mother', 'Mother'),
+        ('father', 'Father'),
+        ('sister', 'Sister'), ('brother', 'Brother'), ('aunt', 'Aunt'),
+        ('uncle', 'Uncle'),
+        ('grandmother', 'Grandmother'), ('grandfather', 'Grandfather'),
+        ('mother_in_law', 'Mother-in-law or Father-in-law'),
+        ('friend', 'Friend'),
+        ('unsure', 'Unsure'), (OTHER, 'Other, specify')
     ]
 }
 

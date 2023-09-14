@@ -4,6 +4,17 @@
 {% load edc_subject_dashboard_extras %}
 {% load flourish_facet_extras %}
 
+{% block schedule_button %}
+    <span class="pull-right"><span class="text test-muted">
+    <a href="{% url facet_child_dashboard_url subject_identifier=subject_identifier %}"
+       role="button" class="btn btn-sm btn-primary">
+        <i class="fa fa-reply fa-fw" aria-hidden="true"></i> <i
+            class="far fa-calendar fa-fw"></i> Schedule
+    </a>
+</span></span>
+{% endblock schedule_button %}
+
+
 {% block visit_schedules_panel %}
     {% for visit_schedule in visit_schedules.values %}
         {% for schedule in visit_schedule.schedules.values %}
