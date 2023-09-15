@@ -64,7 +64,6 @@ class MaternalHivArt(CrfModelMixin):
         max_length=5,
         blank=True,
         null=True,
-        help_text='If yes go to 12,If no go to question 19'
     )
 
     art_regimen = models.CharField(
@@ -115,7 +114,7 @@ class MaternalHivArt(CrfModelMixin):
         blank=True,
     )
     father_hiv_dont = models.CharField(
-        verbose_name='Would the father be willing to be HIV tested?',
+        verbose_name='If unsure ,Would the father be willing to be HIV tested?',
         choices=YES_NO_DONT_KNOW,
         max_length=20,
         null=True,

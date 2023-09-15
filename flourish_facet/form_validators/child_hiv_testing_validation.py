@@ -10,3 +10,9 @@ class ChildHivTestingFormValidator(FormValidator):
 
         self.required_if(NO, field='child_tested_6_weeks',
                          field_required='reason_not_tested_6_weeks')
+
+        self.validate_other_specify(
+            field='reason_not_tested', other_specify_field='reason_not_tested_other')
+
+        self.validate_other_specify(
+            field='reason_not_tested_6_weeks', other_specify_field='reason_not_tested_6_weeks_other')

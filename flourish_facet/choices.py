@@ -171,3 +171,41 @@ REASON_CHILD_NOT_TESTED = [
     ('no_apparent_reason', 'No apparent reason'),
     ('other_specify', 'Other specify')
 ]
+
+LOCATION_INTERVIEW = [
+    ('facet_clinic_site', 'Facet clinic site'),
+    ('ra_office', 'RA Office'),
+    ('other_specify', 'Other specify')
+]
+
+LANGUAGES_BOTH = [
+    ('setwana', 'Setswana'),
+    ('english', 'English'),
+    ('both', 'Both'),
+]
+
+COMPLETE_UNVERIFIED = [
+    ('incomplete', 'Incomplete'),
+    ('unverified', 'Unverified'),
+    ('complete', 'Complete')
+]
+
+QUALITATIVE_TYPE = [
+    ('Focus_group_discuss', 'Focus group discussion'),
+    ('in_depth_interview', 'In-depth interview')
+]
+TRANSCRIPTION_HOURS = [
+    ('2_4_hours', '2-4 hours'),
+    ('4_6_hours', '4-6 hours'),
+    ('6_8_hours', '6-8 hours'),
+    ('8_10_hours', '8-10 hours'),
+    ('10_+_hours', '10+ hours'),
+]
+
+FACET_STAFF = [
+    ('kedi', 'Kedi'),
+    ('irene', 'Irene'),
+    ('sam', 'Sam'),
+    ('gosego', 'Gosego'),
+    ('martha', 'Martha'),
+]
