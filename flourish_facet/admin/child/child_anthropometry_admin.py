@@ -17,12 +17,8 @@ class ChildAnthropomentryAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'report_datetime',
                 'has_oedema',
                 'weight_1',
-                'weight_2',
-                'weight_3',
                 'weight_recorded',
                 'length_1',
-                'length_2',
-                'length_3',
             )
         }), audit_fieldset_tuple
     )
