@@ -12,7 +12,7 @@ class TestQualitativeInterviewForms(TestCase):
     def test_audio_uploaded_invalid(self):
         cleaned_data = {
             'audio_file': NO,
-            'complete': 'Complete'
+            'complete': 'complete'
         }
         form_validator = QualitativeInterviewAudioUploadsFormValidator(
             cleaned_data=cleaned_data)
@@ -21,7 +21,7 @@ class TestQualitativeInterviewForms(TestCase):
     def test_audio_uploaded_invalid_unverified(self):
         cleaned_data = {
             'audio_file': YES,
-            'complete': 'Unverified'
+            'complete': 'unverified'
         }
         form_validator = QualitativeInterviewAudioUploadsFormValidator(
             cleaned_data=cleaned_data)
@@ -32,7 +32,7 @@ class TestQualitativeInterviewForms(TestCase):
         cleaned_data = {
             'google_sheet_calendar': YES,
             'facet_consent_form': YES,
-            'complete': 'Incomplete'
+            'complete': 'incomplete'
         }
         form_validator = QualitativeInterviewSchedulingFormValidator(
             cleaned_data=cleaned_data)
@@ -41,7 +41,7 @@ class TestQualitativeInterviewForms(TestCase):
     def test_google_calendar_sheet_incomplete(self):
         cleaned_data = {
             'google_sheet_calendar': NO,
-            'complete': 'Complete'
+            'complete': 'complete'
         }
         form_validator = QualitativeInterviewSchedulingFormValidator(
             cleaned_data=cleaned_data)
@@ -51,7 +51,7 @@ class TestQualitativeInterviewForms(TestCase):
         cleaned_data = {
             'google_sheet_calendar': YES,
             'facet_consent_form': YES,
-            'complete': 'Unverified'
+            'complete': 'unverified'
         }
         form_validator = QualitativeInterviewSchedulingFormValidator(
             cleaned_data=cleaned_data)
@@ -60,7 +60,7 @@ class TestQualitativeInterviewForms(TestCase):
     def test_facet_consent_form_incomplete(self):
         cleaned_data = {
             'facet_consent_form': NO,
-            'complete': 'Complete'
+            'complete': 'complete'
         }
         form_validator = QualitativeInterviewSchedulingFormValidator(
             cleaned_data=cleaned_data)
@@ -70,7 +70,7 @@ class TestQualitativeInterviewForms(TestCase):
     def test_transcription_incomplete(self):
         cleaned_data = {
             'transcription_upload': NO,
-            'complete': 'Complete'
+            'complete': 'complete'
         }
         form_validator = QualitativeInterviewTranscriptionAndTranslationFormValidator(
             cleaned_data=cleaned_data)
@@ -79,7 +79,7 @@ class TestQualitativeInterviewForms(TestCase):
     def test_translation_incomplete(self):
         cleaned_data = {
             'translation_upload': NO,
-            'complete': 'Complete'
+            'complete': 'complete'
         }
         form_validator = QualitativeInterviewTranscriptionAndTranslationFormValidator(
             cleaned_data=cleaned_data)

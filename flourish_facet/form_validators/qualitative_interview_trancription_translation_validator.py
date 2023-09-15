@@ -16,7 +16,7 @@ class QualitativeInterviewTranscriptionAndTranslationFormValidator(FormValidator
         transcription_upload = cleaned_data.get('transcription_upload')
         complete = cleaned_data.get('complete')
 
-        if transcription_upload == NO and complete == 'Complete':
+        if transcription_upload == NO and complete == 'complete':
             raise ValidationError("You’ve indicated that the transcription was not uploaded"
                                   "to Dropbox. Please save the form as incomplete"
                                   "When the transcription is uploaded to Dropbox"
@@ -26,7 +26,7 @@ class QualitativeInterviewTranscriptionAndTranslationFormValidator(FormValidator
         translation_upload = cleaned_data.get('translation_upload')
         complete = cleaned_data.get('complete')
 
-        if translation_upload == NO and complete == 'Complete':
+        if translation_upload == NO and complete == 'complete':
             raise ValidationError("You’ve indicated that the translation was not uploaded"
                                   "to Dropbox. Please save the form as incomplete"
                                   "When the translation is uploaded to Dropbox"

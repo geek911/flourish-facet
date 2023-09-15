@@ -20,7 +20,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         facet_consent_form = cleaned_data.get('facet_consent_form')
         complete = cleaned_data.get('complete')
 
-        if google_sheet_calendar == YES and facet_consent_form == YES and complete == 'Incomplete':
+        if google_sheet_calendar == YES and facet_consent_form == YES and complete == 'incomplete':
             raise ValidationError("You’ve indicated that the participant has been added to the"
                                   "Google sheet calendar and the consent form has been scanned "
                                   "and saved on Dropbox. Please save the form as complete.")
@@ -30,7 +30,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         facet_consent_form = cleaned_data.get('facet_consent_form')
         complete = cleaned_data.get('complete')
 
-        if google_sheet_calendar == YES and facet_consent_form == YES and complete == 'Unverified':
+        if google_sheet_calendar == YES and facet_consent_form == YES and complete == 'unverified':
             raise ValidationError("You’ve indicated that the participant has been added to the"
                                   "Google sheet calendar and the consent form has been scanned "
                                   "and saved on Dropbox. Please save the form as complete.")
@@ -39,7 +39,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         google_sheet_calendar = cleaned_data.get('google_sheet_calendar')
         complete = cleaned_data.get('complete')
 
-        if google_sheet_calendar == NO and complete == 'Complete':
+        if google_sheet_calendar == NO and complete == 'complete':
             raise ValidationError("You’ve indicated that the participant has not been added to the"
                                   "Google sheet calendar. Please save the form as incomplete"
                                   "Once the participant is added to the Google Sheet calendar,"
@@ -49,7 +49,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         facet_consent_form = cleaned_data.get('facet_consent_form')
         complete = cleaned_data.get('complete')
 
-        if facet_consent_form == NO and complete == 'Complete':
+        if facet_consent_form == NO and complete == 'complete':
             raise ValidationError("You’ve indicated that the participant’s consent form has not "
                                   "been scanned and saved in Dropbox  Please save the form as incomplete"
                                   "Please save this form as “incomplete”. Once the consent form is saved in Dropbox,"

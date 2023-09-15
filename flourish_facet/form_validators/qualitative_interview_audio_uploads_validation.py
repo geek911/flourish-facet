@@ -18,7 +18,7 @@ class QualitativeInterviewAudioUploadsFormValidator(FormValidator):
         audio_file = cleaned_data.get('audio_file')
         complete = cleaned_data.get('complete')
 
-        if audio_file == NO and complete == 'Complete':
+        if audio_file == NO and complete == 'complete':
             raise ValidationError("You’ve indicated that the audio file was not uploaded to"
                                   "Dropbox. Please save the form as incomplete. When the audio file is uploaded to Dropbox,"
                                   "please respond “Yes” to the above question and save the form as complete.")
@@ -27,6 +27,6 @@ class QualitativeInterviewAudioUploadsFormValidator(FormValidator):
         audio_file = cleaned_data.get('audio_file')
         complete = cleaned_data.get('complete')
 
-        if audio_file == YES and complete == 'Unverified':
+        if audio_file == YES and complete == 'unverified':
             raise ValidationError(
                 "You’ve indicated that the audio file was uploaded, save the form as complete.")
