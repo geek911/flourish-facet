@@ -10,7 +10,8 @@ from edc_base.model_mixins import BaseUuidModel
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 
 
-class QualitativeInterviewAudioUploads(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin, BaseUuidModel):
+class QualitativeInterviewAudioUploads(NonUniqueSubjectIdentifierFieldMixin,
+                                       SiteModelMixin, BaseUuidModel):
 
     interview_datetime = models.DateTimeField(
         verbose_name='Interview Date and Time',
@@ -44,7 +45,9 @@ class QualitativeInterviewAudioUploads(NonUniqueSubjectIdentifierFieldMixin, Sit
         max_length=3,
     )
     notes = models.CharField(
-        verbose_name='If you took notes on the note-taking form, please confirm that all notes have been uploaded to Dropbox',
+        verbose_name=(
+            'If you took notes on the note-taking form,'
+            ' please confirm that all notes have been uploaded to Dropbox'),
         choices=YES_NO_NA,
         max_length=15,
     )
