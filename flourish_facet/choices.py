@@ -1,4 +1,4 @@
-from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, PARTICIPANT, UNKNOWN, NONE
+from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, PARTICIPANT, UNKNOWN
 from django.utils.translation import ugettext_lazy as _
 from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY, NOT_APPLICABLE
 from edc_visit_tracking.constants import COMPLETED_PROTOCOL_VISIT, MISSED_VISIT, \
@@ -52,7 +52,6 @@ POS_NEG_IND = (
     (POS, 'Positive'),
     (NEG, 'Negative'),
     (IND, 'Indeterminate'),
-    (NONE, 'None'),
     (NOT_APPLICABLE, 'Not applicable')
 )
 

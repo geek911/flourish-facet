@@ -93,7 +93,8 @@ class MaternalHivArt(CrfModelMixin):
     art_challenges = models.ManyToManyField(
         ArtChallenges,
         related_name='art_challenges',
-        verbose_name="Challenges you have when taking all of the doses of ARVs"
+        verbose_name="Challenges you have when taking all of the doses of ARVs",
+        blank=True
 
     )
     art_challenges_other = OtherCharField()

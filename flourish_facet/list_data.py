@@ -13,7 +13,6 @@ list_data = {
         ('lost_medication', 'Lost medication'),
         ('medication_stock_outs', 'Medication stocks outs'),
         ('other_specify', 'Other, Specify'),
-        (NONE, 'None')
     ],
 
     'flourish_facet.partnerreaction': [

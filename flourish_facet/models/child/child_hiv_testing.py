@@ -31,6 +31,7 @@ class ChildHivTesting(CrfModelMixin):
     hiv_result_6_weeks = models.CharField(
         verbose_name="What was your child’s HIV test result at 6 weeks",
         choices=POS_NEG_IND,
+        blank=True,
         max_length=15,
         help_text='If Positive, take off-study , If Negative go to question 10')
 
