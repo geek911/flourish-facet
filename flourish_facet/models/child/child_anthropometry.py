@@ -14,27 +14,11 @@ class ChildAnthropometry(CrfModelMixin):
     )
 
     weight_1 = models.DecimalField(
-        verbose_name='Child’s weight (1st measurement)',
+        verbose_name='Child’s weight',
         max_digits=5,
         decimal_places=2,
         validators=[MinValueValidator(2.0), MaxValueValidator(12.0)],
         help_text="Measured in Kilograms (kg)"
-    )
-    weight_2 = models.DecimalField(
-        verbose_name='Child’s weight (2nd measurement)',
-        max_digits=5,
-        decimal_places=2,
-        validators=[MinValueValidator(2.0), MaxValueValidator(12.0)],
-        help_text="Measured in Kilograms (kg)"
-    )
-    weight_3 = models.DecimalField(
-        verbose_name='Child’s weight (3rd measurement)',
-        max_digits=5,
-        decimal_places=2,
-        validators=[MinValueValidator(2.0), MaxValueValidator(12.0)],
-        blank=True,
-        null=True,
-        help_text="Measured in Kilograms (kg),"
     )
 
     weight_recorded = models.CharField(
@@ -44,27 +28,11 @@ class ChildAnthropometry(CrfModelMixin):
     )
 
     length_1 = models.DecimalField(
-        verbose_name='Child’s length (1st measurement)',
+        verbose_name='Child’s length',
         max_digits=5,
         decimal_places=2,
         validators=[MinValueValidator(40), MaxValueValidator(125)],
         help_text="Measured in Centimeters (cm)"
-    )
-    length_2 = models.DecimalField(
-        verbose_name='Child’s length (2nd measurement)',
-        max_digits=5,
-        decimal_places=2,
-        validators=[MinValueValidator(40), MaxValueValidator(125)],
-        help_text="Measured in Centimeters (cm)"
-    )
-    length_3 = models.DecimalField(
-        verbose_name='Child’s length (3rd measurement)',
-        max_digits=5,
-        decimal_places=2,
-        validators=[MinValueValidator(40), MaxValueValidator(125)],
-        blank=True,
-        null=True,
-        help_text="Measured in Centimeters (cm),"
     )
 
     class Meta:
