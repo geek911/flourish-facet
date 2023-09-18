@@ -6,6 +6,7 @@ from django.conf import settings
 from django.utils.safestring import mark_safe
 from edc_base.utils import age, get_utcnow
 from edc_visit_schedule.models import SubjectScheduleHistory
+from dateutil.relativedelta import relativedelta
 
 register = template.Library()
 
