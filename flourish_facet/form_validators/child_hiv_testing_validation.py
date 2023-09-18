@@ -4,6 +4,7 @@ from edc_constants.constants import NO, YES
 
 class ChildHivTestingFormValidator(FormValidator):
     def clean(self):
+        super().clean()
 
         self.required_if(NO, field='child_tested',
                          field_required='reason_not_tested')
