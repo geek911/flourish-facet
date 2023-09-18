@@ -42,6 +42,12 @@ CHILD_CONSENT_VERSION = (
     ('3', 'Consent version 3')
 )
 
+HIGHEST_EDUCATION = (
+    ('pre_school', 'Pre-school'),
+    ('no_schooling', 'No Schooling '),
+    (OTHER, 'Other'),
+)
+
 YES_NO_DNK = (
     (YES, YES),
     (NO, NO),
