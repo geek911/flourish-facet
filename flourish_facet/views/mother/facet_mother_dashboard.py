@@ -13,6 +13,7 @@ from ...model_wrappers import (
 
 from flourish_facet.visit_schedules.schedules import mother_schedule
 from flourish_facet.visit_schedules.visit_schedule import mother_visit_schedule
+from flourish_caregiver.helper_classes import MaternalStatusHelper
 
 
 class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
@@ -99,7 +100,8 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             'f_mother_visit_schedule')}
         context.update(
             visit_schedules=visit_schedules,
-            mother_infant_study=self.mother_infant_study
+            mother_infant_study=self.mother_infant_study,
+            hiv_status = self.hiv_status
         )
         return context
 
@@ -125,3 +127,11 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     @property
     def mother_infant_study(self):
         return self.child_consent_cls.objects.filter(facet_consent=self.consent_object).first()
+    
+    @property
+    def hiv_status(self):
+        subject_identifier = self.kwargs.get('subject_identifier', None)
+
+        status_helper = MaternalStatusHelper(subject_identifier=subject_identifier)
+
+        return status_helper.hiv_status

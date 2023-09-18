@@ -88,6 +88,10 @@ class MotherChildConsent(SiteModelMixin, NonUniqueSubjectIdentifierFieldMixin,
 
     version = models.CharField(default='1', max_length=3)
 
+    @property
+    def consent_version(self):
+        return self.version
+
     def save(self, *args, **kwargs):
 
         eligibile = ChildConsentEligibility(

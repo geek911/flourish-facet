@@ -1,5 +1,5 @@
 from dateutil.relativedelta import relativedelta
-from edc_visit_schedule import Schedule, Visit
+from edc_visit_schedule import Schedule, Visit, SubjectSchedule
 
 mother_schedule = Schedule(
     name='mother_facet_schedule',
@@ -15,5 +15,4 @@ child_schedule = Schedule(
     appointment_model='flourish_facet.appointment',
     onschedule_model='flourish_facet.onschedulefacetchild',
     offschedule_model='flourish_facet.facetchildoffschedule',
-    consent_model='flourish_facet.motherchildconsent',
-)
+    consent_model='flourish_facet.motherchildconsent',)

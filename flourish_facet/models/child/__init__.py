@@ -4,3 +4,4 @@ from .child_anthropometry import ChildAnthropometry
 from .child_neurodevelopment_screening import ChildNeurodevelopmentScreening
 from .infant_behaviour_questionnaire import InfantBehaviourQuestionnaire
 from .child_socio_demographic_data import FacetChildSocioDemographic
+from .facet_child_offschedule import FacetChildOffSchedule
