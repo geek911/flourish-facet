@@ -18,7 +18,6 @@ class FacetMotherOffSchedule(FacetOffScheduleMixin):
 
     action_name = FACET_MOTHER_OFFSTUDY_ACTION
 
-
     class Meta:
         verbose_name = 'Facet Mother Off-Study'
         verbose_name_plural = 'Facet Mother Off-Study'

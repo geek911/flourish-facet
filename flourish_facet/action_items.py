@@ -6,6 +6,7 @@ FACET_MOTHER_OFFSTUDY_ACTION = 'submit-mother-facet-offstudy'
 
 FACET_CHILD_OFFSTUDY_ACTION = 'submit-child-facet-offstudy'
 
+
 class FacetMotherOffStudyAction(Action):
     name = FACET_MOTHER_OFFSTUDY_ACTION
     display_name = 'Submit FACET Offstudy'
@@ -23,7 +24,7 @@ class FacetChildOffStudyAction(Action):
     priority = HIGH_PRIORITY
     show_on_dashboard = True
 
+
 site_action_items.register(FacetMotherOffStudyAction)
 
 site_action_items.register(FacetChildOffStudyAction)
-

@@ -13,9 +13,8 @@ from flourish_prn.choices import CHILD_OFF_STUDY_REASON
 
 
 class FacetOffScheduleMixin(OffScheduleModelMixin,
-                       ActionModelMixin, BaseUuidModel):
+                            ActionModelMixin, BaseUuidModel):
     """ A model completed by the user when the child is taken off study. """
-
 
     report_datetime = models.DateTimeField(
         verbose_name="Report Date",
@@ -31,9 +30,8 @@ class FacetOffScheduleMixin(OffScheduleModelMixin,
                       ' being taken off the study'),
         max_length=115,
         choices=CHILD_OFF_STUDY_REASON)
-    
-    offstudy_date = models.DateField(default=get_utcnow().date())
 
+    offstudy_date = models.DateField(default=get_utcnow().date())
 
     reason_other = OtherCharField()
 
@@ -41,7 +39,7 @@ class FacetOffScheduleMixin(OffScheduleModelMixin,
         max_length=250,
         verbose_name="Comment",
         blank=True,)
-    
+
     schedule_name = models.CharField(max_length=20)
 
     objects = SubjectIdentifierManager()

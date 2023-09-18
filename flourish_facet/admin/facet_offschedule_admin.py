@@ -51,7 +51,7 @@ class FacetChildOffScheduleAdmin(ModelAdminMixin, admin.ModelAdmin):
                 'reason_other',
                 'comment']}
          ), audit_fieldset_tuple)
-    
+
     radio_fields = {'reason': admin.VERTICAL}
 
     def redirect_url(self, request, obj, post_url_continue=None):

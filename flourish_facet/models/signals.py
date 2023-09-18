@@ -111,4 +111,3 @@ def facet_child_off_schedule_on_post_save(sender, instance, raw, created, **kwar
                 subject_identifier=subject_identifier,
                 offschedule_datetime=offschedule_datetime,
                 schedule_name='child_facet_schedule')
-

@@ -21,9 +21,8 @@ from .eligibility import FacetConsentEligibility
 from django.apps import apps as django_apps
 
 
-
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
-                   NonUniqueSubjectIdentifierFieldMixin, 
+                   NonUniqueSubjectIdentifierFieldMixin,
                    IdentityFieldsMixin, SearchSlugModelMixin,
                    ReviewFieldsMixin, PersonalFieldsMixin,
                    VulnerabilityFieldsMixin, BaseUuidModel):
@@ -90,7 +89,7 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     @property
     def consent_version(self):
         return self.version
-    
+
     def get_search_slug_fields(self):
         fields = super().get_search_slug_fields()
         fields.append('subject_identifier')
