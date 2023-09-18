@@ -18,6 +18,12 @@ class FacetChildSocioDemographic(ChildSocioDemographicMixin, CrfModelMixin):
 
     """ A model completed by the user on Demographics form for all infants.
     """
+    stay_with_caregiver = models.CharField(
+        verbose_name='Is the infant/child/adolescent currently living with '
+                     'the caregiver who is also participating in the FACET'
+                     ' study?',
+        choices=YES_NO,
+        max_length=3)
 
     class Meta:
         app_label = 'flourish_facet'
