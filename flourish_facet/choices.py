@@ -1,4 +1,4 @@
-from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, NEVER, PARTICIPANT, UNKNOWN
+from edc_constants.constants import OTHER, MALE, FEMALE, DONT_KNOW, ALIVE, DEAD, PARTICIPANT, UNKNOWN
 from django.utils.translation import ugettext_lazy as _
 from edc_constants.constants import YES, NO, NEG, POS, IND, FAILED_ELIGIBILITY, OFF_STUDY, ON_STUDY, NOT_APPLICABLE
 from edc_visit_tracking.constants import COMPLETED_PROTOCOL_VISIT, MISSED_VISIT, \
@@ -42,6 +42,12 @@ CHILD_CONSENT_VERSION = (
     ('3', 'Consent version 3')
 )
 
+HIGHEST_EDUCATION = (
+    ('pre_school', 'Pre-school'),
+    ('no_schooling', 'No Schooling '),
+    (OTHER, 'Other'),
+)
+
 YES_NO_DNK = (
     (YES, YES),
     (NO, NO),
@@ -51,7 +57,8 @@ YES_NO_DNK = (
 POS_NEG_IND = (
     (POS, 'Positive'),
     (NEG, 'Negative'),
-    (IND, 'Indeterminate')
+    (IND, 'Indeterminate'),
+    (NOT_APPLICABLE, 'Not applicable')
 )
 
 AGE_BREASTFEEDING_ENDED = (
@@ -170,4 +177,42 @@ REASON_CHILD_NOT_TESTED = [
     ('d_m_not_working', 'Diagnostic machines not working'),
     ('no_apparent_reason', 'No apparent reason'),
     ('other_specify', 'Other specify')
+]
+
+LOCATION_INTERVIEW = [
+    ('facet_clinic_site', 'Facet clinic site'),
+    ('ra_office', 'RA Office'),
+    ('other_specify', 'Other specify')
+]
+
+LANGUAGES_BOTH = [
+    ('setwana', 'Setswana'),
+    ('english', 'English'),
+    ('both', 'Both'),
+]
+
+COMPLETE_UNVERIFIED = [
+    ('incomplete', 'Incomplete'),
+    ('unverified', 'Unverified'),
+    ('complete', 'Complete')
+]
+
+QUALITATIVE_TYPE = [
+    ('Focus_group_discuss', 'Focus group discussion'),
+    ('in_depth_interview', 'In-depth interview')
+]
+TRANSCRIPTION_HOURS = [
+    ('2_4_hours', '2-4 hours'),
+    ('4_6_hours', '4-6 hours'),
+    ('6_8_hours', '6-8 hours'),
+    ('8_10_hours', '8-10 hours'),
+    ('10_+_hours', '10+ hours'),
+]
+
+FACET_STAFF = [
+    ('kedi', 'Kedi'),
+    ('irene', 'Irene'),
+    ('sam', 'Sam'),
+    ('gosego', 'Gosego'),
+    ('martha', 'Martha'),
 ]

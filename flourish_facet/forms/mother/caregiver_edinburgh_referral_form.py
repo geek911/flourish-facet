@@ -1,6 +1,5 @@
-from flourish_caregiver.forms.form_mixins import SubjectModelFormMixin
+from flourish_facet.forms.form_mixins import SubjectModelFormMixin
 from ...models import FacetCaregiverEdinburghReferral
-
 from ...form_validators import CaregiverReferralFormValidator
 
 
