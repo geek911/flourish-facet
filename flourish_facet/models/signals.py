@@ -10,6 +10,8 @@ from .child import MotherChildConsent
 from .child import ChildHivTesting
 from ..models import FacetChildOffSchedule, FacetMotherOffSchedule
 from ..action_items import FacetChildOffStudyAction
+from ..utils import trigger_action_item
+from ..action_items import FACET_MOTHER_OFFSTUDY_ACTION, FACET_CHILD_OFFSTUDY_ACTION
 
 
 @receiver(post_save, weak=False, sender=FacetConsent,
@@ -56,10 +58,13 @@ def facet_child_hiv_testing_on_post_save(sender, instance, raw, created, **kwarg
 
     if instance.hiv_result_6_weeks == POS:
         child_subject_identifier = instance.facet_visit.subject_identifier
-        mother_subject_identifier = get_mother_subject_identifier(
-            child_subject_identifier)
 
-        FacetChildOffStudyAction(subject_identifier=child_subject_identifier)
+        trigger_action_item(
+            model_cls=FacetChildOffSchedule,
+            action_name=FACET_CHILD_OFFSTUDY_ACTION,
+            subject_identifier=child_subject_identifier,
+            repeat=False,
+        )
 
 
 def get_mother_subject_identifier(child_subject_identifier):
@@ -92,15 +97,14 @@ def get_facet_mother_schedule():
 
 
 @receiver(post_save, weak=False, sender=FacetChildOffSchedule,
-          dispatch_uid='facet_off_schedule_on_post_save')
+          dispatch_uid='facet_child_off_schedule_on_post_save')
 def facet_child_off_schedule_on_post_save(sender, instance, raw, created, **kwargs):
     """
-    - Put mother on schedule
+    - Put child off-schedule
     """
     with transaction.atomic():
 
         subject_identifier = instance.subject_identifier
-        offschedule_datetime = instance.offschedule_datetime
 
         child_schedule = get_facet_child_schedule()
 
@@ -109,5 +113,26 @@ def facet_child_off_schedule_on_post_save(sender, instance, raw, created, **kwar
 
             child_schedule.take_off_schedule(
                 subject_identifier=subject_identifier,
-                offschedule_datetime=offschedule_datetime,
-                schedule_name='child_facet_schedule')
+                offschedule_datetime=instance.report_datetime)
+
+
+@receiver(post_save, weak=False, sender=FacetMotherOffSchedule,
+          dispatch_uid='facet_mother_off_schedule_on_post_save')
+def facet_mother_off_schedule_on_post_save(sender, instance, raw, created, **kwargs):
+    """
+    - Put mother off-schedule
+    """
+    with transaction.atomic():
+
+        subject_identifier = instance.subject_identifier
+
+        schedule = get_facet_mother_schedule()
+
+        if schedule.is_onschedule(subject_identifier=subject_identifier,
+                                  report_datetime=instance.report_datetime):
+
+            schedule.take_off_schedule(
+                subject_identifier=subject_identifier,
+                offschedule_datetime=instance.report_datetime)
+            
+            
