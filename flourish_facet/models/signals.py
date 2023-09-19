@@ -134,5 +134,3 @@ def facet_mother_off_schedule_on_post_save(sender, instance, raw, created, **kwa
             schedule.take_off_schedule(
                 subject_identifier=subject_identifier,
                 offschedule_datetime=instance.report_datetime)
-            
-            

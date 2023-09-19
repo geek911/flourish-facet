@@ -91,7 +91,7 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         """Returns a generator of wrapped consents.
         """
         return (self.consent_model_wrapper_cls(obj) for obj in self.consents)
-    
+
     @property
     def child_age_in_months(self):
         dob = self.consent_object.child_dob
@@ -101,7 +101,6 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
 
         return months
 
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         visit_schedules = {
@@ -110,8 +109,8 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         context.update(
             visit_schedules=visit_schedules,
             mother_subject_identifier=self.consent_object.facet_consent.subject_identifier,
-            age = self.child_age_in_months,
-            dob = self.consent_object.child_dob
+            age=self.child_age_in_months,
+            dob=self.consent_object.child_dob
         )
         return context
 

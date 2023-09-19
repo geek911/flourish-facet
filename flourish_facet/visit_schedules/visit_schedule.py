@@ -33,4 +33,3 @@ child_visit_schedule.add_schedule(child_schedule)
 
 site_visit_schedules.register(mother_visit_schedule)
 site_visit_schedules.register(child_visit_schedule)
-# site_visit_schedules.

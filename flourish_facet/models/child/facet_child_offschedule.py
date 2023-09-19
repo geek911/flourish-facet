@@ -25,7 +25,6 @@ class FacetChildOffSchedule(OffStudyModelMixin,
         verbose_name="Subject Identifier",
         max_length=50)
 
-
     """ A model completed by the user when the child is taken off study. """
 
     report_datetime = models.DateTimeField(
@@ -54,11 +53,9 @@ class FacetChildOffSchedule(OffStudyModelMixin,
 
     schedule_name = models.CharField(max_length=50)
 
-
     history = HistoricalRecords()
 
     consent_version = models.CharField(default='1', max_length=3)
-
 
     class Meta:
         verbose_name = 'Facet Child Off-Study'

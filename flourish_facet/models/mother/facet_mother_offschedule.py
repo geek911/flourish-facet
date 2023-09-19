@@ -14,8 +14,8 @@ from ...action_items import FACET_MOTHER_OFFSTUDY_ACTION
 
 
 class FacetMotherOffSchedule(OffStudyModelMixin,
-                            OffScheduleModelMixin,
-                            ActionModelMixin, BaseUuidModel):
+                             OffScheduleModelMixin,
+                             ActionModelMixin, BaseUuidModel):
 
     tracking_identifier_prefix = 'FM'
 
@@ -24,7 +24,6 @@ class FacetMotherOffSchedule(OffStudyModelMixin,
     subject_identifier = models.CharField(
         verbose_name="Subject Identifier",
         max_length=50)
-
 
     """ A model completed by the user when the child is taken off study. """
 
@@ -53,7 +52,6 @@ class FacetMotherOffSchedule(OffStudyModelMixin,
         blank=True,)
 
     schedule_name = models.CharField(max_length=50)
-
 
     history = HistoricalRecords()
 
