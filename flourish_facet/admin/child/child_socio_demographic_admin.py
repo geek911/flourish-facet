@@ -38,8 +38,7 @@ class ChildSocioDemographicAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'attend_school',
                 'education_level',
                 'education_level_other',
-                'school_type',
-                'working']}
+                'school_type',]}
          ), audit_fieldset_tuple)
 
     radio_fields = {'ethnicity': admin.VERTICAL,
