@@ -4,6 +4,7 @@ from edc_constants.constants import NO
 
 class MaternalHivArtFormValidator(FormValidator):
     def clean(self):
+        super().clean()
 
         self.validate_other_specify(
             field='drug_combination_before', other_specify_field='drug_combination_before_other')
