@@ -12,17 +12,17 @@ class IntimatePartnerViolence(CrfModelMixin):
     )
 
     insult_talk = models.CharField(
-        verbose_name='How often does your partner physically hurt you?',
+        verbose_name='How often does your partner insult or talk down to you?',
         choices=OCCURENCES_MORE,
         max_length=20,
     )
     threaten = models.CharField(
-        verbose_name='How often does your partner physically hurt you?',
+        verbose_name='How often does your partner threaten you with harm?',
         choices=OCCURENCES_MORE,
         max_length=20,
     )
     scream_curse = models.CharField(
-        verbose_name='How often does your partner physically hurt you?',
+        verbose_name='How often does your partner scream or curse at you?',
         choices=OCCURENCES_MORE,
         max_length=20,
     )

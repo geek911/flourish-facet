@@ -64,7 +64,6 @@ class MaternalHivArt(CrfModelMixin):
         max_length=5,
         blank=True,
         null=True,
-        help_text='If yes go to 12,If no go to question 19'
     )
 
     art_regimen = models.CharField(
@@ -94,7 +93,8 @@ class MaternalHivArt(CrfModelMixin):
     art_challenges = models.ManyToManyField(
         ArtChallenges,
         related_name='art_challenges',
-        verbose_name="Challenges you have when taking all of the doses of ARVs"
+        verbose_name="Challenges you have when taking all of the doses of ARVs",
+        blank=True
 
     )
     art_challenges_other = OtherCharField()
@@ -108,14 +108,14 @@ class MaternalHivArt(CrfModelMixin):
         help_text='If yes go to question 28 ,If no go question 20,If dont know go to question 21 ',
     )
     father_hiv_no = models.CharField(
-        verbose_name='Would the father be willing to be HIV tested?',
+        verbose_name='If no,Would the father be willing to be HIV tested?',
         choices=YES_NO_DONT_KNOW,
         max_length=20,
         null=True,
         blank=True,
     )
     father_hiv_dont = models.CharField(
-        verbose_name='Would the father be willing to be HIV tested?',
+        verbose_name='If unsure ,Would the father be willing to be HIV tested?',
         choices=YES_NO_DONT_KNOW,
         max_length=20,
         null=True,
@@ -157,7 +157,7 @@ class MaternalHivArt(CrfModelMixin):
     )
 
     hiv_status_disclosure = models.CharField(
-        verbose_name='Since the last visit ,have disclosed you HIV status to the father of your child ?',
+        verbose_name='Since the last visit with flourish study ,have disclosed you HIV status to the father of your child ?',
         choices=YES_NO,
         max_length=5,
         blank=True,

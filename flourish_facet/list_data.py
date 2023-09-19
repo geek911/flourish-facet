@@ -1,5 +1,5 @@
 from edc_list_data import PreloadData
-from edc_constants.constants import OTHER
+from edc_constants.constants import OTHER, NONE, NOT_APPLICABLE
 
 list_data = {
     'flourish_facet.artchallenges': [
@@ -21,6 +21,7 @@ list_data = {
         ('scared', 'Scared'),
         ('neutral', 'Neutral'),
         ('dont_know', 'Dont know'),
+        (NOT_APPLICABLE, 'Not applicable')
     ],
     'flourish_facet.expensecontributors': [
         ('partner', 'Partner/husband'), ('mother', 'Mother'),
