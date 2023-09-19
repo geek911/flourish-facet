@@ -16,7 +16,9 @@ class ChildHivTesting(CrfModelMixin):
     reason_not_tested = models.CharField(
         verbose_name='What is the reason your child has never been tested for HIV?',
         max_length=35,
-        choices=REASON_CHILD_NOT_TESTED
+        choices=REASON_CHILD_NOT_TESTED,
+        null=True,
+        blank=True
     )
 
     reason_not_tested_other = OtherCharField()
@@ -38,7 +40,9 @@ class ChildHivTesting(CrfModelMixin):
     reason_not_tested_6_weeks = models.CharField(
         max_length=35,
         choices=REASON_CHILD_NOT_TESTED,
-        verbose_name="If your child was not tested for HIV at their 6-week visit, what was the reason? "
+        verbose_name="If your child was not tested for HIV at their 6-week visit, what was the reason? ",
+        null=True,
+        blank=True
     )
     reason_not_tested_6_weeks_other = OtherCharField()
 
