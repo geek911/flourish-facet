@@ -12,6 +12,8 @@ from django_crypto_fields.fields import EncryptedCharField
 from django.core.validators import RegexValidator
 from edc_consent.field_mixins import IdentityFieldsMixin, ReviewFieldsMixin
 from edc_consent.field_mixins import PersonalFieldsMixin, VulnerabilityFieldsMixin
+from edc_base.model_validators import datetime_not_future, date_not_future
+from edc_protocol.validators import datetime_not_before_study_start
 from ...choices import IDENTITY_TYPE, GENDER_OTHER
 from edc_base.model_fields import OtherCharField
 from edc_base.sites import CurrentSiteManager
@@ -40,8 +42,9 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     consent_datetime = models.DateTimeField(
         verbose_name='Consent date and time',
         help_text='Date and time of consent.',
-        default=get_utcnow,
-        null=True)
+        validators=[
+            datetime_not_before_study_start,
+            datetime_not_future])
 
     identity_type = models.CharField(
         verbose_name='What type of identity number is this?',

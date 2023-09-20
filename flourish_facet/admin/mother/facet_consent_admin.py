@@ -109,7 +109,6 @@ class FacetConsentAdmin(ModelAdminMixin, SimpleHistoryAdmin,
         (None, {
             'fields': (
                 'subject_identifier',
-                'consent_datetime',
                 'first_name',
                 'last_name',
                 'initials',
@@ -125,6 +124,8 @@ class FacetConsentAdmin(ModelAdminMixin, SimpleHistoryAdmin,
                 'confirm_identity',
                 'consent_to_participate',
                 'child_consent',
+                'consent_datetime',
+
             )
         }), ('Review Questions', {
             'fields': (
