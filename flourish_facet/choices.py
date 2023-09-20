@@ -136,7 +136,7 @@ DRUG_COMBINATION = [
     ('AZT_+ 3TC_+_ATV/r', 'AZT + 3TC +ATV/r'),
     ('TDF_+_3TC_+_ATV/r', 'TDF + 3TC + ATV/r'),
     ('TDF_+_3TC_+_LPV/r', 'TDF + 3TC + LPV/r'),
-    ('other_regimen_specify', 'Other regimen, specify')
+    (OTHER, 'Other regimen, specify')
 ]
 
 REASONS_REGIMEN_CHANGE = [
@@ -144,7 +144,7 @@ REASONS_REGIMEN_CHANGE = [
     ('side_effects', 'Side Effects'),
     ('recommendations_in_pregnancy', 'Recommendations in pregnancy'),
     (DONT_KNOW, 'Do not know'),
-    ('other_specify', 'Other specify')
+    (OTHER, 'Other (Specify)'),
 ]
 
 OCCURENCES_MORE = [
@@ -176,13 +176,13 @@ REASON_CHILD_NOT_TESTED = [
      'Mother or caregiver forgot and did not take child for testing'),
     ('d_m_not_working', 'Diagnostic machines not working'),
     ('no_apparent_reason', 'No apparent reason'),
-    ('other_specify', 'Other specify')
+    (OTHER, 'Other (Specify)'),
 ]
 
 LOCATION_INTERVIEW = [
     ('facet_clinic_site', 'Facet clinic site'),
     ('ra_office', 'RA Office'),
-    ('other_specify', 'Other specify')
+    (OTHER, 'Other (Specify)'),
 ]
 
 LANGUAGES_BOTH = [
