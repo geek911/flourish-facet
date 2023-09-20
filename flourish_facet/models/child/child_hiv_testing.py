@@ -1,7 +1,9 @@
 from django.db import models
 from ..model_mixins import CrfModelMixin
 from ...choices import AGE_BREASTFEEDING_ENDED, POS_NEG_IND, YES_NO_DNK, REASON_CHILD_NOT_TESTED
+from ...action_items import FACET_CHILD_OFFSTUDY_ACTION
 from edc_base.model_fields import OtherCharField
+from edc_action_item.model_mixins import ActionModelMixin
 
 
 class ChildHivTesting(CrfModelMixin):
@@ -65,6 +67,9 @@ class ChildHivTesting(CrfModelMixin):
         null=True,
         blank=True,
     )
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
     class Meta:
         app_label = 'flourish_facet'

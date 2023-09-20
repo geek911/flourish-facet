@@ -1,3 +1,4 @@
+from dateutil.relativedelta import relativedelta
 from edc_base.utils import get_utcnow, get_uuid
 from django.apps import apps as django_apps
 from django.contrib import messages
@@ -91,6 +92,15 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         """
         return (self.consent_model_wrapper_cls(obj) for obj in self.consents)
 
+    @property
+    def child_age_in_months(self):
+        dob = self.consent_object.child_dob
+        today = get_utcnow().today()
+        delta = relativedelta(today, dob)
+        months = delta.months + (delta.years * 12)
+
+        return months
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         visit_schedules = {
@@ -99,6 +109,8 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         context.update(
             visit_schedules=visit_schedules,
             mother_subject_identifier=self.consent_object.facet_consent.subject_identifier,
+            age=self.child_age_in_months,
+            dob=self.consent_object.child_dob
         )
         return context
 

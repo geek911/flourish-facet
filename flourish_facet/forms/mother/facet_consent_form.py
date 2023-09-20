@@ -15,7 +15,7 @@ class FacetConsentForm(FormValidatorMixin,
         label='Facet Subject Identifier',
         widget=forms.TextInput(attrs={'readonly': 'readonly'}),
         required=False)
-    
+
     def clean(self):
         cleaned_data = super().clean()
         child_consent = cleaned_data.get('child_consent')
