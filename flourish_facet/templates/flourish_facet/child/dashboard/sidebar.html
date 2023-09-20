@@ -20,6 +20,15 @@
 	{% endif %}
 
     </a>
+	<a class="list-group-item">
+
+		{% if consent.gender == 'M' %}
+			Gender : Male
+		{% else %}
+			Gender : Female
+		{% endif %}
+		
+	</a>
     <a class="list-group-item"><i class="far fa-address-card fa-fw"></i>
     {{ identity|default:'?? identity' }} <span data-toggle="tooltip" data-placement="right" title="{{ firstname }} {{ lastname }}" class="text text-default">{{ initials }}<sup><i class="fa fa-asterisk fa-fw"></i></sup></span>
     </a>
