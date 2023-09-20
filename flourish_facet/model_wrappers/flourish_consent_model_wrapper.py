@@ -1,4 +1,6 @@
 
+from dateutil.relativedelta import relativedelta
+from edc_base import get_utcnow
 from django.apps import apps as django_apps
 from django.conf import settings
 from django.forms import model_to_dict
@@ -6,6 +8,7 @@ from edc_model_wrapper import ModelWrapper
 from .facet_screening_model_wrapper import FacetScreeningModelWrapper
 from .facet_consent_model_wrapper import FacetConsentModelWrapper
 from ..models import FacetSubjectScreening, FacetConsent
+from ..utils import age_in_months
 
 
 class FlourishConsentModelWrapper(ModelWrapper):
@@ -71,6 +74,24 @@ class FlourishConsentModelWrapper(ModelWrapper):
         )
 
         return FacetScreeningModelWrapper(model_obj=facet_screening_obj)
+
+    @property
+    def facet_child_age(self):
+
+        dates_before = (get_utcnow() - relativedelta(months=6)
+                        ).date().isoformat()
+
+        today = get_utcnow().date().isoformat()
+
+        child_consents = self.object.caregiverchildconsent_set.filter(
+            child_dob__range=[dates_before, today])
+
+        ages = []
+        for consent in child_consents:
+            dob = consent.child_dob
+            ages.append(str(age_in_months(dob)))
+
+        return ', '.join(ages)
 
     @property
     def facet_consent_wrapper(self):

@@ -12,6 +12,7 @@ from ..models import FacetChildOffSchedule, FacetMotherOffSchedule
 from ..action_items import FacetChildOffStudyAction
 from ..utils import trigger_action_item
 from ..action_items import FACET_MOTHER_OFFSTUDY_ACTION, FACET_CHILD_OFFSTUDY_ACTION
+from ..utils import get_facet_child_schedule, get_facet_mother_schedule
 
 
 @receiver(post_save, weak=False, sender=FacetConsent,
@@ -65,35 +66,6 @@ def facet_child_hiv_testing_on_post_save(sender, instance, raw, created, **kwarg
             subject_identifier=child_subject_identifier,
             repeat=False,
         )
-
-
-def get_mother_subject_identifier(child_subject_identifier):
-
-    try:
-
-        child_cosnent = MotherChildConsent.objects.filter(
-            subject_identifier=child_subject_identifier
-        ).latest('consent_datetime')
-
-    except MotherChildConsent.DoesNotExist:
-        raise Exception('Mother consent does not exist')
-    else:
-        return child_cosnent.facet_consent.subject_identifier
-
-
-def get_facet_child_schedule():
-    _, child_schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
-        onschedule_model='flourish_facet.onschedulefacetchild',
-        name='child_facet_schedule')
-    return child_schedule
-
-
-def get_facet_mother_schedule():
-    _, mother_schedule = site_visit_schedules.get_by_onschedule_model_schedule_name(
-        onschedule_model='flourish_facet.onschedulefacetmother',
-        name='mother_facet_schedule')
-
-    return mother_schedule
 
 
 @receiver(post_save, weak=False, sender=FacetChildOffSchedule,

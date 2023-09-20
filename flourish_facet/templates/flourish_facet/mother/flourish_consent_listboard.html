@@ -10,7 +10,7 @@
 <th>Flourish Consents</th>
 
 <th>Subject Identifier</th>
-<th>Age</th>
+<th>Child Age (Months)</th>
 <th>User Created</th>
 <th>Date Screened</th>
 <th>Date Consented</th>
@@ -39,7 +39,7 @@
 
 
 <td>{{ result.subject_identifier }}</td>
-<td>{% age_in_years result.object.dob %}yrs {{ result.object.dob|date:"SHORT_DATE_FORMAT" }}</td>
+<td style="text-align: center;">{{ result.facet_child_age }}</td>
 <td>{{ result.user_created }}</td>
 
 {% if result.facet_screening_obj %}
