@@ -62,6 +62,3 @@ class SocioDemographicDataFormValidator(FormValidator):
 
         return self.maternal_dataset_cls.objects.filter(
             subject_identifier=facet_visit.subject_identifier).exists()
-
-    def validate_unemployedment(self, cleaned_data=None):
-        current_occupation = cleaned_data.get(' current_occupation')
