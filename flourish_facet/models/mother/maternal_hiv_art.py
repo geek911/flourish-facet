@@ -4,6 +4,7 @@ from edc_constants.choices import YES_NO, YES_NO_DONT_KNOW
 from ...choices import DRUG_COMBINATION, POS_NEG_IND, REASONS_REGIMEN_CHANGE
 from edc_base.model_fields import OtherCharField
 from ..list_models import ArtChallenges, PartnerReaction
+from edc_base.model_validators.date import date_not_future
 
 
 class MaternalHivArt(CrfModelMixin):
@@ -11,7 +12,8 @@ class MaternalHivArt(CrfModelMixin):
     hiv_test_date = models.DateField(
         verbose_name='When did you first test positive for HIV?',
         null=True,
-        blank=True
+        blank=True,
+        validators=[date_not_future]
     )
     art_received = models.CharField(
         verbose_name=(
@@ -36,7 +38,8 @@ class MaternalHivArt(CrfModelMixin):
     art_start_date = models.DateField(
         verbose_name='If yes, when did the you start taking antiretroviral drugs?',
         null=True,
-        blank=True
+        blank=True,
+        validators=[date_not_future,]
     )
 
     art_received_preg = models.CharField(
@@ -78,7 +81,8 @@ class MaternalHivArt(CrfModelMixin):
     art_regimen_start = models.DateField(
         verbose_name='When did you start the previous ART regimen?',
         null=True,
-        blank=True
+        blank=True,
+        validators=[date_not_future]
     )
 
     reason_regimen_change = models.CharField(
@@ -138,7 +142,8 @@ class MaternalHivArt(CrfModelMixin):
     hiv_test_date_father = models.DateField(
         verbose_name='When did the father last test for HIV?',
         null=True,
-        blank=True
+        blank=True,
+        validators=[date_not_future]
     )
 
     father_art = models.CharField(
@@ -153,7 +158,8 @@ class MaternalHivArt(CrfModelMixin):
     father_art_start = models.DateField(
         verbose_name='When did he start ART',
         null=True,
-        blank=True
+        blank=True,
+        validators=[date_not_future]
     )
 
     hiv_status_disclosure = models.CharField(
@@ -168,7 +174,8 @@ class MaternalHivArt(CrfModelMixin):
     hiv_status_disclosure_reaction = models.ManyToManyField(
         PartnerReaction,
         related_name='hiv_status_disclosure_reaction',
-        verbose_name='When you disclosed you HIV status to the partner,what was his reaction'
+        verbose_name='When you disclosed you HIV status to the partner,what was his reaction',
+        blank=True
     )
 
     comment_end = models.TextField(
