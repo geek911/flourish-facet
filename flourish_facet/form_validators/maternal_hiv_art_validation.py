@@ -1,5 +1,5 @@
 from edc_form_validators import FormValidator
-from edc_constants.constants import NO, NONE, YES
+from edc_constants.constants import NO, YES
 from django.core.exceptions import ValidationError
 
 
@@ -67,10 +67,9 @@ class MaternalHivArtFormValidator(FormValidator):
         art_received = cleaned_data.get('art_received')
         art_received_preg = cleaned_data.get('art_received_preg')
 
-        if art_received and art_received_preg:
-            self.required_if_true(
-                art_received == YES or art_received_preg == YES,
-                field_required='art_challenges')
+        self.required_if_true(
+            art_received == YES or art_received_preg == YES,
+            field_required='art_challenges')
 
     def date_not_before_date_for_positive(self, cleaned_data=None):
         date_tested_positive = cleaned_data.get('hiv_test_date')
