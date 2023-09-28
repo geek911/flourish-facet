@@ -7,7 +7,6 @@ from edc_form_validators import FormValidator
 
 
 class ChildSocioDemographicFormValidator(FormValidator):
-
     child_caregiver_consent_model = 'flourish_caregiver.caregiverchildconsent'
 
     maternal_delivery_model = 'flourish_caregiver.maternaldelivery'
@@ -28,12 +27,10 @@ class ChildSocioDemographicFormValidator(FormValidator):
         self.validate_other_specify(field='ethnicity')
         self.validate_other_specify(field='toilet_facility')
 
-        self.validate_number_of_people_living_in_the_household(
-            cleaned_data=self.cleaned_data)
-
         self.validate_child_not_schooling()
 
         self.validate_other_specify(field='education_level')
+        self.validate_number_of_people_living_in_the_household()
 
     @property
     def caregiver_subject_identifier(self):
@@ -42,17 +39,25 @@ class ChildSocioDemographicFormValidator(FormValidator):
         caregiver_subject_identifier = '-'.join(subject_identifier)
         return caregiver_subject_identifier
 
-    def validate_number_of_people_living_in_the_household(self,
-                                                          cleaned_data=None):
-        older_than18 = cleaned_data.get('older_than18')
-        house_people_number = cleaned_data.get('house_people_number')
-        if older_than18 and (older_than18 >
-                             house_people_number):
-            msg = {'older_than18':
-                   f'Number of people ({older_than18}) who are older than 18 '
-                   f'and live in the household cannot be more than the total '
-                   f'number ({house_people_number}) of people living in the '
-                   f'household'}
+    def validate_number_of_people_living_in_the_household(self):
+        """Validate the number of people living in the household"""
+        msg = None
+        older_than18 = self.cleaned_data.get('older_than18')
+        house_people_number = self.cleaned_data.get('house_people_number')
+        if older_than18 and house_people_number:
+            if older_than18 > house_people_number:
+                msg = {'older_than18':
+                       f'Number of people ({older_than18}) who are older than 18 '
+                       f'and live in the household cannot be more than the total '
+                       f'number ({house_people_number}) of people living in the '
+                       f'household'}
+            elif older_than18 == house_people_number:
+                msg = {'older_than18':
+                       f'Number of people ({older_than18}) who are older than 18 '
+                       f'and live in the household cannot be equal to the total '
+                       f'number ({house_people_number}) of people living in the '
+                       f'household'}
+        if msg:
             self._errors.update(msg)
             raise ValidationError(msg)
 
@@ -62,16 +67,16 @@ class ChildSocioDemographicFormValidator(FormValidator):
         if (attend_school == YES and
                 self.cleaned_data.get('education_level') == 'no_schooling'):
             msg = {'education_level':
-                   'This child is said to be attending school, Please specify '
-                   'education level.'}
+                       'This child is said to be attending school, Please specify '
+                       'education level.'}
             self._errors.update(msg)
             raise ValidationError(msg)
 
         if (attend_school == NO and
                 self.cleaned_data.get('education_level') != 'no_schooling'):
             msg = {'education_level':
-                   'This child is not attending school, Please specify '
-                   'education level as `No schooling` to indicate this.'}
+                       'This child is not attending school, Please specify '
+                       'education level as `No schooling` to indicate this.'}
             self._errors.update(msg)
             raise ValidationError(msg)
 
