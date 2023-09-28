@@ -52,6 +52,9 @@ class SocioDemographicDataFormValidator(FormValidator):
                                 'money_earned', 'toilet_facility']
         for field in other_specify_fields:
             self.validate_other_specify(field=field)
+        current_occupation_responses = ('Housewife', 'Unemployed')
+        self.not_required_if(*current_occupation_responses,
+                             field='current_occupation', field_required='money_earned')
 
     @property
     def is_from_prev_study(self):
