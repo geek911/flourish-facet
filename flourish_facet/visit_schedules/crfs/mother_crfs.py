@@ -17,4 +17,6 @@ mother_crfs = FormsCollection(
     Crf(show_order=13, model='flourish_facet.facetcaregiverphqpostreferral'),
     Crf(show_order=14, model='flourish_facet.facetcaregiverphqreferral'),
     Crf(show_order=15, model='flourish_facet.facetcaregiverphqreferralfu'),
+    Crf(show_order=16, model='flourish_facet.facetrelationshipfatherinvolvement'),
+
     name='facet_enrollment')
