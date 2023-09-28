@@ -7,7 +7,7 @@ from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(ChildNeurodevelopmentScreening, site=flourish_facet_admin)
-class ChildNeurodevelopmentScreeningAdmin(CrfModelAdminMixin):
+class ChildNeurodevelopmentScreeningAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     form = ChildNeurodevelopmentScreeningForm
 
     fieldsets = (

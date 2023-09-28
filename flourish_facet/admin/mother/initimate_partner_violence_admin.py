@@ -7,7 +7,7 @@ from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(IntimatePartnerViolence, site=flourish_facet_admin)
-class IntimatePartnerViolenceAdmin(CrfModelAdminMixin):
+class IntimatePartnerViolenceAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     form = IntimatePartnerViolenceForm
     fieldsets = (
         (None, {
