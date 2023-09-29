@@ -58,7 +58,6 @@ POS_NEG_IND = (
     (POS, 'Positive'),
     (NEG, 'Negative'),
     (IND, 'Indeterminate'),
-    (NOT_APPLICABLE, 'Not applicable')
 )
 
 AGE_BREASTFEEDING_ENDED = (
@@ -215,4 +214,15 @@ FACET_STAFF = [
     ('sam', 'Sam'),
     ('gosego', 'Gosego'),
     ('martha', 'Martha'),
+]
+
+OFTEN_DONE = [
+    ('never', 'Never'),
+    ('very_rarely', 'Very Rarely'),
+    ('less_half_time', 'Less than half the time'),
+    ('about_half_time', 'About half the time'),
+    ('more_half_time', 'More than half the time'),
+    ('almost_always', 'Almost always'),
+    ('always', 'Always'),
+    (NOT_APPLICABLE, 'NA(Does not apply)'),
 ]

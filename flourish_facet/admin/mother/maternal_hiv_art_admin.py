@@ -7,7 +7,7 @@ from ..modeladmin_mixins import CrfModelAdminMixin
 
 
 @admin.register(MaternalHivArt, site=flourish_facet_admin)
-class MaternalHivArtAdmin(CrfModelAdminMixin):
+class MaternalHivArtAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     form = MaternalHivArtForm
 
     fieldsets = (
