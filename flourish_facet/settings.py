@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'edc_visit_schedule.apps.AppConfig',
     'edc_action_item.apps.AppConfig',
     'edc_lab.apps.AppConfig',
+    'edc_data_manager.apps.AppConfig',
     'edc_senaite_interface.apps.AppConfig',
     'flourish_caregiver.apps.AppConfig',
     'flourish_prn.apps.AppConfig',
@@ -129,7 +130,7 @@ WSGI_APPLICATION = 'flourish_facet.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': ':memory:',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
