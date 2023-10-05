@@ -45,4 +45,4 @@ class DepressionScreeningEdinBurghAdmin(CrfModelAdminMixin, admin.ModelAdmin):
         fields = super().get_readonly_fields(request, obj)
         return ('depression_score', ) + fields
 
-    additional_instructions = "Over the last 2 weeks, How often have you been bothered by the following problems?"
+    additional_instructions = "please select the answer that comes closest to how you have felt in the last 7 days"
