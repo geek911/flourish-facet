@@ -39,3 +39,5 @@ class AnxietyScreeningGad7Admin(CrfModelAdminMixin, admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
         return ('anxiety_score', ) + fields
+
+    additional_instructions = "Over the last 2 weeks, How often have you been bothered by the following problems?"

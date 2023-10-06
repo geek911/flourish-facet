@@ -44,3 +44,5 @@ class DepressionScreeningEdinBurghAdmin(CrfModelAdminMixin, admin.ModelAdmin):
     def get_readonly_fields(self, request, obj=None):
         fields = super().get_readonly_fields(request, obj)
         return ('depression_score', ) + fields
+
+    additional_instructions = "please select the answer that comes closest to how you have felt in the last 7 days"
