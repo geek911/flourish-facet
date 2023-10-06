@@ -5,6 +5,8 @@ from django.db import transaction
 from edc_visit_schedule import site_visit_schedules
 from edc_base.utils import age, get_utcnow
 from edc_constants.constants import POS
+from flourish_child.helper_classes.utils import stamp_image
+from .clinicial_notes import FacetClinicianNotesImage
 from .mother import FacetConsent
 from .child import MotherChildConsent
 from .child import ChildHivTesting
@@ -106,3 +108,10 @@ def facet_mother_off_schedule_on_post_save(sender, instance, raw, created, **kwa
             schedule.take_off_schedule(
                 subject_identifier=subject_identifier,
                 offschedule_datetime=instance.report_datetime)
+
+
+@receiver(post_save, weak=False, sender=FacetClinicianNotesImage,
+          dispatch_uid='facet_clinician_notes_image_on_post_save')
+def facet_clinician_notes_image_on_post_save(sender, instance, raw, created, **kwargs):
+    if not raw and created:
+        stamp_image(instance)
