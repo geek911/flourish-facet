@@ -29,6 +29,5 @@ mother_crfs = FormsCollection(
         required=False),
     Crf(show_order=17, model='flourish_facet.intimatepartnerviolencereferral',
         required=False),
-
-
+    Crf(show_order=18, model='flourish_facet.facetcliniciannotes'),
     name='facet_enrollment')
