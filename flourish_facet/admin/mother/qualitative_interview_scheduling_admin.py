@@ -15,6 +15,7 @@ class QualitativeInterviewSchedulingAdmin(ModelAdminMixin, admin.ModelAdmin):
         (None, {
             'fields': [
                 'subject_identifier',
+                'report_datetime',
                 'qualitative_type',
                 'google_sheet_calendar',
                 'facet_consent_form',
@@ -25,6 +26,5 @@ class QualitativeInterviewSchedulingAdmin(ModelAdminMixin, admin.ModelAdmin):
     radio_fields = {
         'qualitative_type': admin.VERTICAL,
         'google_sheet_calendar': admin.VERTICAL,
-        'facet_consent_form': admin.VERTICAL,
         'complete': admin.VERTICAL,
     }

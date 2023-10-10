@@ -35,6 +35,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     infant_dashboard_include_value = 'flourish_facet/mother/dashboard/dashboard_links.html'
     infant_subject_dashboard_url = 'facet_child_dashboard_url'
     child_consent_model = 'flourish_facet.motherchildconsent'
+    special_forms_include_value = 'flourish_facet/mother/dashboard/special_forms.html'
 
     @property
     def consent_cls(self):

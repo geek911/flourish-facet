@@ -4,9 +4,23 @@ from edc_base.model_mixins import BaseUuidModel
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 from ...choices import COMPLETE_UNVERIFIED, QUALITATIVE_TYPE
 from edc_constants.choices import YES_NO
+from edc_base.utils import get_utcnow
+from edc_base.model_validators import datetime_not_future
+from edc_protocol.validators import datetime_not_before_study_start
+from django.core.validators import FileExtensionValidator
 
 
-class QualitativeInterviewScheduling(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin, BaseUuidModel):
+class QualitativeInterviewScheduling(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
+                                     BaseUuidModel):
+
+    report_datetime = models.DateTimeField(
+        verbose_name="Report Date",
+        validators=[
+            datetime_not_before_study_start,
+            datetime_not_future],
+        default=get_utcnow,
+        help_text=('If reporting today, use today\'s date/time, otherwise use '
+                   'the date/time this information was reported.'))
 
     qualitative_type = models.CharField(
         verbose_name='You indicated this participant is participating in a qualitative interview. Is the participant participating in a focus group discussion or an in-depth interview?',
@@ -23,12 +37,10 @@ class QualitativeInterviewScheduling(NonUniqueSubjectIdentifierFieldMixin, SiteM
                    ' Add in the scheduled date in the Google Sheet calendar'),
     )
 
-    facet_consent_form = models.CharField(
-        verbose_name=(
-            'Confirm this consent form has been added scanned and saved in the FACET Dropbox'),
-        choices=YES_NO,
-        max_length=5,
-    )
+    facet_consent_form = models.FileField(
+        upload_to='facet_interview/consents/',
+        validators=[FileExtensionValidator(['pdf', 'doc', 'docx'])])
+
     complete = models.CharField(
         verbose_name='Complete?',
         choices=COMPLETE_UNVERIFIED,
