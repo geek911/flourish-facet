@@ -50,7 +50,7 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
 
-        dates_before = (get_utcnow() - relativedelta(months=6)
+        dates_before = (get_utcnow() - relativedelta(months=6, days=10)
                         ).date().isoformat()
 
         today = get_utcnow().date().isoformat()
