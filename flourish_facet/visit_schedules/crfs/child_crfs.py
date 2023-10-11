@@ -7,4 +7,5 @@ child_crfs = FormsCollection(
     Crf(show_order=4, model='flourish_facet.childneurodevelopmentscreening'),
     Crf(show_order=5, model='flourish_facet.infantbehaviourquestionnaire'),
     Crf(show_order=6, model='flourish_facet.facetcliniciannotes'),
+    Crf(show_order=7, model='flourish_facet.facetchildmedicalhistory'),
     name='facet_enrollment')

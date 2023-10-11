@@ -11,3 +11,7 @@ class PartnerReaction(ListModelMixin, BaseUuidModel):
 
 class ExpenseContributors(ListModelMixin, BaseUuidModel):
     pass
+
+
+class ChronicConditions(ListModelMixin, BaseUuidModel):
+    pass
