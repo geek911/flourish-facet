@@ -1,6 +1,7 @@
 from django.db import models
 from ..model_mixins import CrfModelMixin
 from ...choices import OCCURENCES_MORE
+from edc_constants.choices import YES_NO_NA
 
 
 class IntimatePartnerViolence(CrfModelMixin):
@@ -25,6 +26,12 @@ class IntimatePartnerViolence(CrfModelMixin):
         verbose_name='How often does your partner scream or curse at you?',
         choices=OCCURENCES_MORE,
         max_length=20,
+    )
+
+    referral = models.CharField(
+        verbose_name='Do you need a referral?',
+        choices=YES_NO_NA,
+        max_length=5,
     )
 
     class Meta:
