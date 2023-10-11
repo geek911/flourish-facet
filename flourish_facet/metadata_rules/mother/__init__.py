@@ -4,3 +4,4 @@ from .facet_gad_7_referral_rules import FacetGAD7ReferralRuleGroup
 from .facet_gad_7_screening_rules import FacetGAD7AnxietyScreeningRuleGroup
 from .facet_phq_9_referral_rules import FacetPHQ9ReferralRuleGroup
 from .facet_phq_9_screening_rules import FacetPHQ9DeprScreeningRuleGroup
+from .intimate_partner_violence_referral_rules import IntimatePartnerViolenceReferralRuleGroup

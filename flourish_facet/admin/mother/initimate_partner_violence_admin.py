@@ -18,6 +18,7 @@ class IntimatePartnerViolenceAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'insult_talk',
                 'threaten',
                 'scream_curse',
+                'referral',
             )
         }), audit_fieldset_tuple
     )
@@ -27,4 +28,5 @@ class IntimatePartnerViolenceAdmin(CrfModelAdminMixin, admin.ModelAdmin):
         'insult_talk': admin.VERTICAL,
         'threaten': admin.VERTICAL,
         'scream_curse': admin.VERTICAL,
+        'referral': admin.VERTICAL,
     }
