@@ -4,7 +4,9 @@ from edc_protocol.validators import datetime_not_before_study_start
 from edc_base.utils import get_utcnow
 from flourish_facet.choices import COMPLETE_UNVERIFIED, LOCATION_INTERVIEW, LANGUAGES_BOTH
 from edc_base.model_fields import OtherCharField
-from edc_constants.choices import YES_NO_NA, YES_NO
+from edc_constants.choices import YES_NO_NA
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import FileExtensionValidator
 from edc_base.sites import SiteModelMixin
 from edc_base.model_mixins import BaseUuidModel
 from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
@@ -13,7 +15,7 @@ from edc_identifier.model_mixins import NonUniqueSubjectIdentifierFieldMixin
 class QualitativeInterviewAudioUploads(NonUniqueSubjectIdentifierFieldMixin,
                                        SiteModelMixin, BaseUuidModel):
 
-    interview_datetime = models.DateTimeField(
+    report_datetime = models.DateTimeField(
         verbose_name='Interview Date and Time',
         validators=[
             datetime_not_before_study_start,
@@ -29,9 +31,9 @@ class QualitativeInterviewAudioUploads(NonUniqueSubjectIdentifierFieldMixin,
 
     location_other = OtherCharField()
 
-    interview_duration = models.CharField(
+    interview_duration = models.PositiveIntegerField(
         verbose_name="Duration of interview",
-        max_length=10,
+        validators=[MinValueValidator(10), MaxValueValidator(1440)],
         help_text='Minutes')
 
     interview_language = models.CharField(
@@ -39,24 +41,15 @@ class QualitativeInterviewAudioUploads(NonUniqueSubjectIdentifierFieldMixin,
         choices=LANGUAGES_BOTH,
         max_length=15,
     )
-    audio_file = models.CharField(
-        verbose_name='Has the audio file been uploaded to Dropbox?',
-        choices=YES_NO,
-        max_length=3,
-    )
-    notes = models.CharField(
-        verbose_name=(
-            'If you took notes on the note-taking form,'
-            ' please confirm that all notes have been uploaded to Dropbox'),
-        choices=YES_NO_NA,
-        max_length=15,
-    )
+    audio_file = models.FileField(
+        upload_to='facet_interview/audios',
+        validators=[FileExtensionValidator(['mp3'])],
+        max_length=254,
+        null=True)
 
-    complete = models.CharField(
-        verbose_name='Complete?',
-        choices=COMPLETE_UNVERIFIED,
-        max_length=15
-    )
+    notes = models.FileField(
+        upload_to='facet_interview/notes/',
+        validators=[FileExtensionValidator(['pdf', 'doc', 'docx'])])
 
     class Meta:
         app_label = 'flourish_facet'

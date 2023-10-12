@@ -15,22 +15,15 @@ class QualitativeInterviewTranscriptionAndTranslationAdmin(ModelAdminMixin, admi
         (None, {
             'fields': [
                 'subject_identifier',
+                'report_datetime',
                 'transcription_date',
                 'transcription_upload',
                 'facet_member_transcription',
                 'transcription_duration',
-                'translation_date',
-                'translation_upload',
-                'facet_member_translation',
-                'complete',
             ]}
          ), audit_fieldset_tuple)
 
     radio_fields = {
-        'transcription_upload': admin.VERTICAL,
         'facet_member_transcription': admin.VERTICAL,
         'transcription_duration': admin.VERTICAL,
-        'translation_upload': admin.VERTICAL,
-        'facet_member_translation': admin.VERTICAL,
-        'complete': admin.VERTICAL,
     }

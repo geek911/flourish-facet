@@ -15,21 +15,17 @@ class QualitativeInterviewAudioUploadsAdmin(ModelAdminMixin, admin.ModelAdmin):
         (None, {
             'fields': [
                 'subject_identifier',
-                'interview_datetime',
+                'report_datetime',
                 'location',
                 'location_other',
                 'interview_duration',
                 'interview_language',
                 'audio_file',
                 'notes',
-                'complete',
             ]}
          ), audit_fieldset_tuple)
 
     radio_fields = {
         'location': admin.VERTICAL,
         'interview_language': admin.VERTICAL,
-        'audio_file': admin.VERTICAL,
-        'notes': admin.VERTICAL,
-        'complete': admin.VERTICAL,
     }

@@ -33,3 +33,33 @@ def listboard_button(title, href, exists):
         href=href,
         title=title,
         exists=exists)
+
+
+@register.inclusion_tag('flourish_facet/buttons/qualitative_scheduling_button.html')
+def qualitative_scheduling_button(model_wrapper):
+    title = ['Qualitative Interview Scheduling']
+    return dict(
+        add_qualitative_scheduling_href=model_wrapper.qualitative_interview_scheduling.href,
+        subject_identifier=model_wrapper.object.subject_identifier,
+        qualitative_interview_scheduling_model_obj=model_wrapper.qualitative_interview_scheduling_model_obj,
+        title=' '.join(title),)
+
+
+@register.inclusion_tag('flourish_facet/buttons/qualitative_audio_upload_button.html')
+def qualitative_audio_button(model_wrapper):
+    title = ['Qualitative Interview Audio Upload']
+    return dict(
+        add_qualitative_audio_upload_href=model_wrapper.qualitative_interview_audio_upload.href,
+        subject_identifier=model_wrapper.object.subject_identifier,
+        qualitative_interview_audio_upload_model_obj=model_wrapper.qualitative_interview_audio_upload_model_obj,
+        title=' '.join(title),)
+
+
+@register.inclusion_tag('flourish_facet/buttons/qualitative_transcription_translation_button.html')
+def qualitative_translation_transcription_button(model_wrapper):
+    title = ['Qualitative Interview T & T']
+    return dict(
+        add_qualitative_transcription_translation_href=model_wrapper.qualitative_interview_transcription_translation.href,
+        subject_identifier=model_wrapper.object.subject_identifier,
+        qualitative_interview_transcription_translation_model_obj=model_wrapper.qualitative_interview_transcription_translation_model_obj,
+        title=' '.join(title),)

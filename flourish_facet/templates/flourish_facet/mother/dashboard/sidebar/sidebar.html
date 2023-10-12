@@ -1,0 +1,135 @@
+ 
+<div class="panel-group" id="accordion">
+
+
+    {% if open_action_items %}
+    <div class="panel panel-default">
+          {% block action_items %}{% endblock action_items %}           
+    </div>
+    {% endif %}
+ 
+ 	{% if mother_infant_study %}
+ 	
+ 		{% if infant_links %}
+	 	<div class="panel panel-default">
+	      <div class="panel-heading">
+	          <h6 class="panel-title">
+	              <a id="infant-dashboard-panel-title" data-toggle="collapse" data-parent="#accordion" href="#infant-dashboard-panel">Infant Dashboard Links <span class="caret"></span></a>
+	          </h6>
+	      </div>
+	      <div id="infant-dashboard-panel" class="panel-collapse collapse in">
+	          {% block infant_dashboard %}{% endblock infant_dashboard %}           
+	      </div>           
+	    </div>
+	    {% endif %}
+	    
+	    {% if maternal_links %}
+	    <div class="panel panel-default">
+	      <div class="panel-heading">
+	          <h6 class="panel-title">
+	              <a id="maternal-dashboard-panel-title" data-toggle="collapse" data-parent="#accordion" href="#maternal-dashboard-panel">Maternal Dashboard Links <span class="caret"></span></a>
+	          </h6>
+	      </div>
+	      <div id="maternal-dashboard-panel" class="panel-collapse collapse in">
+	          {% block maternal_dashboard %}{% endblock maternal_dashboard %}           
+	      </div>           
+	    </div>
+	    {% endif %}
+   {% endif %}
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <i class="{% if gender == 'M' %}fa fa-male{% else %}fa fa-female{% endif %} fa-lg fa-fw"></i>
+              <a id="demographics-panel-title" data-toggle="collapse" data-parent="#accordion" href="#demographics-panel">{{ subject_identifier }} <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="demographics-panel" class="panel-collapse collapse in">
+          {% block demographics %}{% endblock demographics %}           
+      </div>           
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <a id="prn-forms-panel-title" data-toggle="collapse" data-parent="#accordion" href="#prn-forms-panel">PRN Forms <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="prn-forms-panel" class="panel-collapse collapse collapse">
+          {% block prn_forms %}{% endblock prn_forms %}           
+      </div>           
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <a id="prn-lists-panel-title" data-toggle="collapse" data-parent="#accordion" href="#prn-lists-panel">PRN Lists <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="prn-lists-panel" class="panel-collapse collapse">
+          {% block prn_lists %}{% endblock prn_lists %}           
+      </div>           
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h6 class="panel-title">
+                <a id="interview-forms-panel-title" data-toggle="collapse" data-parent="#accordion" href="#interview-forms-panel">Interview Forms <span class="caret"></span></a>
+            </h6>
+        </div>
+        <div id="interview-forms-panel" class="panel-collapse collapse collapse">
+            {% block interview_forms %}{% endblock interview_forms %}           
+        </div>           
+      </div>
+   
+   	<div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <a id="special-forms-panel-title" data-toggle="collapse" data-parent="#accordion" href="#special-forms-panel">Special Forms <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="special-forms-panel" class="panel-collapse collapse collapse">
+         {% block special_forms %}{% endblock special_forms %}
+      </div> 
+	</div>
+
+	<div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <a id="odk-archives-panel-title" data-toggle="collapse" data-parent="#accordion" href="#odk-archives-panel">ODK Archives <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="odk-archives-panel" class="panel-collapse collapse collapse">
+         {% block odk_archive_forms %}{% endblock odk_archive_forms %}
+      </div> 
+	</div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <i class="far fa-handshake fa-lg fa-fw"></i> 
+              <a id="consents-panel-title" data-toggle="collapse" data-parent="#accordion" href="#consents-panel">Consents <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="consents-panel" class="panel-collapse collapse collapse">
+         {% block consents %}{% endblock consents %}
+      </div>           
+    </div>
+
+   <div class="panel panel-default">
+      <div class="panel-heading">
+          <h6 class="panel-title">
+              <a id="data-manager-panel-title" data-toggle="collapse" data-parent="#accordion" href="#data-manager-panel">Data Manager <span class="caret"></span></a>
+          </h6>
+      </div>
+      <div id="data-manager-panel" class="panel-collapse collapse in">
+         {% block data_action_items %}{% endblock data_action_items %}
+      </div>           
+    </div>
+
+    
+    
+   
+
+</div>
+
+
