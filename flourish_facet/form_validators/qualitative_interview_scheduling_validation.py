@@ -19,7 +19,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         complete = cleaned_data.get('complete')
 
         if google_sheet_calendar == YES and complete == 'incomplete':
-            raise ValidationError("You’ve indicated that the participant has been added to the"
+            raise ValidationError("You’ve indicated that the participant has been added to the "
                                   "Google sheet calendar.Please save the form as complete.")
 
     def validate_google_calendar_sheet_unverified(self, cleaned_data=None):
@@ -27,7 +27,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         complete = cleaned_data.get('complete')
 
         if google_sheet_calendar == YES and complete == 'unverified':
-            raise ValidationError("You’ve indicated that the participant has been added to the"
+            raise ValidationError("You’ve indicated that the participant has been added to the "
                                   "Google sheet calendar.Please save the form as complete.")
 
     def validate_google_calendar_sheet_incomplete(self, cleaned_data=None):
@@ -35,7 +35,7 @@ class QualitativeInterviewSchedulingFormValidator(FormValidator):
         complete = cleaned_data.get('complete')
 
         if google_sheet_calendar == NO and complete == 'complete':
-            raise ValidationError("You’ve indicated that the participant has not been added to the"
-                                  "Google sheet calendar. Please save the form as incomplete"
+            raise ValidationError("You’ve indicated that the participant has not been added to the "
+                                  "Google sheet calendar. Please save the form as incomplete "
                                   "Once the participant is added to the Google Sheet calendar,"
                                   "return to this form and save the form as “complete")
