@@ -1,4 +1,5 @@
 import re
+from django.db.models import F, Max, IntegerField
 from edc_base.utils import get_utcnow
 from dateutil.relativedelta import relativedelta
 from django.db.models import ExpressionWrapper
@@ -65,4 +66,5 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
 
         return queryset.filter(subject_identifier__in=subject_identifiers,
                                subject_identifier__startswith='B',
-                               future_contact=YES)
+                               future_contact=YES).annotate(
+                                   child_dob=Max('caregiverchildconsent__child_dob'),).order_by('child_dob')
