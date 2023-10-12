@@ -6,7 +6,7 @@ from ..models import Appointment
 
 
 class FacetAppointmentForm(SiteModelFormMixin, FormValidatorMixin, 
-                           AppointmentFormValidator, forms.ModelForm):
+                           AppointmentFormValidator,forms.ModelForm):
 
     class Meta:
         model = Appointment
