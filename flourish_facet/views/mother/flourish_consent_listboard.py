@@ -11,15 +11,17 @@ from edc_dashboard.views import ListboardView
 from edc_navbar import NavbarViewMixin
 from edc_constants.constants import YES
 from ...model_wrappers import FlourishConsentModelWrapper
+from .filter import FlourishConsentListboardViewFilters
 
 
-class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
-                                   ListboardView):
+class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchFormViewMixin,
+                                   ListboardFilterViewMixin, ListboardView):
 
     listboard_template = 'facet_flourish_consent_template'
     listboard_url = 'facet_flourish_consent_listboard_url'
     listboard_panel_style = 'success'
     listboard_fa_icon = "far fa-user-circle"
+    search_form_url = 'facet_flourish_consent_listboard_url'
 
     model = 'flourish_caregiver.subjectconsent'
     model_wrapper_cls = FlourishConsentModelWrapper
@@ -28,6 +30,8 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
     child_hiv_rapid_test_model = 'flourish_child.childhivrapidtestcounseling'
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
+
+    listboard_view_filters = FlourishConsentListboardViewFilters()
 
     @property
     def antenatal_enrollment_cls(self):
@@ -43,9 +47,7 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
 
     def get_queryset_filter_options(self, request, *args, **kwargs):
         options = super().get_queryset_filter_options(request, *args, **kwargs)
-        if kwargs.get('subject_identifier'):
-            options.update(
-                {'subject_identifier': kwargs.get('subject_identifier')})
+
         return options
 
     def get_queryset(self, *args, **kwargs):
