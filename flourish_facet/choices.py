@@ -152,6 +152,7 @@ OCCURENCES_MORE = [
     ('sometimes', 'Sometimes'),
     ('fairly_often', 'Fairly often'),
     ('frequently', 'Frequently'),
+    (NOT_APPLICABLE, 'Not applicable'),
 ]
 
 REASON_CHILD_NOT_TESTED = [
