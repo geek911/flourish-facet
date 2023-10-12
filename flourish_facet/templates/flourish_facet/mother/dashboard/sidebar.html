@@ -1,4 +1,4 @@
-{% extends 'edc_subject_dashboard/dashboard/sidebar/sidebar.html' %}
+{% extends 'flourish_facet/mother/dashboard/sidebar/sidebar.html' %}
 
 {% load tz %}
 {% load edc_base_extras %}
@@ -53,16 +53,16 @@
 
 {% endblock prn_lists %}
 
+{% block interview_forms %}
+        {% include 'flourish_facet/mother/dashboard/interview_forms.html' %}
+{% endblock interview_forms %}  
+
 
 {% block consents %}
 
     {% include 'edc_subject_dashboard/dashboard/sidebar/consents.html' %}
 
 {% endblock consents %}
-
-{% block special_forms %}
-		{% include special_forms_include_value %}
-{% endblock special_forms %}
 
 {% block odk_archive_forms %}
 	{% if odk_archive_forms_include_value %}
