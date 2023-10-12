@@ -12,7 +12,7 @@ list_data = {
          'Believe that medication may not be effective'),
         ('lost_medication', 'Lost medication'),
         ('medication_stock_outs', 'Medication stocks outs'),
-        ('other_specify', 'Other, Specify'),
+        (OTHER, 'Other, Specify'),
     ],
 
     'flourish_facet.partnerreaction': [
