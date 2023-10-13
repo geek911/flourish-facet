@@ -4,13 +4,13 @@ from edc_odk.admin import ODKActionMixin
 
 from ..admin_site import flourish_facet_admin
 from ..forms import FacetClinicianNotesForm, FacetClinicianNotesImageForm
-from ..models import FacetClinicianNotesImage, FacetClinicianNotes
+from ..models import ClinicianNotesImage, FacetClinicianNotes
 from .modeladmin_mixins import CrfModelAdminMixin
   
 
 class ClinicianNotesImageInline(TabularInlineMixin, admin.TabularInline):
 
-    model = FacetClinicianNotesImage
+    model = ClinicianNotesImage
     form = FacetClinicianNotesImageForm
     extra = 0
 

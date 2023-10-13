@@ -1,6 +1,6 @@
 from .mother import *
 from .child import *
-from .clinicial_notes import FacetClinicianNotes, FacetClinicianNotesImage
+from .clinicial_notes import FacetClinicianNotes, ClinicianNotesImage
 from .appointment import Appointment
 from .facet_visit import FacetVisit
 from .model_mixins import CrfModelMixin

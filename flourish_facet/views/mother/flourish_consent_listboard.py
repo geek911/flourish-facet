@@ -1,4 +1,5 @@
 import re
+from django.db.models import F, Max, IntegerField
 from edc_base.utils import get_utcnow
 from dateutil.relativedelta import relativedelta
 from django.db.models import ExpressionWrapper
@@ -10,15 +11,17 @@ from edc_dashboard.views import ListboardView
 from edc_navbar import NavbarViewMixin
 from edc_constants.constants import YES
 from ...model_wrappers import FlourishConsentModelWrapper
+from .filter import FlourishConsentListboardViewFilters
 
 
-class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
+class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchFormViewMixin,
                                    ListboardView):
 
     listboard_template = 'facet_flourish_consent_template'
     listboard_url = 'facet_flourish_consent_listboard_url'
     listboard_panel_style = 'success'
     listboard_fa_icon = "far fa-user-circle"
+    search_form_url = 'facet_flourish_consent_listboard_url'
 
     model = 'flourish_caregiver.subjectconsent'
     model_wrapper_cls = FlourishConsentModelWrapper
@@ -40,13 +43,6 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
     def child_hiv_rapid_test_cls(self):
         return django_apps.get_model(self.child_hiv_rapid_test_model)
 
-    def get_queryset_filter_options(self, request, *args, **kwargs):
-        options = super().get_queryset_filter_options(request, *args, **kwargs)
-        if kwargs.get('subject_identifier'):
-            options.update(
-                {'subject_identifier': kwargs.get('subject_identifier')})
-        return options
-
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
 
@@ -65,4 +61,5 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
 
         return queryset.filter(subject_identifier__in=subject_identifiers,
                                subject_identifier__startswith='B',
-                               future_contact=YES)
+                               future_contact=YES).annotate(
+                                   child_dob=Max('caregiverchildconsent__child_dob'),).order_by('child_dob')
