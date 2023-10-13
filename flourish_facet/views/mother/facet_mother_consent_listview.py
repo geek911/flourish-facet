@@ -9,7 +9,6 @@ from ...model_wrappers import FacetConsentModelWrapper
 class FacetMotherConsentListboardView(EdcBaseViewMixin,
                                       NavbarViewMixin,
                                       ListboardFilterViewMixin,
-                                      SearchFormViewMixin,
                                       ListboardView):
     
 
