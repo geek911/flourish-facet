@@ -17,7 +17,7 @@ class FacetClinicianNotes(VerificationFieldsMixin, CrfModelMixin):
         verbose_name_plural = 'Clinician Notes'
 
 
-class FacetClinicianNotesImage(BaseUuidModel):
+class ClinicianNotesImage(BaseUuidModel):
     clinician_notes = models.ForeignKey(
         FacetClinicianNotes,
         on_delete=models.PROTECT,

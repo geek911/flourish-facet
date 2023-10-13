@@ -2,7 +2,7 @@ from django import forms
 from edc_base.sites import SiteModelFormMixin
 from edc_form_validators import FormValidatorMixin
 from .form_mixins import SubjectModelFormMixin
-from ..models import FacetClinicianNotes, FacetClinicianNotesImage
+from ..models import FacetClinicianNotes, ClinicianNotesImage
 
 
 class FacetClinicianNotesForm(SubjectModelFormMixin,):
@@ -13,6 +13,6 @@ class FacetClinicianNotesForm(SubjectModelFormMixin,):
 
 class FacetClinicianNotesImageForm(forms.ModelForm):
     class Meta:
-        model = FacetClinicianNotesImage
+        model = ClinicianNotesImage
         fields = '__all__'
 
