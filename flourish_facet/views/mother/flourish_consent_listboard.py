@@ -15,7 +15,7 @@ from .filter import FlourishConsentListboardViewFilters
 
 
 class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchFormViewMixin,
-                                   ListboardFilterViewMixin, ListboardView):
+                                   ListboardView):
 
     listboard_template = 'facet_flourish_consent_template'
     listboard_url = 'facet_flourish_consent_listboard_url'
@@ -31,8 +31,6 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
     child_hiv_rapid_test_model = 'flourish_child.childhivrapidtestcounseling'
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
 
-    listboard_view_filters = FlourishConsentListboardViewFilters()
-
     @property
     def antenatal_enrollment_cls(self):
         return django_apps.get_model(self.antenatal_enrollment_model)
@@ -44,11 +42,6 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
     @property
     def child_hiv_rapid_test_cls(self):
         return django_apps.get_model(self.child_hiv_rapid_test_model)
-
-    def get_queryset_filter_options(self, request, *args, **kwargs):
-        options = super().get_queryset_filter_options(request, *args, **kwargs)
-
-        return options
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
