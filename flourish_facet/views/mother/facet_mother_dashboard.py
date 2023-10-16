@@ -31,6 +31,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     visit_attr = 'facetvisit'
     infant_links = True
     mother_infant_study = True
+    subject_locator_model = 'flourish_caregiver.caregiverlocator'
     maternal_links = False
     infant_dashboard_include_value = 'flourish_facet/mother/dashboard/dashboard_links.html'
     infant_subject_dashboard_url = 'facet_child_dashboard_url'
@@ -102,7 +103,8 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
         context.update(
             visit_schedules=visit_schedules,
             mother_infant_study=self.mother_infant_study,
-            hiv_status=self.hiv_status
+            hiv_status=self.hiv_status,
+            locator_obj  = self.locator_obj
         )
         return context
 
@@ -137,3 +139,14 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             subject_identifier=subject_identifier)
 
         return status_helper.hiv_status
+    
+    @property
+    def locator_obj(self):
+
+        subject_identifier = self.kwargs.get('subject_identifier')
+        try:
+            obj = self.subject_locator_model_cls.objects.get(
+                subject_identifier=subject_identifier)
+        except ObjectDoesNotExist:
+            return None
+        return obj
