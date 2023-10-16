@@ -1,0 +1,59 @@
+{% extends "edc_dashboard/listboard.html" %}
+{% load edc_base_extras %}
+{% load flourish_facet_extras %}
+
+
+
+{% block listboard_table_header %}
+
+<th>#</th>
+<th>Flourish Consents</th>
+
+<th>Subject Identifier</th>
+<th>Child Age (Months)</th>
+<th>User Created</th>
+<th>Date Screened</th>
+<th>Date Consented</th>
+{% endblock listboard_table_header %}
+
+
+{% block listboard_table_button_column %}
+
+<td style="white-space: nowrap">
+    <div class="btn-group">
+        {% listboard_button "FACET Screening" result.facet_screening_wrapper.href result.facet_screening_obj %}
+        {% if result.facet_screening_obj %}
+        {% listboard_button "FACET Consent" result.facet_consent_wrapper.href result.facet_consent_obj %}
+        {% if result.facet_consent_obj %}
+        <a id="btn-subject-dashboard-{{result.subject_identifier}}" class="btn btn-primary btn-sm" role="button"
+        title="Go to subject's dashboard" href="{% url facet_mother_dashboard_url result.subject_identifier %}">
+        <i class="far fa-user-circle fa-sm"></i> Dashboard <i class="fa fa-share"></i></a>
+        {% endif %}
+        {% endif %}
+    </div>
+</td>
+{% endblock %}
+
+
+{% block listboard_table_columns %}
+
+
+<td>{{ result.subject_identifier }}</td>
+<td style="text-align: center;">{{ result.facet_child_age }}</td>
+<td>{{ result.user_created }}</td>
+
+{% if result.facet_screening_obj %}
+<td>{{ result.facet_screening_obj.report_datetime|date:"SHORT_DATETIME_FORMAT" }}</td>
+{% else %}
+<td></td>
+{%  endif %}
+
+{% if result.facet_consent_obj %}
+<td>{{ result.facet_consent_obj.consent_datetime|date:"SHORT_DATETIME_FORMAT" }}</td>
+{% else %}
+<td></td>
+{% endif %}
+
+
+
+{% endblock listboard_table_columns %}

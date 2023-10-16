@@ -1,0 +1,96 @@
+{% extends 'flourish_facet/mother/dashboard/sidebar/sidebar.html' %}
+
+{% load tz %}
+{% load edc_base_extras %}
+{% load edc_prn_extras %}
+{% load action_item_extras %}
+
+{% block demographics %}   
+	
+<div class="list-group">
+    <a class="list-group-item"><i class="fa fa-birthday-cake fa-fw"></i>
+    {{ dob|date:"SHORT_DATE_FORMAT" }}
+    {% age_in_years dob %} yrs
+    </a>
+    <a class="list-group-item"><i class="far fa-address-card fa-fw"></i>
+    {{ identity|default:'?? identity' }} <span data-toggle="tooltip" data-placement="right" title="{{ firstname }} {{ lastname }}" class="text text-default">{{ initials }}<sup><i class="fa fa-asterisk fa-fw"></i></sup></span>
+    </a>
+
+    <a class="list-group-item"> STATUS :  {{ hiv_status }}</a>
+</div>
+
+{% endblock demographics %}
+
+{% block infant_dashboard %}
+	{% if infant_dashboard_include_value %}
+		{% include infant_dashboard_include_value %}
+	{% endif %}
+{% endblock infant_dashboard %}
+
+{% block maternal_dashboard %}
+	{% if maternal_dashboard_include_value %}
+		{% include maternal_dashboard_include_value %}
+	{% endif %}
+{% endblock maternal_dashboard %}
+
+{% block prn_forms %}   
+
+	<div class="list-group list-group-default">
+
+    {% add_action_item_popover subject_identifier subject_dashboard_url %}
+    
+    {% if appointment %}
+    	{% add_prn_crf_popover appointment.object subject_dashboard_url %}
+    	{% add_prn_requisition_popover appointment.object subject_dashboard_url %}
+    {% endif %}
+    
+	</div>
+{% endblock prn_forms %}
+
+{% block prn_lists %}   
+
+    {% prn_list_items subject_identifier %}
+
+{% endblock prn_lists %}
+
+{% block interview_forms %}
+        {% include 'flourish_facet/mother/dashboard/interview_forms.html' %}
+{% endblock interview_forms %}  
+
+
+{% block consents %}
+
+    {% include 'edc_subject_dashboard/dashboard/sidebar/consents.html' %}
+
+{% endblock consents %}
+
+{% block odk_archive_forms %}
+	{% if odk_archive_forms_include_value %}
+		{% include odk_archive_forms_include_value %}
+	{% endif %}
+{% endblock odk_archive_forms %}
+
+{% block action_items %}   
+
+	{% if open_action_items %}
+	    
+	    <div class="list-group list-group-default">
+	    	
+	        {% for action_item in open_action_items %}
+
+	            {% action_item_with_popover action_item forloop.counter %}
+
+	       {% endfor %}
+	    </div>
+
+	{% endif %}
+
+{% endblock action_items %}
+
+{% block data_action_items %}
+
+	{% if data_action_item_template %}
+	    {% include data_action_item_template %}
+	{% endif %}
+
+{% endblock data_action_items %}
