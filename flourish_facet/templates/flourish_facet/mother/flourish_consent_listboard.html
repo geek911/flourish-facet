@@ -40,7 +40,13 @@
 
 <td>{{ result.subject_identifier }}</td>
 <td style="text-align: center;">{{ result.facet_child_age }}</td>
-<td>{{ result.user_created }}</td>
+
+
+{% if result.facet_screening_obj %}
+    <td>{{ result.facet_screening_obj.user_created}}</td>
+{% else %}
+    <td></td>
+{%  endif %}
 
 {% if result.facet_screening_obj %}
 <td>{{ result.facet_screening_obj.report_datetime|date:"SHORT_DATETIME_FORMAT" }}</td>
