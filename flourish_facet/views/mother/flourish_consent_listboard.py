@@ -65,9 +65,11 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
             subject_consent__subject_identifier__in=anc_subject_identifiers
         ).values_list('subject_consent__subject_identifier', flat=True)
 
-        screening_subject_identifiers = self.facet_screening_cls.objects.values_list('subject_identifier',
+        # cater for chilren already screened and aged out
+        screened_subject_identifiers = self.facet_screening_cls.objects.values_list('subject_identifier',
                                                                                      flat=True)
-
+        # union to remove duplicated subject identifiers + join pid of children who qualify and
+        # those already screened regarless if they age out
         subject_identifiers = set(consent_subject_identifiers) | set(
             screening_subject_identifiers)
 
