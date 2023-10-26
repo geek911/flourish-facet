@@ -27,9 +27,11 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
     model_wrapper_cls = FlourishConsentModelWrapper
     navbar_name = 'flourish_facet'
     navbar_selected_item = 'flourish_consent_listboard'
+
     flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
     child_hiv_rapid_test_model = 'flourish_child.childhivrapidtestcounseling'
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
+    facet_screening_model = 'flourish_facet.facetsubjectscreening'
 
     @property
     def antenatal_enrollment_cls(self):
@@ -38,6 +40,10 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
     @property
     def flourish_child_consent_cls(self):
         return django_apps.get_model(self.flourish_child_consent_model)
+
+    @property
+    def facet_screening_cls(self):
+        return django_apps.get_model(self.facet_screening_model)
 
     @property
     def child_hiv_rapid_test_cls(self):
@@ -54,10 +60,18 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
         anc_subject_identifiers = self.antenatal_enrollment_cls.objects.values_list('subject_identifier',
                                                                                     flat=True)
 
-        subject_identifiers = self.flourish_child_consent_cls.objects.filter(
+        consent_subject_identifiers = self.flourish_child_consent_cls.objects.filter(
             child_dob__range=[dates_before, today],
             subject_consent__subject_identifier__in=anc_subject_identifiers
         ).values_list('subject_consent__subject_identifier', flat=True)
+
+        # cater for chilren already screened and aged out
+        screened_subject_identifiers = self.facet_screening_cls.objects.values_list('subject_identifier',
+                                                                                     flat=True)
+        # union to remove duplicated subject identifiers + join pid of children who qualify and
+        # those already screened regarless if they age out
+        subject_identifiers = set(consent_subject_identifiers) | set(
+            screened_subject_identifiers)
 
         return queryset.filter(subject_identifier__in=subject_identifiers,
                                subject_identifier__startswith='B',
