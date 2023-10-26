@@ -71,7 +71,7 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
         # union to remove duplicated subject identifiers + join pid of children who qualify and
         # those already screened regarless if they age out
         subject_identifiers = set(consent_subject_identifiers) | set(
-            screening_subject_identifiers)
+            screened_subject_identifiers)
 
         return queryset.filter(subject_identifier__in=subject_identifiers,
                                subject_identifier__startswith='B',
