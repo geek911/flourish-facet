@@ -17,7 +17,6 @@ class FocusGroupIdentifier(BaseSubjectIdentifier):
         the IdentifierModel.
         """
         if not self._identifier:
-            breakpoint()
             self._identifier = self.template.format(**self.template_opts)
             check_digit = self.checkdigit.calculate_checkdigit(
                 ''.join(self._identifier.split('-')))
