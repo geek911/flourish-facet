@@ -22,13 +22,28 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
     model_wrapper_cls = FlourishConsentModelWrapper
     navbar_name = 'flourish_facet'
     navbar_selected_item = 'flourish_consent_listboard'
+
+    flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
     child_hiv_rapid_test_model = 'flourish_child.childhivrapidtestcounseling'
+    antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
+    facet_screening_model = 'flourish_facet.facetsubjectscreening'
+
+    @property
+    def antenatal_enrollment_cls(self):
+        return django_apps.get_model(self.antenatal_enrollment_model)
+
+    @property
+    def flourish_child_consent_cls(self):
+        return django_apps.get_model(self.flourish_child_consent_model)
+
+    @property
+    def facet_screening_cls(self):
+        return django_apps.get_model(self.facet_screening_model)
 
     @property
     def child_hiv_rapid_test_cls(self):
         return django_apps.get_model(self.child_hiv_rapid_test_model)
 
     def get_queryset(self, *args, **kwargs):
-
         queryset = super().get_queryset(*args, **kwargs)
         return self.eligible_participants(queryset)
