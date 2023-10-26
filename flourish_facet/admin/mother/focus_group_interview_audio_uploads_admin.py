@@ -1,10 +1,4 @@
-from typing import Any
 from django.contrib import admin
-from django.db.models.fields.related import ManyToManyField, RelatedField
-from django.db.models.query import QuerySet
-from django.forms.models import ModelMultipleChoiceField
-from django.http.request import HttpRequest
-from flourish_facet.models.list_models import FgfSubjectIdentifiers
 from flourish_facet.models.mother.facet_consent import FacetConsent
 from ...models import FocusGroupInterviewAudioUploads
 from ...admin_site import flourish_facet_admin
@@ -12,7 +6,6 @@ from ...forms import FocusGroupInterviewAudioUploadsForm
 from edc_model_admin import audit_fieldset_tuple
 from ..modeladmin_mixins import ModelAdminMixin
 from edc_list_data import PreloadData
-from django.db.models import Q
 
 
 @admin.register(FocusGroupInterviewAudioUploads, site=flourish_facet_admin)
