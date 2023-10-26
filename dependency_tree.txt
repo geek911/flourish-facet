@@ -1,0 +1,192 @@
+argon2-cffi==23.1.0
+  argon2-cffi-bindings==21.2.0
+    cffi==1.15.1
+      pycparser==2.21
+django-crypto-fields @ git+https://github.com/botswana-harvard/django-crypto-fields.git@f975c27f7ea69ca274976a3868c34f2d8983d550
+  pycrypto
+django-q==1.3.9
+  arrow==1.2.3
+    python-dateutil==2.8.2
+      six==1.16.0
+  blessed==1.20.0
+    six==1.16.0
+    wcwidth==0.2.6
+  Django==3.1.14
+    asgiref==3.7.2
+    pytz==2023.3
+    sqlparse==0.4.4
+  django-picklefield==3.1
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  redis==3.5.3
+django-revision @ git+https://github.com/botswana-harvard/django-revision.git@38e3c9f8c07de4977fdd8f73166562253a9ac281
+  GitPython==3.1.32
+    gitdb==4.0.10
+      smmap==5.0.0
+edc-action-item @ git+https://github.com/botswana-harvard/edc-action-item.git@022e2a98a76a8c0f506733e8e196667331e77a5b
+edc-appointment @ git+https://github.com/botswana-harvard/edc-appointment.git@5c8a64f53b54db7a057a296c769d4e69f3400a3b
+edc-base @ git+https://github.com/botswana-harvard/edc-base.git@08a64f9aa1a17809f8c3bcc6e1ccdb247cdd9880
+  arrow==1.2.3
+    python-dateutil==2.8.2
+      six==1.16.0
+  Django==3.1.14
+    asgiref==3.7.2
+    pytz==2023.3
+    sqlparse==0.4.4
+  Django==3.1.14
+    asgiref==3.7.2
+    pytz==2023.3
+    sqlparse==0.4.4
+  django-debug-toolbar==4.2.0
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+    sqlparse==0.4.4
+  django-extensions==3.2.1
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  django-js-reverse==0.10.2
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+    packaging==23.1
+  django-logentry-admin==1.1.0
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  django-simple-history==3.3.0
+  docutils==0.20.1
+  Faker==19.3.0
+    python-dateutil==2.8.2
+      six==1.16.0
+  model-mommy==2.0.0
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  PyMySQL==1.1.0
+  python-dateutil==2.8.2
+    six==1.16.0
+  python-memcached==1.59
+    six==1.16.0
+  pytz==2023.3
+  tqdm==4.66.1
+edc-calendar @ git+https://github.com/botswana-harvard/edc-calendar.git@612d892114d769db17b5e030def5d44e11221edc
+  arrow==1.2.3
+    python-dateutil==2.8.2
+      six==1.16.0
+  Django==3.1.14
+    asgiref==3.7.2
+    pytz==2023.3
+    sqlparse==0.4.4
+  Django==3.1.14
+    asgiref==3.7.2
+    pytz==2023.3
+    sqlparse==0.4.4
+  django-debug-toolbar==4.2.0
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+    sqlparse==0.4.4
+  django-extensions==3.2.1
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  django-js-reverse==0.10.2
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+    packaging==23.1
+  django-logentry-admin==1.1.0
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  django-simple-history==3.3.0
+  docutils==0.20.1
+  Faker==19.3.0
+    python-dateutil==2.8.2
+      six==1.16.0
+  model-mommy==2.0.0
+    Django==3.1.14
+      asgiref==3.7.2
+      pytz==2023.3
+      sqlparse==0.4.4
+  PyMySQL==1.1.0
+  python-dateutil==2.8.2
+    six==1.16.0
+  python-memcached==1.59
+    six==1.16.0
+  pytz==2023.3
+  tqdm==4.66.1
+edc-consent @ git+https://github.com/botswana-harvard/edc-consent.git@90b71fd80bc9191268d32215b0d20230eb845ddd
+  toolz==0.12.0
+edc-constants @ git+https://github.com/botswana-harvard/edc-constants.git@70b03cc3c135f242de543123b3c7c9dfce284e67
+edc-dashboard @ git+https://github.com/botswana-harvard/edc-dashboard.git@907705228b05bf399256140686eb9c78fd54d54d
+edc-data-manager @ git+https://github.com/botswana-harvard/edc-data-manager.git@693f50abc60a987cce985355c7718f44d757870d
+edc-device @ git+https://github.com/botswana-harvard/edc-device.git@867751966a4449ffd17719aad11bba6be2a52800
+  django-ipware==5.0.0
+edc-facility @ git+https://github.com/botswana-harvard/edc-facility.git@3cd82c74b28ec22d16c4d627eff1aaf311af4287
+edc-fieldsets @ git+https://github.com/botswana-harvard/edc-fieldsets.git@a11157ca78f69fe5c074f18f3073a849e0d2c82d
+edc-form-validators @ git+https://github.com/botswana-harvard/edc-form-validators.git@17e6eaf4cbef1b80ec76721f905a9d76a66d9fe9
+edc-identifier @ git+https://github.com/botswana-harvard/edc-identifier.git@c849cdb598d87082ab2008d7855bd1710e7023de
+edc-lab @ git+https://github.com/botswana-harvard/edc-lab.git@6cfecbc2032d00b4cb4cfd27a2550d3d0dd7524d
+edc-label @ git+https://github.com/botswana-harvard/edc-label.git@8fe927071ac87507f5d85603cef6c4bbd8a508f9
+  pycups==2.0.1
+edc-list-data @ git+https://github.com/botswana-harvard/edc-list-data.git@cbe44107164e98027ec385319fa05bef811ea55d
+edc-locator @ git+https://github.com/botswana-harvard/edc-locator.git@607caa33dbd1ae445a45bc387a0ce1421bddd414
+edc-metadata @ git+https://github.com/botswana-harvard/edc-metadata.git@cc0cf2e47d7ba5d074423a49c910682e33503318
+edc-metadata-rules @ git+https://github.com/botswana-harvard/edc-metadata-rules.git@aaf50edb81fa3d201b471d93e154ecdd1cf5dd69
+edc-model-admin @ git+https://github.com/botswana-harvard/edc-model-admin.git@18da70d85b1bf921fa50f48d432bb4b8ab2523b4
+edc-model-wrapper @ git+https://github.com/botswana-harvard/edc-model-wrapper.git@814b9f85feceed246e378425ab6add8bba3b655f
+edc-navbar @ git+https://github.com/botswana-harvard/edc-navbar.git@a9171d06ed42d97461f9f8c66ca1b1630b38cdba
+edc-odk @ git+https://github.com/botswana-harvard/edc-odk.git@3b0300c9ad8a2895dabfc34fd81c3ef326770600
+edc-prn @ git+https://github.com/botswana-harvard/edc-prn.git@ff7d32cdfafc4ee225602931860c38c268148ae3
+edc-protocol @ git+https://github.com/botswana-harvard/edc-protocol.git@eb9bce9c4e832543c9171d1fabacd25b5db25f90
+  pytz==2023.3
+edc-reference @ git+https://github.com/botswana-harvard/edc-reference.git@cf77d5877476342830366e91a3fe6cfd4758945e
+edc-registration @ git+https://github.com/botswana-harvard/edc-registration.git@3c44c67996e21d1c79c41b54befb44d6deba67ac
+edc-search @ git+https://github.com/botswana-harvard/edc-search.git@9d60b5b606b903245fad0004e432279df52da776
+edc-senaite-interface @ git+https://github.com/botswana-harvard/edc-senaite-interface.git@17a553991de4c141205ac6ad54d618653f23cd4b
+edc-sms @ git+https://github.com/botswana-harvard/edc-sms.git@488e609263bbccbeaa85da7a3adf49132304d323
+edc-subject-dashboard @ git+https://github.com/botswana-harvard/edc-subject-dashboard.git@3cda71c99d567e9d2ff56bdc7e7df229cfa9a908
+edc-timepoint @ git+https://github.com/botswana-harvard/edc-timepoint.git@2231996b42606a422ef4763c3ab388cddf38abbe
+edc-visit-schedule @ git+https://github.com/botswana-harvard/edc-visit-schedule.git@71588bc1e9f1e5218ab524940b11c4ec406fee9f
+edc-visit-tracking @ git+https://github.com/botswana-harvard/edc-visit-tracking.git@61f7ccd1ce3f4b078a389b844029ef1263469ec2
+-e git+https://github.com/Keba462/flourish-caregiver.git@7f4ecd9ac2636402f99ac61a18262fd66befefad#egg=flourish_caregiver
+flourish-child @ git+https://github.com/flourishbhp/flourish-child.git@e71cc3353fa4eacbe196ba1aa79c36a34b1d1093
+flourish-child-validations @ git+https://github.com/flourishbhp/flourish-child-validations.git@745e5b582de6998c81ff15857910f1802d383912
+flourish-form-validations @ git+https://github.com/flourishbhp/flourish-form-validations.git@c5267b7bda093575be0650929c8844e90099e1ee
+flourish-prn @ git+https://github.com/flourishbhp/flourish-prn.git@e2ce7b1b4203894eafdba869b32ac28f3d969006
+img2pdf==0.4.4
+  pikepdf==8.4.1
+    deprecation==2.1.0
+      packaging==23.1
+    lxml==4.9.3
+    packaging==23.1
+    Pillow==10.0.1
+  Pillow==10.0.1
+pip==23.2.1
+pipdeptree==2.13.0
+pre-flourish @ git+https://github.com/flourishbhp/pre-flourish.git@a123817450ffa432d2b4bcbe871c4fa64e631500
+pycryptodome==3.18.0
+pyminizip==0.2.6
+pypdfium2==3.8.0
+requests==2.31.0
+  certifi==2023.7.22
+  charset-normalizer==3.2.0
+  idna==3.4
+  urllib3==2.0.4
+setuptools==68.0.0
+wheel==0.38.4
+xlwt==1.3.0
