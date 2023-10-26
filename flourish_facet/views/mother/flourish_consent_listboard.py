@@ -1,21 +1,16 @@
-import re
-from django.db.models import F, Max, IntegerField
-from edc_base.utils import get_utcnow
-from dateutil.relativedelta import relativedelta
-from django.db.models import ExpressionWrapper
+
 from django.apps import apps as django_apps
 from django.db.models import Q
 from edc_base.view_mixins import EdcBaseViewMixin
-from edc_dashboard.view_mixins import ListboardFilterViewMixin, SearchFormViewMixin
+from edc_dashboard.view_mixins import SearchFormViewMixin
 from edc_dashboard.views import ListboardView
 from edc_navbar import NavbarViewMixin
-from edc_constants.constants import YES
+from flourish_facet.views.eligible_facet_participants_mixin import EligibleFacetParticipantsMixin
 from ...model_wrappers import FlourishConsentModelWrapper
-from .filter import FlourishConsentListboardViewFilters
 
 
 class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchFormViewMixin,
-                                   ListboardView):
+                                   ListboardView, EligibleFacetParticipantsMixin):
 
     listboard_template = 'facet_flourish_consent_template'
     listboard_url = 'facet_flourish_consent_listboard_url'
@@ -51,29 +46,4 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
-
-        dates_before = (get_utcnow() - relativedelta(months=6, days=10)
-                        ).date().isoformat()
-
-        today = get_utcnow().date().isoformat()
-
-        anc_subject_identifiers = self.antenatal_enrollment_cls.objects.values_list('subject_identifier',
-                                                                                    flat=True)
-
-        consent_subject_identifiers = self.flourish_child_consent_cls.objects.filter(
-            child_dob__range=[dates_before, today],
-            subject_consent__subject_identifier__in=anc_subject_identifiers
-        ).values_list('subject_consent__subject_identifier', flat=True)
-
-        # cater for chilren already screened and aged out
-        screened_subject_identifiers = self.facet_screening_cls.objects.values_list('subject_identifier',
-                                                                                     flat=True)
-        # union to remove duplicated subject identifiers + join pid of children who qualify and
-        # those already screened regarless if they age out
-        subject_identifiers = set(consent_subject_identifiers) | set(
-            screened_subject_identifiers)
-
-        return queryset.filter(subject_identifier__in=subject_identifiers,
-                               subject_identifier__startswith='B',
-                               future_contact=YES).annotate(
-                                   child_dob=Max('caregiverchildconsent__child_dob'),).order_by('child_dob')
+        return self.eligible_participants(queryset)
