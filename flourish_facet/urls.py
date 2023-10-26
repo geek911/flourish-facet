@@ -34,7 +34,7 @@ from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
-from .views import AdministrationView
+from .views import AdministrationView, HomeView
 from .patterns import subject_identifier
 from .admin_site import flourish_facet_admin
 
@@ -57,6 +57,8 @@ urlpatterns = [
 
     path('administration/', AdministrationView.as_view(),
          name='administration_url'),
+    path('home/', HomeView.as_view(), name='home_url'),
+    path('', HomeView.as_view(), name='home_url'),
 
 ]
 
