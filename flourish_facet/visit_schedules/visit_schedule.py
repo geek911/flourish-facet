@@ -13,7 +13,7 @@ mother_visit_schedule = VisitSchedule(
     verbose_name='Mother FACET Schedule',
     death_report_model='flourish_facet.facetdeathreport',
     offstudy_model='flourish_facet.facetmotheroffschedule',
-    locator_model='flourish_caregiver.caregiverlocator'
+    locator_model=''
 )
 
 mother_visit_schedule.add_schedule(mother_schedule)

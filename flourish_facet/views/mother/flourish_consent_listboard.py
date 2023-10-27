@@ -14,7 +14,9 @@ from ...model_wrappers import FlourishConsentModelWrapper
 from .filter import FlourishConsentListboardViewFilters
 
 
-class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchFormViewMixin,
+class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin,
+                                   ListboardFilterViewMixin,
+                                   SearchFormViewMixin,
                                    ListboardView):
 
     listboard_template = 'facet_flourish_consent_template'
@@ -42,6 +44,12 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
     @property
     def child_hiv_rapid_test_cls(self):
         return django_apps.get_model(self.child_hiv_rapid_test_model)
+    def get_queryset_filter_options(self, request, *args, **kwargs):
+        options = super().get_queryset_filter_options(request, *args, **kwargs)
+        if kwargs.get('subject_identifier'):
+            options.update(
+                {'subject_identifier': kwargs.get('subject_identifier')})
+        return options
 
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
@@ -59,7 +67,17 @@ class FlourishConsentListboardView(EdcBaseViewMixin, NavbarViewMixin, SearchForm
             subject_consent__subject_identifier__in=anc_subject_identifiers
         ).values_list('subject_consent__subject_identifier', flat=True)
 
-        return queryset.filter(subject_identifier__in=subject_identifiers,
+        consent_ids = []
+
+        for subject_identifier in subject_identifiers:
+
+            consent = self.model_cls.objects.filter(
+                subject_identifier = subject_identifier
+            ).latest('version')
+
+            consent_ids.append(consent.id)
+
+        return queryset.filter(id__in=consent_ids,
                                subject_identifier__startswith='B',
                                future_contact=YES).annotate(
                                    child_dob=Max('caregiverchildconsent__child_dob'),).order_by('child_dob')
