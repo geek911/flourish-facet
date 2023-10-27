@@ -7,6 +7,7 @@ from edc_constants.constants import MALE
 from edc_dashboard.views import DashboardView as BaseDashboardView
 from edc_navbar import NavbarViewMixin
 from edc_subject_dashboard.view_mixins import SubjectDashboardViewMixin
+from ...models import OnScheduleFacetMother
 from ...model_wrappers import (
     MotherAppointmentModelWrapper, MotherVisitModelWrapper,
     FacetConsentModelWrapper, LocatorModelWrapper, FacetMotherCrfModelWrapper)
@@ -104,7 +105,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             visit_schedules=visit_schedules,
             mother_infant_study=self.mother_infant_study,
             hiv_status=self.hiv_status,
-            locator_obj  = self.locator_obj
+            locator_obj=self.locator_obj
         )
         return context
 
@@ -122,7 +123,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
 
     def get_onschedule_model_obj(self, schedule):
         try:
-            return schedule.onschedule_model_cls.objects.get(
+            return OnScheduleFacetMother.objects.get(
                 subject_identifier=self.subject_identifier)
         except ObjectDoesNotExist:
             return None
@@ -139,7 +140,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             subject_identifier=subject_identifier)
 
         return status_helper.hiv_status
-    
+
     @property
     def locator_obj(self):
 
