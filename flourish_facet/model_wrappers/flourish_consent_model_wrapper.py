@@ -1,4 +1,3 @@
-
 from dateutil.relativedelta import relativedelta
 from edc_base import get_utcnow
 from django.apps import apps as django_apps
@@ -7,6 +6,7 @@ from django.forms import model_to_dict
 from edc_model_wrapper import ModelWrapper
 from .facet_screening_model_wrapper import FacetScreeningModelWrapper
 from .facet_consent_model_wrapper import FacetConsentModelWrapper
+from .facet_mother_locator_model_wrapper import LocatorModelWrapper
 from ..models import FacetSubjectScreening, FacetConsent
 from ..utils import age_in_months
 
@@ -15,10 +15,16 @@ class FlourishConsentModelWrapper(ModelWrapper):
     model = 'flourish_caregiver.subjectconsent'
     next_url_name = settings.DASHBOARD_URL_NAMES.get(
         'facet_flourish_consent_listboard_url')
-    next_url_attrs = ['subject_identifier',]
+    next_url_attrs = ['subject_identifier', ]
     facet_screening_model = 'flourish_facet.facetsubjectscreening'
     facet_consent_model = 'flourish_facet.facetconsent'
     flourish_consent_model = 'flourish_caregiver.subjectconsent'
+
+    subject_locator_model = 'flourish_caregiver.caregiverlocator'
+
+    @property
+    def subject_locator_cls(self):
+        return django_apps.get_model(self.subject_locator_model)
 
     @property
     def flourish_consent_cls(self):
@@ -94,6 +100,24 @@ class FlourishConsentModelWrapper(ModelWrapper):
         return ', '.join(ages)
 
     @property
+    def locator_obj(self):
+        try:
+            obj = self.subject_locator_cls.objects.get(
+                subject_identifier=self.flourish_consent_obj.subject_identifier)
+        except self.subject_locator_cls.DoesNotExist:
+            return None
+        return obj
+
+    @property
+    def locator_wrapper(self):
+
+        locator_obj = self.locator_obj or self.subject_locator_cls(
+            subject_identifier=self.flourish_consent_obj.subject_identifier
+        )
+
+        return LocatorModelWrapper(model_obj=locator_obj)
+
+    @property
     def facet_consent_wrapper(self):
 
         target_fields = ['subject_identifier',
@@ -112,7 +136,7 @@ class FlourishConsentModelWrapper(ModelWrapper):
                          'identity_type',
                          'confirm_identity',
                          'consent_to_participate',
-                         'child_consent',]
+                         'child_consent', ]
 
         flourish_consent_dict = model_to_dict(instance=self.flourish_consent_obj,
                                               fields=target_fields)
