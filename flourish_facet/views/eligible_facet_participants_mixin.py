@@ -10,9 +10,11 @@ class EligibleFacetParticipantsMixin:
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
     flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
 
+    @property
     def antenatal_enrollment_cls(self):
         return django_apps.get_model(self.antenatal_enrollment_model)
 
+    @property
     def flourish_child_consent_cls(self):
         return django_apps.get_model(self.flourish_child_consent_model)
 
@@ -22,10 +24,10 @@ class EligibleFacetParticipantsMixin:
 
         today = get_utcnow().date().isoformat()
 
-        anc_subject_identifiers = self.antenatal_enrollment_cls().objects.values_list('subject_identifier',
-                                                                                      flat=True)
+        anc_subject_identifiers = self.antenatal_enrollment_cls.objects.values_list('subject_identifier',
+                                                                                    flat=True)
 
-        subject_identifiers = self.flourish_child_consent_cls().objects.filter(
+        subject_identifiers = self.flourish_child_consent_cls.objects.filter(
             child_dob__range=[dates_before, today],
             subject_consent__subject_identifier__in=anc_subject_identifiers
         ).values_list('subject_consent__subject_identifier', flat=True)

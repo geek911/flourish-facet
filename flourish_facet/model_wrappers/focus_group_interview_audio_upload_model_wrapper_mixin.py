@@ -1,12 +1,10 @@
 from django.apps import apps as django_apps
 from django.core.exceptions import ObjectDoesNotExist
 
-from .focus_group_interview_audio_upload_model_wrapper import FocusGroupInterviewAudioUploadModelWrapper
-
 
 class FocusGroupInterviewAudioUploadModelWrapperMixin:
 
-    focus_group_interview_audio_upload_model_wrapper_cls = FocusGroupInterviewAudioUploadModelWrapper
+    focus_group_interview_audio_upload_model_wrapper_cls = None
 
     @property
     def focus_group_interview_audio_upload_model_obj(self):
