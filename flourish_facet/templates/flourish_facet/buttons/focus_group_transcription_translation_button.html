@@ -1,0 +1,11 @@
+<a id="focus_interview_transcription_and_translation_add_{{ group_identifier }}"
+   title="{{ title }}"
+   {% if focus_group_interview_transcription_translation_model_obj %}
+ 	   class="btn btn-success btn-sm"  href="{{ add_focus_group_transcription_translation_href }}" data-toggle="tooltip" data-placement="right">
+        {% else %}
+        class="btn btn-warning btn-sm" data-toggle="tooltip"  data-placement="right"
+        href="{{ add_focus_group_transcription_translation_href }}" >
+        {% endif %} 
+        {{ title }}
+</a>
+

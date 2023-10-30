@@ -14,7 +14,7 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
     facet_consent_model = 'flourish_facet.facetconsent'
     flourish_consent_model = 'flourish_caregiver.subjectconsent'
     facet_screening_model = 'flourish_facet.facetsubjectscreening'
-    # focus_group_model = 'flourish_facet.focusgroupinterviewaudiouploads'
+    focus_group_model = 'flourish_facet.focusgroupinterviewaudiouploads'
     facet_appointment_model = 'flourish_facet.Appointment'
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
     flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
@@ -35,15 +35,15 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
     def facet_appointment_cls(self):
         return django_apps.get_model(self.facet_appointment_model)
 
-    """@property
+    @property
     def facet_focus_group_cls(self):
-        return django_apps.get_model(self.focus_group_model)"""
+        return django_apps.get_model(self.focus_group_model)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         facet_screenig = self.facet_subject_screening_cls.objects.all()
         facet_consent = self.facet_consent_cls.objects.all()
-        # focus_group = self.facet_focus_group_cls.objects.all()
+        focus_group = self.facet_focus_group_cls.objects.all()
         facet_appointment = self.facet_appointment_cls.objects.filter(
             appt_status='done')
         flourish_consents = self.flourish_consent_cls.objects.all()
@@ -53,13 +53,13 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
 
         screened_subjects = facet_screenig.count()
         consented_subjects = facet_consent.count()
-        # facet_focus_groups = focus_group.count()
+        facet_focus_groups = focus_group.count()
         facet_appointments = facet_appointment.count()
 
         context.update(
             consented_subjects=consented_subjects,
             screened_subjects=screened_subjects,
-            # facet_focus_groups=facet_focus_groups,
+            facet_focus_groups=facet_focus_groups,
             facet_appointments=facet_appointments,
             eligible_subjects=eligible_subjects)
 
