@@ -9,6 +9,12 @@ class EligibleFacetParticipantsMixin:
     child_hiv_rapid_test_model = 'flourish_child.childhivrapidtestcounseling'
     antenatal_enrollment_model = 'flourish_caregiver.antenatalenrollment'
     facet_screening_model = 'flourish_facet.facetsubjectscreening'
+    facet_consent_model = 'flourish_facet.facetconsent'
+    subject_consent_model = 'flourish_caregiver.subjectconsent'
+
+    @property
+    def subject_consent_cls(self):
+        return django_apps.get_model(self.subject_consent_model)
 
     @property
     def antenatal_enrollment_cls(self):
@@ -21,6 +27,10 @@ class EligibleFacetParticipantsMixin:
     @property
     def facet_screening_cls(self):
         return django_apps.get_model(self.facet_screening_model)
+
+    @property
+    def facet_consent_cls(self):
+        return django_apps.get_model(self.facet_consent_model)
 
     @property
     def child_hiv_rapid_test_cls(self):
@@ -40,12 +50,15 @@ class EligibleFacetParticipantsMixin:
             subject_consent__subject_identifier__in=anc_subject_identifiers
         ).values_list('subject_consent__subject_identifier', flat=True)
 
-        screened_ids = self.facet_screening_cls.objects.values_list('id', flat=True)
+        facet_screened_identifiers = self.facet_consent_cls.objects.values_list(
+            'subject_identifier', flat=True)
 
-        consent_ids = [*screened_ids, ]
+        subject_identifiers = set([*subject_identifiers,*facet_screened_identifiers])
+
+        consent_ids = []
 
         for subject_identifier in subject_identifiers:
-            consent = self.model_cls.objects.filter(
+            consent = self.subject_consent_cls.objects.filter(
                 subject_identifier=subject_identifier
             ).latest('version')
 
