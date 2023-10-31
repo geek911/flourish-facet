@@ -15,3 +15,7 @@ class ExpenseContributors(ListModelMixin, BaseUuidModel):
 
 class ChronicConditions(ListModelMixin, BaseUuidModel):
     pass
+
+
+class FgfSubjectIdentifiers(ListModelMixin, BaseUuidModel):
+    pass
