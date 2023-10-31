@@ -15,7 +15,7 @@ from edc_model_admin import (
     FormAsJSONModelAdminMixin, ModelAdminRedirectOnDeleteMixin)
 from edc_visit_tracking.modeladmin_mixins import (
     CrfModelAdminMixin as VisitTrackingCrfModelAdminMixin)
-from ..models import Appointment
+from .exportaction_mixin import ExportActionMixin
 
 
 class ModelAdminMixin(ModelAdminNextUrlRedirectMixin,
@@ -24,7 +24,7 @@ class ModelAdminMixin(ModelAdminNextUrlRedirectMixin,
                       ModelAdminAuditFieldsMixin, ModelAdminReadOnlyMixin,
                       ModelAdminInstitutionMixin,
                       ModelAdminRedirectOnDeleteMixin,
-                      ModelAdminSiteMixin):
+                      ModelAdminSiteMixin, ExportActionMixin):
     list_per_page = 10
     date_hierarchy = 'modified'
     empty_value_display = '-'
