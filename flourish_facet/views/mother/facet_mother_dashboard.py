@@ -1,18 +1,14 @@
-from edc_base.utils import get_utcnow, get_uuid
+from edc_base.utils import get_uuid
 from django.apps import apps as django_apps
-from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from edc_base.view_mixins import EdcBaseViewMixin
-from edc_constants.constants import MALE
 from edc_dashboard.views import DashboardView as BaseDashboardView
 from edc_navbar import NavbarViewMixin
 from edc_subject_dashboard.view_mixins import SubjectDashboardViewMixin
+from ...models import OnScheduleFacetMother
 from ...model_wrappers import (
     MotherAppointmentModelWrapper, MotherVisitModelWrapper,
     FacetConsentModelWrapper, LocatorModelWrapper, FacetMotherCrfModelWrapper)
-
-from flourish_facet.visit_schedules.schedules import mother_schedule
-from flourish_facet.visit_schedules.visit_schedule import mother_visit_schedule
 from flourish_caregiver.helper_classes import MaternalStatusHelper
 
 
@@ -37,6 +33,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
     infant_subject_dashboard_url = 'facet_child_dashboard_url'
     child_consent_model = 'flourish_facet.motherchildconsent'
     special_forms_include_value = 'flourish_facet/mother/dashboard/special_forms.html'
+
 
     @property
     def consent_cls(self):
@@ -104,7 +101,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             visit_schedules=visit_schedules,
             mother_infant_study=self.mother_infant_study,
             hiv_status=self.hiv_status,
-            locator_obj  = self.locator_obj
+            locator_obj=self.locator_obj
         )
         return context
 
@@ -122,7 +119,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
 
     def get_onschedule_model_obj(self, schedule):
         try:
-            return schedule.onschedule_model_cls.objects.get(
+            return OnScheduleFacetMother.objects.get(
                 subject_identifier=self.subject_identifier)
         except ObjectDoesNotExist:
             return None
@@ -139,7 +136,7 @@ class FacetMotherDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
             subject_identifier=subject_identifier)
 
         return status_helper.hiv_status
-    
+
     @property
     def locator_obj(self):
 

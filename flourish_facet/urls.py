@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from flourish_facet.views.interview_forms.listboard_view import GroupInterviewListBoardView
 from .admin_site import flourish_facet_admin
 from django.urls import path
 from django.apps import apps as django_apps
@@ -34,8 +35,8 @@ from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
-from .views import AdministrationView
-from .patterns import subject_identifier
+from .views import AdministrationView, HomeView
+from .patterns import subject_identifier, group_identifier
 from .admin_site import flourish_facet_admin
 
 app_name = 'flourish_facet'
@@ -57,6 +58,8 @@ urlpatterns = [
 
     path('administration/', AdministrationView.as_view(),
          name='administration_url'),
+    path('home/', HomeView.as_view(), name='home_url'),
+    path('', RedirectView.as_view(url='admin/'), name='admin_url'),
 
 ]
 
@@ -66,6 +69,13 @@ facet_mother_listboard_url_config = UrlConfig(
     label='facet_mother_listboard',
     identifier_label='subject_identifier',
     identifier_pattern=subject_identifier)
+
+group_interview_listboard_url_config = UrlConfig(
+    url_name='group_interview_listboard_url',
+    view_class=GroupInterviewListBoardView,
+    label='group_interview_listboard',
+    identifier_label='group_identifier',
+    identifier_pattern=group_identifier)
 
 flourish_consent_listboard_url_config = UrlConfig(
     url_name='facet_flourish_consent_listboard_url',
@@ -102,3 +112,4 @@ urlpatterns += flourish_consent_listboard_url_config.listboard_urls
 urlpatterns += facet_mother_dashboard_url_config.dashboard_urls
 urlpatterns += facet_child_listboard_url_config.listboard_urls
 urlpatterns += facet_child_dashboard_url_config.dashboard_urls
+urlpatterns += group_interview_listboard_url_config.listboard_urls

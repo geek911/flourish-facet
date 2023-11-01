@@ -63,3 +63,22 @@ def qualitative_translation_transcription_button(model_wrapper):
         subject_identifier=model_wrapper.object.subject_identifier,
         qualitative_interview_transcription_translation_model_obj=model_wrapper.qualitative_interview_transcription_translation_model_obj,
         title=' '.join(title),)
+
+
+@register.inclusion_tag('flourish_facet/buttons/edit_interview_button.html')
+def edit_interview_button(model_wrapper):
+    title = ['Edit Focus Group Interview form.']
+    return dict(
+        group_identifier=model_wrapper.object.group_identifier,
+        href=model_wrapper.href,
+        title=' '.join(title))
+
+
+@register.inclusion_tag('flourish_facet/buttons/focus_group_transcription_translation_button.html')
+def focus_group_translation_transcription_button(model_wrapper):
+    title = ['Focus Group Interview T & T']
+    return dict(
+        add_focus_group_transcription_translation_href=model_wrapper.focus_group_interview_transcription_translation.href,
+        group_identifier=model_wrapper.object.group_identifier,
+        focus_group_interview_transcription_translation_model_obj=model_wrapper.focus_group_interview_transcription_translation_model_obj,
+        title=' '.join(title),)
