@@ -49,4 +49,10 @@ flourish_facet.append_item(
             'group_interview_listboard_url'],
         no_url_namespace=no_url_namespace))
 
+flourish_facet.append_item(
+    NavbarItem(name='flourish_facet_admin',
+               label='Admin',
+               fa_icon='fa-cogs',
+               url_name='flourish_facet:admin_url'))
+
 site_navbars.register(flourish_facet)
