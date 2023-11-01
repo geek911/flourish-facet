@@ -1,9 +1,7 @@
-from edc_base.utils import get_utcnow, get_uuid
+from edc_base.utils import get_uuid
 from django.apps import apps as django_apps
-from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist
 from edc_base.view_mixins import EdcBaseViewMixin
-from edc_constants.constants import MALE
 from edc_dashboard.views import DashboardView as BaseDashboardView
 from edc_navbar import NavbarViewMixin
 from edc_subject_dashboard.view_mixins import SubjectDashboardViewMixin
@@ -11,9 +9,6 @@ from ...models import OnScheduleFacetMother
 from ...model_wrappers import (
     MotherAppointmentModelWrapper, MotherVisitModelWrapper,
     FacetConsentModelWrapper, LocatorModelWrapper, FacetMotherCrfModelWrapper)
-
-from flourish_facet.visit_schedules.schedules import mother_schedule
-from flourish_facet.visit_schedules.visit_schedule import mother_visit_schedule
 from flourish_caregiver.helper_classes import MaternalStatusHelper
 
 
