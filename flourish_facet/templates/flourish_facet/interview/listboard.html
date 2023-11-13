@@ -1,0 +1,39 @@
+{% extends "edc_dashboard/listboard.html" %}
+{% load edc_base_extras %}
+{% load flourish_facet_extras %}
+
+{% block listboard_panel %}
+    <a id="group_interview_audio_uploads_add" title="add focus_group_interview_audio_uploads " class="btn btn-sm btn-default" role="button"
+       href="{{ focus_group_audio_upload_add_url }}?next={{ group_interview_listboard_url }}">
+        <i class="fa fa-plus fa-sm"></i>Add Focus Group Interview Audio Upload
+    </a>
+{% endblock listboard_panel %}
+
+{% block listboard_table_header %}
+
+    <th>#</th>
+    <th></th>
+    <th>Group Identifier</th>
+    <th>User Created</th>
+    <th>Date Modified</th>
+{% endblock listboard_table_header %}
+
+
+{% block listboard_table_button_column %}
+<td style="white-space: nowrap;">
+    <div class="btn-group">
+        {% edit_interview_button result %}
+      {% if result.focus_group_interview_audio_upload_model_obj %}
+            {%  focus_group_translation_transcription_button result %}
+      {% endif %}
+    </div>
+  </td>
+{% endblock listboard_table_button_column %}
+
+{% block listboard_table_columns %}
+    <td>{{ result.group_identifier }}</td>
+    <td nowrap></td>
+    <td nowrap></td>
+    <td nowrap></td>
+
+{% endblock listboard_table_columns %}

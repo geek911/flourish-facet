@@ -2,9 +2,8 @@ from django.db import models
 from edc_base.model_validators import datetime_not_future
 from edc_protocol.validators import datetime_not_before_study_start
 from edc_base.utils import get_utcnow
-from flourish_facet.choices import COMPLETE_UNVERIFIED, LOCATION_INTERVIEW, LANGUAGES_BOTH
+from flourish_facet.choices import LOCATION_INTERVIEW, LANGUAGES_BOTH
 from edc_base.model_fields import OtherCharField
-from edc_constants.choices import YES_NO_NA
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.validators import FileExtensionValidator
 from edc_base.sites import SiteModelMixin
