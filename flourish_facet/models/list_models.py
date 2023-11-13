@@ -15,3 +15,11 @@ class ExpenseContributors(ListModelMixin, BaseUuidModel):
 
 class ChronicConditions(ListModelMixin, BaseUuidModel):
     pass
+
+
+class Medications(ListModelMixin, BaseUuidModel):
+    pass
+
+
+class GeneralSymptoms(ListModelMixin, BaseUuidModel):
+    pass
