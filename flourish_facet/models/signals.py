@@ -1,11 +1,9 @@
-
 from dateutil.relativedelta import relativedelta
 from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.db import transaction
 from django.apps import apps as django_apps
 from edc_visit_schedule import site_visit_schedules
-from edc_base.utils import age, get_utcnow
 from edc_constants.constants import POS
 from flourish_child.helper_classes.utils import stamp_image
 from .clinicial_notes import ClinicianNotesImage
@@ -14,11 +12,14 @@ from .child import MotherChildConsent
 from .child import ChildHivTesting
 from ..models import FacetChildOffSchedule, FacetMotherOffSchedule
 
+
 from ..action_items import FacetChildOffStudyAction
+
 from ..utils import trigger_action_item
 from ..action_items import (
     FACET_MOTHER_OFFSTUDY_ACTION, FACET_CHILD_OFFSTUDY_ACTION)
 from ..utils import get_facet_child_schedule, get_facet_mother_schedule
+from edc_data_manager.models import DataActionItem
 
 
 @receiver(post_save, weak=False, sender=FacetConsent,
@@ -84,6 +85,15 @@ def facet_child_consent_on_post_save(sender, instance, raw, created, **kwargs):
         child_schedule.put_on_schedule(
             subject_identifier=instance.subject_identifier,
             schedule_name='child_facet_schedule'
+        )
+
+        DataActionItem.objects.update_or_create(
+            subject='Complete CREDI FORM on REDCAP',
+            subject_identifier=instance.subject_identifier,
+            assigned='clinic',
+            comment='''\
+                    Flourish Facet has CREDI form ,please complete CREDI form on REDCAP
+                    '''
         )
 
 
