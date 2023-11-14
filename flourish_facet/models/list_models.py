@@ -17,5 +17,12 @@ class ChronicConditions(ListModelMixin, BaseUuidModel):
     pass
 
 
+class Medications(ListModelMixin, BaseUuidModel):
+    pass
+
+
+class GeneralSymptoms(ListModelMixin, BaseUuidModel):
+    pass
+
 class FgfSubjectIdentifiers(ListModelMixin, BaseUuidModel):
     pass
