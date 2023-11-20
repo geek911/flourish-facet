@@ -9,8 +9,10 @@
 <th>FACET Mother Consent</th>
 <th>Subject Identifier</th>
 <th>Age</th>
+<th>Consent Date</th>
 <th>User Created</th>
 <th>Date Modified</th>
+<th>Focus Group</th>
 {% endblock listboard_table_header %}
 
 
@@ -45,6 +47,11 @@
 <td>{{ result.object.consent_datetime|date:"SHORT_DATE_FORMAT" }}</td>
 <td>{{ result.user_created }}</td>
 <td>{{ result.object.modified|date:"SHORT_DATETIME_FORMAT" }}</td>
+<td>
+    {%if result.in_focus_group %}
+     <i class="fa fa-users fa-sm">
+         {% endif %}
+     </i></td>
 
 
 {% endblock listboard_table_columns %}
