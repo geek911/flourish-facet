@@ -25,7 +25,7 @@ class FacetSubjectScreeningValidator(FormValidator):
             other_specify_field='reasons_unwilling_part_other')
 
     def consent_exist_validations(self):
-        subject_identifier = self.cleaned_data.get('')
+        subject_identifier = self.cleaned_data.get('subject_identifier')
 
         consent_exists = self.flourish_consent_cls.objects.filter(
             subject_identifier=subject_identifier).exists()
