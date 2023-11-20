@@ -1,7 +1,8 @@
-
-from django.db.models.signals import post_save
+from dateutil.relativedelta import relativedelta
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
 from django.db import transaction
+from django.apps import apps as django_apps
 from edc_visit_schedule import site_visit_schedules
 from edc_constants.constants import POS
 from flourish_child.helper_classes.utils import stamp_image
@@ -10,8 +11,13 @@ from .mother import FacetConsent
 from .child import MotherChildConsent
 from .child import ChildHivTesting
 from ..models import FacetChildOffSchedule, FacetMotherOffSchedule
+
+
+from ..action_items import FacetChildOffStudyAction
+
 from ..utils import trigger_action_item
-from ..action_items import FACET_MOTHER_OFFSTUDY_ACTION, FACET_CHILD_OFFSTUDY_ACTION
+from ..action_items import (
+    FACET_MOTHER_OFFSTUDY_ACTION, FACET_CHILD_OFFSTUDY_ACTION)
 from ..utils import get_facet_child_schedule, get_facet_mother_schedule
 from edc_data_manager.models import DataActionItem
 
@@ -33,6 +39,34 @@ def facet_consent_on_post_save(sender, instance, raw, created, **kwargs):
             subject_identifier=instance.subject_identifier,
             schedule_name='mother_facet_schedule'
         )
+
+        for child_consent in instance.motherchildconsent_set.all():
+
+            participant_note_cls = django_apps.get_model(
+                'flourish_calendar.participantnote')
+
+            if child_consent.child_dob:
+
+                schedule_date = child_consent.child_dob + \
+                    relativedelta(months=6)
+
+                subject_identifier = instance.subject_identifier
+
+                try:
+                    participant_note_cls.objects.get(
+                        subject_identifier=subject_identifier,
+                        date=schedule_date
+                    )
+
+                except participant_note_cls.DoesNotExist:
+
+                    participant_note_cls.objects.create(
+                        subject_identifier=subject_identifier,
+                        date=schedule_date,
+                        title=f'FACET 6 Months follow up',
+                        description=f'{child_consent.subject_identifier} turned 6 months',
+                        color=None
+                    )
 
 
 @receiver(post_save, weak=False, sender=MotherChildConsent,

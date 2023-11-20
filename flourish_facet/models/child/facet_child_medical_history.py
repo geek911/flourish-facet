@@ -1,11 +1,11 @@
 from django.db import models
 from flourish_child.models.model_mixins import ChildMedicalHistoryMixin
 from ..model_mixins import CrfModelMixin
-from ..list_models import ChronicConditions
+from ..list_models import ChronicConditions, GeneralSymptoms, Medications
 
 
 class FacetChildMedicalHistory(CrfModelMixin,
-                          ChildMedicalHistoryMixin):
+                               ChildMedicalHistoryMixin):
     """A model completed by the user on Medical History for all children."""
 
     child_chronic = models.ManyToManyField(
@@ -13,6 +13,18 @@ class FacetChildMedicalHistory(CrfModelMixin,
         related_name='chronic_conditions',
         verbose_name=('Does the Child have any of the above. '
                       'Tick all that apply'),)
+
+    current_symptoms = models.ManyToManyField(
+        GeneralSymptoms,
+        verbose_name="What are your child's current symptoms",
+        blank=True,
+    )
+
+    current_medications = models.ManyToManyField(
+        Medications,
+        verbose_name='What medications does your child currently take',
+        blank=True,
+    )
 
     class Meta(CrfModelMixin.Meta):
         app_label = 'flourish_facet'
