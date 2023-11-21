@@ -31,7 +31,7 @@ class FacetConsentModelWrapper(QualitativeInterviewSchedulingModelWrapperMixin,
     @property
     def focus_group_obj(self):
         try:
-            obj = self.focus_group_cls.objects.filter(
+            obj = self.focus_group_cls.objects.get(
                 paticipant_ids__name=self.object.subject_identifier
             )
         except self.focus_group_cls.DoesNotExist:
