@@ -37,10 +37,6 @@ class QualitativeInterviewScheduling(NonUniqueSubjectIdentifierFieldMixin, SiteM
                    ' Add in the scheduled date in the Google Sheet calendar'),
     )
 
-    facet_consent_form = models.FileField(
-        upload_to='facet_interview/consents/',
-        validators=[FileExtensionValidator(['pdf', 'doc', 'docx'])])
-
     complete = models.CharField(
         verbose_name='Complete?',
         choices=COMPLETE_UNVERIFIED,
