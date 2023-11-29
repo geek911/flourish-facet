@@ -29,7 +29,7 @@
     <div class="btn-group">
         {% listboard_button "Mother Locator" result.locator_wrapper.href result.locator_obj %}
         {% listboard_button "FACET Screening" result.facet_screening_wrapper.href result.facet_screening_obj %}
-        {% if result.facet_screening_obj %}
+        {% if result.facet_screening_obj and result.facet_screening_obj.is_eligible == True%}
         {% listboard_button "FACET Consent" result.facet_consent_wrapper.href result.facet_consent_obj %}
         {% if result.facet_consent_obj %}
         <a id="btn-subject-dashboard-{{result.subject_identifier}}" class="btn btn-primary btn-sm" role="button"
