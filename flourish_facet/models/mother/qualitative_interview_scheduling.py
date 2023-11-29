@@ -7,7 +7,6 @@ from edc_constants.choices import YES_NO
 from edc_base.utils import get_utcnow
 from edc_base.model_validators import datetime_not_future
 from edc_protocol.validators import datetime_not_before_study_start
-from django.core.validators import FileExtensionValidator
 
 
 class QualitativeInterviewScheduling(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin,
