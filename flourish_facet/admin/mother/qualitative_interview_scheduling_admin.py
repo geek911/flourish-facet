@@ -18,7 +18,6 @@ class QualitativeInterviewSchedulingAdmin(ModelAdminMixin, admin.ModelAdmin):
                 'report_datetime',
                 'qualitative_type',
                 'google_sheet_calendar',
-                'facet_consent_form',
                 'complete',
             ]}
          ), audit_fieldset_tuple)
