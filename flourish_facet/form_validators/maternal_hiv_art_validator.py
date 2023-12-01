@@ -35,11 +35,7 @@ class MaternalHivArtFormValidator(FormValidator):
                                     other_specify_field='drug_combination_before_other')
 
         art_received_preg_fields = ('drug_combination_during',
-                                    'art_switch',
-                                    'art_regimen',
-                                    'art_regimen_start',
-                                    'reason_regimen_change',
-                                    'art_challenges',)
+                                    'art_switch')
 
         for field in art_received_preg_fields:
 
@@ -47,6 +43,15 @@ class MaternalHivArtFormValidator(FormValidator):
                 YES,
                 field='art_received_preg',
                 field_required=field
+            )
+        art_regimen_switch = ('art_regimen',
+                              'art_regimen_start',
+                              'reason_regimen_change',)
+
+        for art_field in art_regimen_switch:
+            self.required_if(
+                YES,
+                field='art_switch', field_required=art_field
             )
 
         self.validate_other_specify(field='drug_combination_during',
@@ -65,12 +70,13 @@ class MaternalHivArtFormValidator(FormValidator):
 
         self.required_if(NO, field='father_hiv',
                          field_required='father_hiv_no')
-        
+
         self.required_if('dont_know', field='father_hiv_no',
                          field_required='father_hiv_dont', inverse=True)
 
-        status_required_fields = ['hiv_test_date_father', 'father_art', 'hiv_status_disclosure']
-        
+        status_required_fields = [
+            'hiv_test_date_father', 'father_art', 'hiv_status_disclosure']
+
         hiv_result_father = self.cleaned_data.get('hiv_result_father', None)
 
         for field in status_required_fields:

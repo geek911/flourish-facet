@@ -22,7 +22,6 @@ class MaternalHivArt(CrfModelMixin):
         blank=True,
         null=True,
         max_length=5,
-        help_text='If yes go to question 5,If no go to question 19'
     )
 
     drug_combination_before = models.CharField(
@@ -49,7 +48,6 @@ class MaternalHivArt(CrfModelMixin):
         blank=True,
         max_length=5,
         null=True,
-        help_text='If yes go to 9,If no go to question 19'
     )
     drug_combination_during = models.CharField(
         verbose_name=(
@@ -109,7 +107,6 @@ class MaternalHivArt(CrfModelMixin):
         max_length=20,
         null=True,
         blank=True,
-        help_text='If yes go to question 28 ,If no go question 20,If dont know go to question 21 ',
     )
     father_hiv_no = models.CharField(
         verbose_name='If no,Would the father be willing to be HIV tested?',
@@ -152,7 +149,6 @@ class MaternalHivArt(CrfModelMixin):
         max_length=20,
         null=True,
         blank=True,
-        help_text='If yes go to question 26,If no go to question 27'
     )
 
     father_art_start = models.DateField(
@@ -168,7 +164,6 @@ class MaternalHivArt(CrfModelMixin):
         max_length=5,
         blank=True,
         null=True,
-        help_text='If yes got to question 28,If no go to question 29'
     )
 
     hiv_status_disclosure_reaction = models.ManyToManyField(
