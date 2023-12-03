@@ -34,6 +34,17 @@ class FlourishConsentListboardView(EdcBaseViewMixin,
                 {'subject_identifier': kwargs.get('subject_identifier')})
         return options
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        facet_screening_add_url = ('/admin/flourish_facet/facetsubjectscreening/add/?'
+                                   'next=flourish_facet:facet_flourish_consent_listboard_url')
+
+        context.update(
+            facet_screening_add_url=facet_screening_add_url)
+
+        return context
+
     def get_queryset(self, *args, **kwargs):
         queryset = super().get_queryset(*args, **kwargs)
         return self.eligible_participants(queryset)

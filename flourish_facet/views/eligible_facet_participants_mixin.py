@@ -47,13 +47,15 @@ class EligibleFacetParticipantsMixin:
 
         subject_identifiers = self.flourish_child_consent_cls.objects.filter(
             child_dob__range=[dates_before, today],
-            subject_consent__subject_identifier__in=anc_subject_identifiers
+            subject_consent__subject_identifier__in=anc_subject_identifiers,
+            subject_consent__future_contact=YES
         ).values_list('subject_consent__subject_identifier', flat=True)
 
-        facet_screened_identifiers = self.facet_consent_cls.objects.values_list(
+        facet_screened_identifiers = self.facet_screening_cls.objects.values_list(
             'subject_identifier', flat=True)
 
-        subject_identifiers = set([*subject_identifiers,*facet_screened_identifiers])
+        subject_identifiers = set(
+            [*subject_identifiers, *facet_screened_identifiers])
 
         consent_ids = []
 
@@ -65,6 +67,5 @@ class EligibleFacetParticipantsMixin:
             consent_ids.append(consent.id)
 
         return queryset.filter(id__in=consent_ids,
-                               subject_identifier__startswith='B',
-                               future_contact=YES).annotate(
+                               subject_identifier__startswith='B').annotate(
             child_dob=Max('caregiverchildconsent__child_dob'), ).order_by('child_dob')

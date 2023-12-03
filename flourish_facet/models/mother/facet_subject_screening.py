@@ -42,8 +42,9 @@ class FacetSubjectScreening(NonUniqueSubjectIdentifierFieldMixin, SiteModelMixin
     def save(self, *args, **kwargs):
 
         eligible = FacetScreeningEligibility(
-            facet_participation=self.facet_participation
-        )
+            facet_participation=self.facet_participation)
+
+        self.subject_identifier = self.subject_identifier.strip()
 
         self.is_eligible = eligible.is_eligible
         super().save(*args, **kwargs)

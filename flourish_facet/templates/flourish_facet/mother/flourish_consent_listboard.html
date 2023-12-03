@@ -3,6 +3,12 @@
 {% load flourish_facet_extras %}
 
 
+{% block listboard_panel %}
+<a id="facetscreening_add" title="add screening" class="btn btn-sm btn-default" role="button"
+    href="{{facet_screening_add_url}}" <i class="fa fa-plus fa-sm"></i> Subject Screening
+</a>
+{% endblock listboard_panel %}
+
 
 {% block listboard_table_header %}
 
@@ -23,12 +29,12 @@
     <div class="btn-group">
         {% listboard_button "Mother Locator" result.locator_wrapper.href result.locator_obj %}
         {% listboard_button "FACET Screening" result.facet_screening_wrapper.href result.facet_screening_obj %}
-        {% if result.facet_screening_obj %}
+        {% if result.facet_screening_obj and result.facet_screening_obj.is_eligible == True%}
         {% listboard_button "FACET Consent" result.facet_consent_wrapper.href result.facet_consent_obj %}
         {% if result.facet_consent_obj %}
         <a id="btn-subject-dashboard-{{result.subject_identifier}}" class="btn btn-primary btn-sm" role="button"
-        title="Go to subject's dashboard" href="{% url facet_mother_dashboard_url result.subject_identifier %}">
-        <i class="far fa-user-circle fa-sm"></i> Dashboard <i class="fa fa-share"></i></a>
+            title="Go to subject's dashboard" href="{% url facet_mother_dashboard_url result.subject_identifier %}">
+            <i class="far fa-user-circle fa-sm"></i> Dashboard <i class="fa fa-share"></i></a>
         {% endif %}
         {% endif %}
     </div>
@@ -44,16 +50,16 @@
 
 
 {% if result.facet_screening_obj %}
-    <td>{{ result.facet_screening_obj.user_created}}</td>
+<td>{{ result.facet_screening_obj.user_created}}</td>
 {% else %}
-    <td></td>
-{%  endif %}
+<td></td>
+{% endif %}
 
 {% if result.facet_screening_obj %}
 <td>{{ result.facet_screening_obj.report_datetime|date:"SHORT_DATETIME_FORMAT" }}</td>
 {% else %}
 <td></td>
-{%  endif %}
+{% endif %}
 
 {% if result.facet_consent_obj %}
 <td>{{ result.facet_consent_obj.consent_datetime|date:"SHORT_DATETIME_FORMAT" }}</td>

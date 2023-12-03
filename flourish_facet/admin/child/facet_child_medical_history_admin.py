@@ -26,6 +26,16 @@ class FacetChildMedicalHistoryAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                 'chronic_since',
                 'child_chronic',
                 'child_chronic_other',
+                'current_illness',
+                'current_symptoms',
+                'current_symptoms_other',
+                'symptoms_start_date',
+                'seen_at_local_clinic',
+                'currently_taking_medications',
+                'current_medications',
+                'current_medications_other',
+                'duration_of_medications',
+
             ]}
          ), audit_fieldset_tuple)
 
@@ -40,7 +50,7 @@ class FacetChildMedicalHistoryAdmin(CrfModelAdminMixin, admin.ModelAdmin):
             label=('Since the last scheduled visit in {previous}, has any of '
                    'your medical history changed?'),
             previous_appointment=True)
-        ]
+    ]
 
     quartely_schedules = ['child_a_sec_qt_schedule1', 'child_a_quart_schedule1',
                           'child_b_sec_qt_schedule1', 'child_b_quart_schedule1',
@@ -49,6 +59,16 @@ class FacetChildMedicalHistoryAdmin(CrfModelAdminMixin, admin.ModelAdmin):
                           'child_b_fu_schedule1', 'child_c_fu_schedule1',
                           'child_a_fu_qt_schedule1', 'child_b_fu_qt_schedule1',
                           'child_c_fu_qt_schedule1']
+
+    radio_fields = {'chronic_since': admin.VERTICAL,
+                    'currently_taking_medications': admin.VERTICAL,
+                    'duration_of_medications': admin.VERTICAL,
+                    'current_illness': admin.VERTICAL,
+                    'seen_at_local_clinic': admin.VERTICAL,
+                    'med_history_changed': admin.VERTICAL}
+
+    filter_horizontal = (
+        'child_chronic', 'current_symptoms', 'current_medications')
 
     conditional_fieldlists = {}
     for schedule in quartely_schedules:
