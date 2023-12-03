@@ -42,7 +42,7 @@ class FacetChildOffSchedule(OffStudyModelMixin,
         max_length=115,
         choices=CHILD_OFF_STUDY_REASON)
 
-    offstudy_date = models.DateField(default=get_utcnow().date())
+    offstudy_date = models.DateField(default=get_utcnow)
 
     reason_other = OtherCharField()
 
