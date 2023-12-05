@@ -13,6 +13,9 @@ class ChildHivTestingFormValidator(FormValidator):
                          field_required='reason_not_tested_6_weeks')
 
         self.required_if(YES, field='child_breastfed',
+                         field_required='child_breastfeeding')
+
+        self.required_if(NO, field='child_breastfeeding',
                          field_required='child_breastfed_end')
 
         self.not_applicable_if(YES, field='child_tested',
