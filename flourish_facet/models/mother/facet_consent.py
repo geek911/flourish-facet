@@ -1,4 +1,5 @@
 from django.db import models
+from django.apps import apps as django_apps
 from edc_constants.choices import YES_NO, YES_NO_NA
 from edc_consent.validators import eligible_if_yes
 from edc_consent.managers import ConsentManager
@@ -20,7 +21,7 @@ from edc_base.sites import CurrentSiteManager
 from edc_base.model_managers import HistoricalRecords
 from edc_base.utils import get_utcnow
 from .eligibility import FacetConsentEligibility
-from django.apps import apps as django_apps
+from flourish_caregiver.helper_classes import MaternalStatusHelper
 
 
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
@@ -92,6 +93,12 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     @property
     def consent_version(self):
         return self.version
+    
+    @property
+    def hiv_status(self):
+        if self.subject_identifier:
+            helper = MaternalStatusHelper(subject_identifier=self.subject_identifier)
+            return helper.hiv_status
 
     def get_search_slug_fields(self):
         fields = super().get_search_slug_fields()

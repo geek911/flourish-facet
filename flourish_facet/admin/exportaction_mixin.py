@@ -9,6 +9,8 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 import xlwt
 
+from ..models import FacetConsent
+
 
 class ExportActionMixin:
     def export_as_csv(self, request, queryset):
@@ -39,6 +41,9 @@ class ExportActionMixin:
         if queryset and getattr(queryset[0], 'facet_visit', None):
             field_names.insert(0, 'subject_identifier')
             field_names.insert(1, 'visit_code')
+
+        if self.is_consent(queryset[0]):
+            field_names.append("hiv_status")
 
         for col_num in range(len(field_names)):
             ws.write(row_num, col_num, field_names[col_num], font_style)
@@ -85,6 +90,10 @@ class ExportActionMixin:
                         inline_objs.append(inline_values)
                 field_value = getattr(obj, field.name, '')
                 data.append(field_value)
+
+            if self.is_consent(obj):
+                data.append(obj.hiv_status)
+
             if not self.is_consent(obj) and inline_objs:
                 # Update header
                 inline_field_names = self.inline_exclude(
