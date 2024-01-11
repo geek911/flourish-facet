@@ -105,7 +105,7 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
             return helper.hiv_status
 
     @property
-    def enrollment_child_age(self):
+    def consent_child_age(self):
         return child_age_in_months(self.consent_datetime.date(),
                                    self.subject_identifier)
 

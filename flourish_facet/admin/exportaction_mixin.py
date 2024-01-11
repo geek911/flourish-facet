@@ -44,7 +44,7 @@ class ExportActionMixin:
 
         if self.is_consent(queryset[0]):
             field_names.append("mother_hiv_status")
-            field_names.append("enrollment_child_age_in_months")
+            field_names.append("consent_child_age_in_months")
             field_names.append("current_child_age_in_months")
 
         for col_num in range(len(field_names)):
@@ -95,7 +95,7 @@ class ExportActionMixin:
 
             if self.is_consent(obj):
                 data.append(obj.hiv_status)
-                data.append(obj.enrollment_child_age)
+                data.append(obj.consent_child_age)
                 data.append(obj.current_child_age)
 
             if not self.is_consent(obj) and inline_objs:
