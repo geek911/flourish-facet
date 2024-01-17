@@ -96,7 +96,7 @@ class FlourishConsentModelWrapper(ModelWrapper):
         for consent in child_consents:
             # dob = consent.child_dob
             ages.append(str(child_age_in_months(
-                get_utcnow().date(), consent.subject_consent)))
+                get_utcnow().date(), consent.subject_consent.subject_identifier)))
 
         return ', '.join(ages)
 
