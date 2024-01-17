@@ -1,7 +1,4 @@
-from datetime import datetime
-from dateutil.relativedelta import relativedelta
 from django.db import models
-from django.apps import apps as django_apps
 from edc_constants.choices import YES_NO, YES_NO_NA
 from edc_consent.validators import eligible_if_yes
 from edc_consent.managers import ConsentManager
@@ -21,10 +18,9 @@ from ...choices import IDENTITY_TYPE, GENDER_OTHER
 from edc_base.model_fields import OtherCharField
 from edc_base.sites import CurrentSiteManager
 from edc_base.model_managers import HistoricalRecords
-from edc_base.utils import get_utcnow, age
+from edc_base.utils import get_utcnow
 from .eligibility import FacetConsentEligibility
-from flourish_caregiver.helper_classes import MaternalStatusHelper
-from ...utils.mother_child_helpers import child_age_in_months
+from django.apps import apps as django_apps
 
 
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
