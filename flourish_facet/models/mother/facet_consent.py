@@ -93,6 +93,23 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     def consent_version(self):
         return self.version
 
+    @property
+    def hiv_status(self):
+        if self.subject_identifier:
+            helper = MaternalStatusHelper(
+                subject_identifier=self.subject_identifier)
+            return helper.hiv_status
+
+    @property
+    def consent_child_age(self):
+        return child_age_in_months(self.consent_datetime.date(),
+                                   self.subject_identifier)
+
+    @property
+    def current_child_age(self):
+        return child_age_in_months(get_utcnow().date(),
+                                   self.subject_identifier)
+
     def get_search_slug_fields(self):
         fields = super().get_search_slug_fields()
         fields.append('subject_identifier')
