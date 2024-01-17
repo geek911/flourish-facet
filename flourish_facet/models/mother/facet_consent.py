@@ -1,4 +1,7 @@
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 from django.db import models
+from django.apps import apps as django_apps
 from edc_constants.choices import YES_NO, YES_NO_NA
 from edc_consent.validators import eligible_if_yes
 from edc_consent.managers import ConsentManager
@@ -18,9 +21,10 @@ from ...choices import IDENTITY_TYPE, GENDER_OTHER
 from edc_base.model_fields import OtherCharField
 from edc_base.sites import CurrentSiteManager
 from edc_base.model_managers import HistoricalRecords
-from edc_base.utils import get_utcnow
+from edc_base.utils import get_utcnow, age
 from .eligibility import FacetConsentEligibility
-from django.apps import apps as django_apps
+from flourish_caregiver.helper_classes import MaternalStatusHelper
+from ...utils.mother_child_helpers import child_age_in_months
 
 
 class FacetConsent(ConsentModelMixin, SiteModelMixin,
@@ -92,6 +96,23 @@ class FacetConsent(ConsentModelMixin, SiteModelMixin,
     @property
     def consent_version(self):
         return self.version
+
+    @property
+    def hiv_status(self):
+        if self.subject_identifier:
+            helper = MaternalStatusHelper(
+                subject_identifier=self.subject_identifier)
+            return helper.hiv_status
+
+    @property
+    def consent_child_age(self):
+        return child_age_in_months(self.consent_datetime.date(),
+                                   self.subject_identifier)
+
+    @property
+    def current_child_age(self):
+        return child_age_in_months(get_utcnow().date(),
+                                   self.subject_identifier)
 
     def get_search_slug_fields(self):
         fields = super().get_search_slug_fields()
