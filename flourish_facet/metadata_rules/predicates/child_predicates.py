@@ -15,11 +15,18 @@ class ChildPredicates(PredicateCollection):
         if the mother is HIV positive 
         """
 
-        consent = MotherChildConsent.objects.get(
-            subject_identifier=visit.subject_identifier
-        )
+        try:
 
-        maternal_status_helper = MaternalStatusHelper(
-            subject_identifier=consent.facet_consent.subject_identifier)
+            consent = MotherChildConsent.objects.get(
+                subject_identifier=visit.subject_identifier
+            )
 
-        return maternal_status_helper.hiv_status == POS
+        except MotherChildConsent.DoesNotExist:
+            pass
+
+        else:
+
+            maternal_status_helper = MaternalStatusHelper(
+                subject_identifier=consent.facet_consent.subject_identifier)
+
+            return maternal_status_helper.hiv_status == POS
