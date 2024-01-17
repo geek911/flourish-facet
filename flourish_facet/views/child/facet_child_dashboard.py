@@ -11,7 +11,7 @@ from edc_subject_dashboard.view_mixins import SubjectDashboardViewMixin
 from ...model_wrappers import (
     FacetChildConsentModelWrapper, ChildAppointmentModelWrapper,
     ChildVisitModelWrapper, LocatorModelWrapper, FacetChildCrfModelWrapper)
-from ...utils import age_in_months
+from ...utils import child_age_in_months
 
 
 class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
@@ -95,8 +95,7 @@ class FacetChildDashboardView(EdcBaseViewMixin, SubjectDashboardViewMixin,
 
     @property
     def child_age_in_months(self):
-        dob = self.consent_object.child_dob
-        return age_in_months(dob)
+        return child_age_in_months(get_utcnow().date(), self.consent_object.subject_identifier)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
