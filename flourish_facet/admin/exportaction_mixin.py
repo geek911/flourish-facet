@@ -1,6 +1,5 @@
 import datetime
 import uuid
-
 from django.apps import apps as django_apps
 from django.db.models import ManyToManyField, ForeignKey, OneToOneField, ManyToOneRel
 from django.db.models.fields.reverse_related import OneToOneRel
