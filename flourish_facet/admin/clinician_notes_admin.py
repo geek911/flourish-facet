@@ -6,7 +6,7 @@ from ..admin_site import flourish_facet_admin
 from ..forms import FacetClinicianNotesForm, FacetClinicianNotesImageForm
 from ..models import ClinicianNotesImage, FacetClinicianNotes
 from .modeladmin_mixins import CrfModelAdminMixin
-  
+
 
 class ClinicianNotesImageInline(TabularInlineMixin, admin.TabularInline):
 
@@ -28,6 +28,9 @@ class ClinicianNotesImageInline(TabularInlineMixin, admin.TabularInline):
 @admin.register(FacetClinicianNotes, site=flourish_facet_admin)
 class ClinicianNotesAdmin(ODKActionMixin, CrfModelAdminMixin,
                           admin.ModelAdmin):
+
+    def export_as_csv(self, request, queryset):
+        pass
 
     form = FacetClinicianNotesForm
 
