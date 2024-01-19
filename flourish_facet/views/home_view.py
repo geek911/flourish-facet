@@ -4,7 +4,7 @@ from django.views.generic import TemplateView
 from edc_constants.constants import POS, NEG, IND
 from edc_base.view_mixins import EdcBaseViewMixin
 from edc_navbar import NavbarViewMixin
-from edc_appointment.constants import COMPLETE_APPT
+from edc_appointment.constants import COMPLETE_APPT, IN_PROGRESS_APPT, NEW_APPT, CANCELLED_APPT
 from ..views.eligible_facet_participants_mixin import EligibleFacetParticipantsMixin
 from flourish_caregiver.helper_classes import MaternalStatusHelper
 from ..models import Appointment
@@ -124,13 +124,23 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             appt_status=COMPLETE_APPT
         ).count()
 
-        incompleted_appts = Appointment.objects.exclude(
-            appt_status=COMPLETE_APPT
+        incompleted_appts = Appointment.objects.filter(
+            appt_status=IN_PROGRESS_APPT
+        ).count()
+
+        new_appts = Appointment.objects.filter(
+            appt_status=NEW_APPT
+        ).count()
+
+        cancelled_appts = Appointment.objects.filter(
+            appt_status=CANCELLED_APPT
         ).count()
 
         return dict(
             completed_appts=completed_appts,
-            incompleted_appts=incompleted_appts
+            incompleted_appts=incompleted_appts,
+            new_appts=new_appts,
+            cancelled_appts=cancelled_appts
         )
 
     def get_context_data(self, **kwargs):
