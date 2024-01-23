@@ -1,6 +1,5 @@
 import datetime
 import uuid
-
 from django.apps import apps as django_apps
 from django.db.models import ManyToManyField, ForeignKey, OneToOneField, ManyToOneRel
 from django.db.models.fields.reverse_related import OneToOneRel
@@ -39,6 +38,11 @@ class ExportActionMixin:
         if queryset and getattr(queryset[0], 'facet_visit', None):
             field_names.insert(0, 'subject_identifier')
             field_names.insert(1, 'visit_code')
+
+        if self.is_consent(queryset[0]):
+            field_names.append("mother_hiv_status")
+            field_names.append("consent_child_age_in_months")
+            field_names.append("current_child_age_in_months")
 
         for col_num in range(len(field_names)):
             ws.write(row_num, col_num, field_names[col_num], font_style)
@@ -85,6 +89,12 @@ class ExportActionMixin:
                         inline_objs.append(inline_values)
                 field_value = getattr(obj, field.name, '')
                 data.append(field_value)
+
+            if self.is_consent(obj):
+                data.append(obj.hiv_status)
+                data.append(obj.consent_child_age)
+                data.append(obj.current_child_age)
+
             if not self.is_consent(obj) and inline_objs:
                 # Update header
                 inline_field_names = self.inline_exclude(
@@ -197,8 +207,8 @@ class ExportActionMixin:
                 'registration_datetime_time', 'screening_datetime_time', 'modified',
                 'form_as_json', 'consent_model', 'randomization_datetime',
                 'registration_datetime', 'is_verified_datetime', 'first_name',
-                'last_name', 'initials', 'identity', 'facet_visit_id',
-                ]
+                'last_name', 'initials', 'identity', 'facet_visit_id', 'confirm_identity',
+                'motherchildconsent', ]
 
     def m2m_list_data(self, model_cls=None):
         qs = model_cls.objects.order_by(

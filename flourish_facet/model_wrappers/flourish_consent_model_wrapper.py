@@ -8,7 +8,7 @@ from .facet_screening_model_wrapper import FacetScreeningModelWrapper
 from .facet_consent_model_wrapper import FacetConsentModelWrapper
 from .facet_mother_locator_model_wrapper import LocatorModelWrapper
 from ..models import FacetSubjectScreening, FacetConsent
-from ..utils import age_in_months
+from ..utils import child_age_in_months
 
 
 class FlourishConsentModelWrapper(ModelWrapper):
@@ -94,8 +94,9 @@ class FlourishConsentModelWrapper(ModelWrapper):
 
         ages = []
         for consent in child_consents:
-            dob = consent.child_dob
-            ages.append(str(age_in_months(dob)))
+            # dob = consent.child_dob
+            ages.append(str(child_age_in_months(
+                get_utcnow().date(), consent.subject_consent.subject_identifier)))
 
         return ', '.join(ages)
 

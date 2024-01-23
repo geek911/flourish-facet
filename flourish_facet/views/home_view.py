@@ -1,9 +1,11 @@
 from django.apps import apps as django_apps
 from django.db.models import Q
 from django.views.generic import TemplateView
+from edc_constants.constants import POS, NEG, IND
 from edc_base.view_mixins import EdcBaseViewMixin
 from edc_navbar import NavbarViewMixin
 from flourish_facet.views.eligible_facet_participants_mixin import EligibleFacetParticipantsMixin
+from flourish_caregiver.helper_classes import MaternalStatusHelper
 
 
 class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetParticipantsMixin):
@@ -39,6 +41,80 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
     def facet_focus_group_cls(self):
         return django_apps.get_model(self.focus_group_model)
 
+    @property
+    def screened_hiv_statistics(self):
+        statistics = dict()
+
+        consents = self.facet_screening_cls.objects.all()
+
+        positive_mothers = 0
+        negative_mothers = 0
+        ind_mothers = 0
+
+        statistics.update(
+            positive_mothers=positive_mothers,
+            negative_mothers=negative_mothers,
+            ind_mothers=ind_mothers
+        )
+
+        for consent in consents:
+            helper = MaternalStatusHelper(
+                subject_identifier=consent.subject_identifier)
+
+            if helper.hiv_status == POS:
+                positive_mothers += 1
+
+            if helper.hiv_status == NEG:
+                negative_mothers += 1
+
+            if helper.hiv_status == IND:
+                ind_mothers += 1
+
+        statistics.update(
+            positive_mothers=positive_mothers,
+            negative_mothers=negative_mothers,
+            ind_mothers=ind_mothers
+
+        )
+        return statistics
+
+    @property
+    def consented_hiv_statistics(self):
+        statistics = dict()
+
+        consents = self.facet_consent_cls.objects.all()
+
+        positive_mothers = 0
+        negative_mothers = 0
+        ind_mothers = 0
+
+        statistics.update(
+            positive_mothers=positive_mothers,
+            negative_mothers=negative_mothers,
+            ind_mothers=ind_mothers
+        )
+
+        for consent in consents:
+            helper = MaternalStatusHelper(
+                subject_identifier=consent.subject_identifier)
+
+            if helper.hiv_status == POS:
+                positive_mothers += 1
+
+            if helper.hiv_status == NEG:
+                negative_mothers += 1
+
+            if helper.hiv_status == IND:
+                ind_mothers += 1
+
+        statistics.update(
+            positive_mothers=positive_mothers,
+            negative_mothers=negative_mothers,
+            ind_mothers=ind_mothers
+        )
+
+        return statistics
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         facet_screenig = self.facet_subject_screening_cls.objects.all()
@@ -61,6 +137,8 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             screened_subjects=screened_subjects,
             facet_focus_groups=facet_focus_groups,
             facet_appointments=facet_appointments,
-            eligible_subjects=eligible_subjects)
+            eligible_subjects=eligible_subjects,
+            consented_hiv_statistics=self.consented_hiv_statistics,
+            screened_hiv_statistics=self.screened_hiv_statistics)
 
         return context
