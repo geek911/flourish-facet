@@ -18,9 +18,11 @@ from ...models import MotherChildConsent
 from ...forms import MotherChildConsentForm
 from simple_history.admin import SimpleHistoryAdmin
 from ..modeladmin_mixins import ModelAdminMixin
+from ..exportaction_mixin import ExportActionMixin
 
 
-class MotherChildConsentInline(StackedInlineMixin, ModelAdminFormAutoNumberMixin,
+class MotherChildConsentInline(StackedInlineMixin,
+                               ModelAdminFormAutoNumberMixin,
                                admin.StackedInline):
     model = MotherChildConsent
     form = MotherChildConsentForm
@@ -171,7 +173,7 @@ class FacetConsentAdmin(ModelAdminMixin, SimpleHistoryAdmin,
 
 
 @admin.register(MotherChildConsent, site=flourish_facet_admin)
-class MotherChildConsentAdmin(admin.ModelAdmin):
+class MotherChildConsentAdmin(admin.ModelAdmin, ExportActionMixin):
     form = MotherChildConsentForm
 
     fieldsets = (
