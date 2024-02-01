@@ -145,6 +145,7 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
 
     @property
     def enrollment_hiv_statistics(self):
+        """ Completed enrollment hiv statistics"""
         statistics = dict()
         pos = 0
         neg = 0
@@ -152,6 +153,38 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
 
         completed_appt_ids = Appointment.objects.filter(
             appt_status=COMPLETE_APPT
+        )
+
+        for appt in completed_appt_ids:
+            helper = MaternalStatusHelper(
+                subject_identifier=appt.subject_identifier)
+
+            if helper.hiv_status == POS:
+                pos += 1
+
+            elif helper.hiv_status == NEG:
+                neg += 1
+
+            elif helper.hiv_status == IND:
+                ind += 1
+
+        statistics.update(
+            pos=pos,
+            neg=neg,
+            ind=ind
+        )
+        return statistics
+
+    @property
+    def incomplete_enrol_hiv_statistics(self):
+        """ In completed enrollment hiv statistics"""
+        statistics = dict()
+        pos = 0
+        neg = 0
+        ind = 0
+
+        completed_appt_ids = Appointment.objects.filter(
+            appt_status=IN_PROGRESS_APPT
         )
 
         for appt in completed_appt_ids:
@@ -200,6 +233,7 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             consented_hiv_statistics=self.consented_hiv_statistics,
             screened_hiv_statistics=self.screened_hiv_statistics,
             appointment_statistics=self.appointment_statistics,
-            enrollment_hiv_statistics=self.enrollment_hiv_statistics)
+            enrollment_hiv_statistics=self.enrollment_hiv_statistics,
+            incomplete_enrol_hiv_statistics=self.incomplete_enrol_hiv_statistics)
 
         return context
