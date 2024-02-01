@@ -151,12 +151,13 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
         ind = 0
 
         appt_ids = Appointment.objects.filter(
-            appt_status=appt_status
-        )
+            appt_status=appt_status,
+            visit_code_sequence=0,
+        ).values_list('subject_identifier', flat=True).distinct()
 
-        for appt in appt_ids:
+        for appt_id in appt_ids:
             helper = MaternalStatusHelper(
-                subject_identifier=appt.subject_identifier)
+                subject_identifier=appt_id)
 
             if helper.hiv_status == POS:
                 pos += 1
