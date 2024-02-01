@@ -143,19 +143,18 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             cancelled_appts=cancelled_appts
         )
 
-    @property
-    def enrollment_hiv_statistics(self):
-        """ Completed enrollment hiv statistics"""
+    def get_hiv_statistics(self, appt_status):
+        """ Get hiv status based on the appointments status """
         statistics = dict()
         pos = 0
         neg = 0
         ind = 0
 
-        completed_appt_ids = Appointment.objects.filter(
-            appt_status=COMPLETE_APPT
+        appt_ids = Appointment.objects.filter(
+            appt_status=appt_status
         )
 
-        for appt in completed_appt_ids:
+        for appt in appt_ids:
             helper = MaternalStatusHelper(
                 subject_identifier=appt.subject_identifier)
 
@@ -174,38 +173,16 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             ind=ind
         )
         return statistics
+
+    @property
+    def enrollment_hiv_statistics(self):
+        """Completed visit HIV statistics"""
+        return self.get_hiv_statistics(appt_status=COMPLETE_APPT)
 
     @property
     def incomplete_enrol_hiv_statistics(self):
-        """ In completed enrollment hiv statistics"""
-        statistics = dict()
-        pos = 0
-        neg = 0
-        ind = 0
-
-        completed_appt_ids = Appointment.objects.filter(
-            appt_status=IN_PROGRESS_APPT
-        )
-
-        for appt in completed_appt_ids:
-            helper = MaternalStatusHelper(
-                subject_identifier=appt.subject_identifier)
-
-            if helper.hiv_status == POS:
-                pos += 1
-
-            elif helper.hiv_status == NEG:
-                neg += 1
-
-            elif helper.hiv_status == IND:
-                ind += 1
-
-        statistics.update(
-            pos=pos,
-            neg=neg,
-            ind=ind
-        )
-        return statistics
+        """Inprogress visit HIV statistics"""
+        return self.get_hiv_statistics(appt_status=IN_PROGRESS_APPT)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
