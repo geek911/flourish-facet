@@ -143,6 +143,37 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             cancelled_appts=cancelled_appts
         )
 
+    @property
+    def enrollment_hiv_statistics(self):
+        statistics = dict()
+        pos = 0
+        neg = 0
+        ind = 0
+
+        completed_appt_ids = Appointment.objects.filter(
+            appt_status=COMPLETE_APPT
+        )
+
+        for appt in completed_appt_ids:
+            helper = MaternalStatusHelper(
+                subject_identifier=appt.subject_identifier)
+
+            if helper.hiv_status == POS:
+                pos += 1
+
+            elif helper.hiv_status == NEG:
+                neg += 1
+
+            elif helper.hiv_status == IND:
+                ind += 1
+
+        statistics.update(
+            pos=pos,
+            neg=neg,
+            ind=ind
+        )
+        return statistics
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         facet_screenig = self.facet_subject_screening_cls.objects.all()
@@ -168,6 +199,7 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             eligible_subjects=eligible_subjects,
             consented_hiv_statistics=self.consented_hiv_statistics,
             screened_hiv_statistics=self.screened_hiv_statistics,
-            appointment_statistics=self.appointment_statistics)
+            appointment_statistics=self.appointment_statistics,
+            enrollment_hiv_statistics=self.enrollment_hiv_statistics)
 
         return context
