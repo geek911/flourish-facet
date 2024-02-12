@@ -228,3 +228,38 @@ OFTEN_DONE = [
     ('always', 'Always'),
     (NOT_APPLICABLE, 'NA(Does not apply)'),
 ]
+
+CALL_REASON = (
+    ('missed_visit', 'Missed visit'),
+    ('scheduled_appointment', 'Confirm scheduled appointment'),
+    (OTHER, 'Other, specify')
+)
+
+CONTACT_TYPE = (
+    ('phone_call', 'Phone Call'),
+    ('in_person', 'In person (Home visit)'),
+    ('text_message', 'Text Message')
+)
+
+REASONS_FOR_RESCHEDULING = (
+    ('out_of_study_area', 'Temporarily out of study area'),
+    ('no_transport_fares', 'Participant do not have transport fares'),
+    ('schools_are_reluctant_to_release_children',
+     'Schools are reluctant to release children'),
+    ('Child_examinations', 'Child writing examinations or tests'),
+    ('phone_not_reachable', 'Phone number(s) not reachable'),
+    ('home_visit_done', 'Home visit done, successful / unsuccessful'),
+    ('emergency_issues', 'Participant has work or home emergency issues'),
+    ('Participant_work ', 'Participant cannot be released from work'),
+    ('Participant_quarantine',
+     'Participant on quarantine or Isolations due to covid-19 exposure or infection'),
+    ('Participant_changed_mind',
+     'Participant changed mind and asked for a re-appointments or want to withdraw/'
+     ' be-withdraw from participating on study '),
+    ('caregiver_not_well', 'Child, mother, caregiver not well'),
+    ('undisclosed_personal_reasons', 'Participant has undisclosed personal reasons'),
+    ('another_appointment',
+     'Participant has another appointment at local clinic/hospital scheduled on the same day'),
+    (OTHER, 'Other, specify')
+
+)

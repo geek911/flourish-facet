@@ -34,6 +34,15 @@ class FlourishConsentListboardView(EdcBaseViewMixin,
                 {'subject_identifier': kwargs.get('subject_identifier')})
         return options
 
+    def get_appt(self, *args, **kwargs):
+        """Call this using a subject identifier"""
+        app_model = django_apps.get_model('flourish_facet.appointment')
+
+        facet_appointment = app_model.objects.filter(
+            subject_identifier=kwargs.get('subject_identifier'),
+            appt_status='new')
+        return facet_appointment
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -41,7 +50,8 @@ class FlourishConsentListboardView(EdcBaseViewMixin,
                                    'next=flourish_facet:facet_flourish_consent_listboard_url')
 
         context.update(
-            facet_screening_add_url=facet_screening_add_url)
+            facet_screening_add_url=facet_screening_add_url,
+            test_results=self.get_appt())
 
         return context
 

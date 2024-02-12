@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from flourish_facet.views.interview_forms.listboard_view import GroupInterviewListBoardView
 from .admin_site import flourish_facet_admin
 from django.urls import path
@@ -39,6 +39,7 @@ from .views import AdministrationView, HomeView
 from .patterns import subject_identifier, group_identifier
 from .admin_site import flourish_facet_admin
 
+
 app_name = 'flourish_facet'
 
 app_config = django_apps.get_app_config(app_name)
@@ -60,6 +61,7 @@ urlpatterns = [
          name='administration_url'),
     path('home/', HomeView.as_view(), name='home_url'),
     path('', RedirectView.as_view(url='admin/'), name='admin_url'),
+
 
 ]
 
@@ -105,7 +107,6 @@ facet_child_dashboard_url_config = UrlConfig(
     label='facet_child_dashboard',
     identifier_label='subject_identifier',
     identifier_pattern=subject_identifier)
-
 
 urlpatterns += facet_mother_listboard_url_config.listboard_urls
 urlpatterns += flourish_consent_listboard_url_config.listboard_urls
