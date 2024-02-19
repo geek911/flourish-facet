@@ -11,6 +11,7 @@ class EligibleFacetParticipantsMixin:
     facet_screening_model = 'flourish_facet.facetsubjectscreening'
     facet_consent_model = 'flourish_facet.facetconsent'
     subject_consent_model = 'flourish_caregiver.subjectconsent'
+    child_offstudy_model = 'flourish_prn.childoffstudy'
 
     @property
     def subject_consent_cls(self):
@@ -36,18 +37,29 @@ class EligibleFacetParticipantsMixin:
     def child_hiv_rapid_test_cls(self):
         return django_apps.get_model(self.child_hiv_rapid_test_model)
 
+    @property
+    def child_offstudy_cls(self):
+        return django_apps.get_model(self.child_offstudy_model)
+
+    @property
+    def child_offstudy_identifiers(self):
+        identifiers = self.child_offstudy_cls.objects.values_list(
+            'subject_identifier', flat=True)
+        return identifiers
+
     def eligible_participants(self, queryset):
         dates_before = (get_utcnow() - relativedelta(months=6, days=10)
                         ).date().isoformat()
 
         today = get_utcnow().date().isoformat()
 
-        anc_subject_identifiers = self.antenatal_enrollment_cls.objects. \
-            values_list('subject_identifier', flat=True)
+        anc_subject_identifiers = self.antenatal_enrollment_cls.objects.exclude(
+            child_subject_identifier__in=self.child_offstudy_identifiers).values_list(
+            'child_subject_identifier', flat=True)
 
         subject_identifiers = self.flourish_child_consent_cls.objects.filter(
             child_dob__range=[dates_before, today],
-            subject_consent__subject_identifier__in=anc_subject_identifiers,
+            subject_identifier__in=anc_subject_identifiers,
             subject_consent__future_contact=YES
         ).values_list('subject_consent__subject_identifier', flat=True)
 
