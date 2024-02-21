@@ -2,7 +2,8 @@ from django.apps import apps as django_apps
 from edc_base.utils import get_utcnow
 from dateutil.relativedelta import relativedelta
 from edc_constants.constants import YES
-from django.db.models import Max
+from django.db.models import Max, F, Min
+from django.db.models.functions import Coalesce
 
 
 class EligibleFacetParticipantsMixin:
@@ -81,4 +82,4 @@ class EligibleFacetParticipantsMixin:
 
         return queryset.filter(id__in=consent_ids,
                                subject_identifier__startswith='B').annotate(
-            child_dob=Max('caregiverchildconsent__child_dob'), ).order_by('child_dob')
+            child_dob=Coalesce(Max('caregiverchildconsent__child_dob'), 0)).order_by('child_dob')
