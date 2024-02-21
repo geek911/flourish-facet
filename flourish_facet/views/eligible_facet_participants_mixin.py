@@ -12,6 +12,7 @@ class EligibleFacetParticipantsMixin:
     facet_consent_model = 'flourish_facet.facetconsent'
     subject_consent_model = 'flourish_caregiver.subjectconsent'
     child_offstudy_model = 'flourish_prn.childoffstudy'
+    flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
 
     @property
     def subject_consent_cls(self):
