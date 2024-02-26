@@ -143,6 +143,48 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             cancelled_appts=cancelled_appts
         )
 
+    def get_hiv_statistics(self, appt_status):
+        """ Get hiv status based on the appointments status """
+        statistics = dict()
+        pos = 0
+        neg = 0
+        ind = 0
+
+        appt_ids = Appointment.objects.filter(
+            appt_status=appt_status,
+            visit_code_sequence=0,
+        ).values_list('subject_identifier', flat=True).distinct()
+
+        for appt_id in appt_ids:
+            helper = MaternalStatusHelper(
+                subject_identifier=appt_id)
+
+            if helper.hiv_status == POS:
+                pos += 1
+
+            elif helper.hiv_status == NEG:
+                neg += 1
+
+            elif helper.hiv_status == IND:
+                ind += 1
+
+        statistics.update(
+            pos=pos,
+            neg=neg,
+            ind=ind
+        )
+        return statistics
+
+    @property
+    def enrollment_hiv_statistics(self):
+        """Completed visit HIV statistics"""
+        return self.get_hiv_statistics(appt_status=COMPLETE_APPT)
+
+    @property
+    def incomplete_enrol_hiv_statistics(self):
+        """Inprogress visit HIV statistics"""
+        return self.get_hiv_statistics(appt_status=IN_PROGRESS_APPT)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         facet_screenig = self.facet_subject_screening_cls.objects.all()
@@ -168,6 +210,8 @@ class HomeView(EdcBaseViewMixin, NavbarViewMixin, TemplateView, EligibleFacetPar
             eligible_subjects=eligible_subjects,
             consented_hiv_statistics=self.consented_hiv_statistics,
             screened_hiv_statistics=self.screened_hiv_statistics,
-            appointment_statistics=self.appointment_statistics)
+            appointment_statistics=self.appointment_statistics,
+            enrollment_hiv_statistics=self.enrollment_hiv_statistics,
+            incomplete_enrol_hiv_statistics=self.incomplete_enrol_hiv_statistics)
 
         return context
