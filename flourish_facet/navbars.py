@@ -49,6 +49,18 @@ flourish_facet.append_item(
             'group_interview_listboard_url'],
         no_url_namespace=no_url_namespace))
 
+
+flourish_facet.append_item(
+    NavbarItem(
+        name='facet_export_listboard',
+        title='facet_export_listboard',
+        label='Export Listboard',
+        fa_icon='far fa-user-circle',
+        url_name=settings.DASHBOARD_URL_NAMES[
+            'facet_export_listboard_url'],
+        no_url_namespace=no_url_namespace))
+
+
 flourish_facet.append_item(
     NavbarItem(name='flourish_facet_admin',
                label='Admin',
