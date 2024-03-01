@@ -17,6 +17,7 @@ class EligibleFacetParticipantsMixin:
     facet_consent_model = 'flourish_facet.facetconsent'
     subject_consent_model = 'flourish_caregiver.subjectconsent'
     child_offstudy_model = 'flourish_prn.childoffstudy'
+    caregiver_offstudy_model = 'flourish_prn.caregiveroffstudy'
     flourish_child_consent_model = 'flourish_caregiver.caregiverchildconsent'
 
     @property
@@ -48,8 +49,18 @@ class EligibleFacetParticipantsMixin:
         return django_apps.get_model(self.child_offstudy_model)
 
     @property
+    def caregiver_offstudy_cls(self):
+        return django_apps.get_model(self.caregiver_offstudy_model)
+
+    @property
     def child_offstudy_identifiers(self):
         identifiers = self.child_offstudy_cls.objects.values_list(
+            'subject_identifier', flat=True)
+        return identifiers
+
+    @property
+    def caregiver_offstudy_identifiers(self):
+        identifiers = self.caregiver_offstudy_cls.objects.values_list(
             'subject_identifier', flat=True)
         return identifiers
 
@@ -101,4 +112,5 @@ class EligibleFacetParticipantsMixin:
                                        Q(child_dob__range=[dates_before, today]) | Q(
                                            child_dob__isnull=True),
                                        subject_consent=OuterRef('pk')).values('child_dob')[:1]),
-            child_dob=Coalesce('_child_dob', Cast(get_utcnow().date(), DateField()))).order_by('child_dob')
+            child_dob=Coalesce('_child_dob', Cast(get_utcnow().date(), DateField()))).exclude(
+                subject_identifier__in=self.caregiver_offstudy_identifiers).order_by('child_dob')
