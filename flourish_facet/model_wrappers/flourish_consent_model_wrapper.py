@@ -87,11 +87,16 @@ class FlourishConsentModelWrapper(ModelWrapper):
 
     @property
     def facet_child_age(self):
+        # if the child dob is not filed
+        child_dob = getattr(self.object, 'child_dob', None)
 
-        age_timedelta = age(datetime.fromisoformat(
-            self.object.child_dob), get_utcnow().date())
+        age_in_months = 0
 
-        age_in_months = (age_timedelta.years * 12) + age_timedelta.months
+        if child_dob:
+
+            age_timedelta = age(child_dob, get_utcnow().date())
+
+            age_in_months = (age_timedelta.years * 12) + age_timedelta.months
 
         return age_in_months
 
