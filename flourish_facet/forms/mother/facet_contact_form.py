@@ -2,7 +2,7 @@ from django import forms
 from edc_form_validators import FormValidatorMixin
 from flourish_facet.form_validators import FacetContactFormValidator
 
-from ..models import FacetContact
+from ...models.proxy_models import FacetContact
 
 
 class FacetContactForm(FormValidatorMixin, forms.ModelForm):

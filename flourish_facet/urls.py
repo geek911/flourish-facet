@@ -35,7 +35,7 @@ from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
-from .views import AdministrationView, HomeView
+from .views import AdministrationView, HomeView, CallHistoryView
 from .patterns import subject_identifier, group_identifier
 from .admin_site import flourish_facet_admin
 
@@ -61,6 +61,9 @@ urlpatterns = [
          name='administration_url'),
     path('home/', HomeView.as_view(), name='home_url'),
     path('', RedirectView.as_view(url='admin/'), name='admin_url'),
+    path('events/<str:subject_identifier>/',
+         CallHistoryView.as_view(),
+         name='facetevent'),
 
 
 ]

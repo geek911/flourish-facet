@@ -11,7 +11,7 @@ from .mother import FacetConsent
 from .child import MotherChildConsent
 from .child import ChildHivTesting
 from ..models import FacetChildOffSchedule, FacetMotherOffSchedule
-
+from ..models.proxy_models import FacetContact
 
 from ..action_items import FacetChildOffStudyAction
 
@@ -157,3 +157,9 @@ def facet_mother_off_schedule_on_post_save(sender, instance, raw, created, **kwa
 def facet_clinician_notes_image_on_post_save(sender, instance, raw, created, **kwargs):
     if not raw and created:
         stamp_image(instance)
+
+
+@receiver(pre_save, sender=FacetContact)
+def facet_contact_update(sender, raw, instance, **kwargs):
+    if not raw:
+        instance.study_name = 'facet'

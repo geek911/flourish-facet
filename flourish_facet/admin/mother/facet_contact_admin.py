@@ -1,10 +1,10 @@
 from django.contrib import admin
 from edc_model_admin import audit_fieldset_tuple
 
-from ...admin_site import flourish_facet_admin
-from ...forms import FacetContactForm
 from ...models import FacetContact
-from ..modeladmin_mixins import ModelAdminMixin
+from ...forms import FacetContactForm
+from ...admin.modeladmin_mixins import ModelAdminMixin
+from ...admin_site import flourish_facet_admin
 
 
 @admin.register(FacetContact, site=flourish_facet_admin)
