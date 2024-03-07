@@ -5,7 +5,7 @@ from django.apps import apps
 
 class CallHistoryView(View):
     call_label = "flourish_follow"
-    facet_label = "flourish_facet"
+
     flourishcaregiver_label = "flourish_caregiver"
 
     def get(self, request, *args, **kwargs):
@@ -13,7 +13,6 @@ class CallHistoryView(View):
         sid = kwargs.get('subject_identifier')
 
         flourish_appts = self.get_appointments(sid)
-        facet_contacts = self.get_facet_contact_entry(sid)
         flourish_contacts = self.get_contact_entry(sid)
 
         appt_data = [{'appt_datetime': item.appt_datetime.strftime("%Y-%m-%d, %H:%M:%S"),
@@ -28,17 +27,9 @@ class CallHistoryView(View):
             'outcome': item.contact_comment,
             'source': item.study_name} for item in flourish_contacts]
 
-        facet_contact_data = [{
-            'report_datetime': item.report_datetime.strftime("%Y-%m-%d, %H:%M:%S"),
-            'status': item.contact_success,
-            'contact_type': item.contact_type,
-            'outcome': item.contact_comment,
-            'source': item.study_name} for item in facet_contacts]
-
         data = {
             'appt': appt_data,
             'contact_entry': contact_entries,
-            'facet': facet_contact_data
         }
 
         return JsonResponse(data)
@@ -70,10 +61,6 @@ class CallHistoryView(View):
     def contact_model(self):
         return apps.get_model(self.flourishcaregiver_label, "caregivercontact")
 
-    @property
-    def facet_contact_model(self):
-        return apps.get_model(self.facet_label, "facetcontact")
-
     def get_call_entry(self, sid=None):
         call = self.call_model.objects.filter(
             subject_identifier=sid).order_by('scheduled').last().values_list('call_attempts', 'call_outcome','call_status')
@@ -85,10 +72,3 @@ class CallHistoryView(View):
             contact_entry = []
 
         return contact_entry
-
-    def get_facet_contact_entry(self, sid=None):
-        facet_contact = self.facet_contact_model.objects.filter(
-            subject_identifier=sid,
-            study_name='facet').order_by('-report_datetime')
-
-        return facet_contact

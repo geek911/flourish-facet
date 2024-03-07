@@ -8,4 +8,3 @@ from .onschedule import OnScheduleFacetChild, OnScheduleFacetMother
 from .death_report import FacetDeathReport
 from .list_models import *
 from .signals import *
-from .proxy_models import *

@@ -23,8 +23,7 @@
             .then(data =>{
 
             if (Object.keys(data.appt).length === 0 &&
-            Object.keys(data.contact_entry).length === 0 &&
-            Object.keys(data.facet).length === 0 )
+            Object.keys(data.contact_entry).length === 0 )
             {
                 document.getElementById('modalContent').innerHTML = '<p>No data available</p>';
             }
@@ -62,17 +61,6 @@
                   content += `<td style="padding: 10px;">${call_entry.contact_type}</td>`;
                   content += `<td style="padding: 10px;">${call_entry.status}</td>`;
                   content += `<td style="padding: 10px;">${call_entry.outcome}</td>`;
-                  content += '</tr>';
-              });
-
-              // Facet Call entries data
-                data.facet.forEach(call => {
-                  content += '<tr>';
-                  content += `<td style="padding: 10px;">${call.report_datetime}</td>`;
-                  content += `<td style="padding: 10px;">${call.source}</td>`;
-                  content += `<td style="padding: 10px;">${call.contact_type}</td>`;
-                  content += `<td style="padding: 10px;">${call.status}</td>`;
-                  content += `<td style="padding: 10px;">${call.outcome}</td>`;
                   content += '</tr>';
               });
 
@@ -127,7 +115,7 @@
             <i class="far fa-user-circle fa-sm"></i> Dashboard <i class="fa fa-share"></i></a>
 
         <a id="openModalButton" class="btn btn-info btn-sm" role="button"
-        title="Call History" onmouseover="callModal('{{result.subject_identifier}}')" title="call-log">
+        title="Call History" onclick="callModal('{{result.subject_identifier}}')" title="call-log">
         <i class="fa fa-eye"></i> Call History </i></a>
 
         {% endif %}

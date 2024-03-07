@@ -8,7 +8,7 @@ class FacetContactModelWrapperMixin:
 
     @property
     def facet_contact_cls(self):
-        return django_apps.get_model('flourish_facet.facetcontact')
+        return django_apps.get_model('flourish_caregiver.caregivercontact')
 
     @property
     def facet_contact_options(self):
@@ -16,7 +16,7 @@ class FacetContactModelWrapperMixin:
         facet contact model instance.
         """
 
-        options = dict(suject_identifier=self.object.subject_identifier)
+        options = dict(subject_identifier=self.object.subject_identifier)
         return options
 
     @property
@@ -25,7 +25,8 @@ class FacetContactModelWrapperMixin:
         unpersisted facet contact model instance.
         """
         options = dict(
-            subject_identifier=self.object.subject_identifier)
+            subject_identifier=self.object.subject_identifier,
+            study_name='facet')
         return options
 
     @property
