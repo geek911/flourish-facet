@@ -4,7 +4,6 @@ from django.apps import apps
 
 
 class CallHistoryView(View):
-    call_label = "flourish_follow"
 
     flourishcaregiver_label = "flourish_caregiver"
 
@@ -45,29 +44,13 @@ class CallHistoryView(View):
 
         return flourish_appt_calls
 
-    def participants_worklist(self, sid=None):
-        worklist = apps.get_model(self.call_label, "worklist")
-
-        assignments = worklist.objects.filter(subject_identifier=sid,
-                                              assigned__isnull=False,
-                                              is_called=True)
-        return assignments
-
-    @property
-    def call_model(self):
-        return apps.get_model(self.call_label, "call")
-
     @property
     def contact_model(self):
         return apps.get_model(self.flourishcaregiver_label, "caregivercontact")
 
-    def get_call_entry(self, sid=None):
-        call = self.call_model.objects.filter(
-            subject_identifier=sid).order_by('scheduled').last().values_list('call_attempts', 'call_outcome','call_status')
-        return call
-
     def get_contact_entry(self, sid=None):
-        contact_entry = self.contact_model.objects.filter(subject_identifier=sid).order_by('-report_datetime')
+        contact_entry = self.contact_model.objects.filter(subject_identifier=sid,
+                                                          contact_success='Yes').order_by('-report_datetime')
         if contact_entry.count() < 0:
             contact_entry = []
 
