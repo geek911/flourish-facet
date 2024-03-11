@@ -61,10 +61,10 @@ urlpatterns = [
          name='administration_url'),
     path('home/', HomeView.as_view(), name='home_url'),
     path('', RedirectView.as_view(url='admin/'), name='admin_url'),
-    path('events/<str:subject_identifier>/',
-         CallHistoryView.as_view(),
-         name='facetevent'),
-
+    re_path(r'^events/'
+            f'(?P<subject_identifier>{subject_identifier})/',
+            CallHistoryView.as_view(),
+            name='callevent')
 
 ]
 
