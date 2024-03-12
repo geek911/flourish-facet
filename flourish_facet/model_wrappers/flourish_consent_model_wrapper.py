@@ -1,14 +1,14 @@
-from dateutil.relativedelta import relativedelta
+from datetime import datetime
 from edc_base import get_utcnow
 from django.apps import apps as django_apps
 from django.conf import settings
 from django.forms import model_to_dict
 from edc_model_wrapper import ModelWrapper
+from edc_base.utils import age
 from .facet_screening_model_wrapper import FacetScreeningModelWrapper
 from .facet_consent_model_wrapper import FacetConsentModelWrapper
 from .facet_mother_locator_model_wrapper import LocatorModelWrapper
 from ..models import FacetSubjectScreening, FacetConsent
-from ..utils import child_age_in_months
 
 
 class FlourishConsentModelWrapper(ModelWrapper):
@@ -72,6 +72,10 @@ class FlourishConsentModelWrapper(ModelWrapper):
         else:
             return obj
 
+    def facet_cosentents(self):
+        return self.facet_consent_cls.objects.values_list(
+            'suject_identifier', flat=True)
+
     @property
     def facet_screening_wrapper(self):
 
@@ -83,22 +87,18 @@ class FlourishConsentModelWrapper(ModelWrapper):
 
     @property
     def facet_child_age(self):
+        # if the child dob is not filed
+        child_dob = getattr(self.object, 'child_dob', None)
 
-        dates_before = (get_utcnow() - relativedelta(months=6)
-                        ).date().isoformat()
+        age_in_months = 0
 
-        today = get_utcnow().date().isoformat()
+        if child_dob:
 
-        child_consents = self.object.caregiverchildconsent_set.filter(
-            child_dob__range=[dates_before, today])
+            age_timedelta = age(child_dob, get_utcnow().date())
 
-        ages = []
-        for consent in child_consents:
-            # dob = consent.child_dob
-            ages.append(str(child_age_in_months(
-                get_utcnow().date(), consent.subject_consent.subject_identifier)))
+            age_in_months = (age_timedelta.years * 12) + age_timedelta.months
 
-        return ', '.join(ages)
+        return age_in_months
 
     @property
     def locator_obj(self):
