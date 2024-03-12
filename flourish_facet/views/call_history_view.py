@@ -51,7 +51,5 @@ class CallHistoryView(View):
     def get_contact_entry(self, sid=None):
         contact_entry = self.contact_model.objects.filter(subject_identifier=sid,
                                                           contact_success='Yes').order_by('-report_datetime')
-        if contact_entry.count() < 0:
-            contact_entry = []
 
         return contact_entry
