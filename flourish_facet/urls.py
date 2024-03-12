@@ -33,6 +33,7 @@ from edc_identifier.admin_site import edc_identifier_admin
 from .views import FacetMotherConsentListboardView
 from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
+from .views import FacetExportListBoardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
 from .views import AdministrationView, HomeView, CallHistoryView
@@ -111,9 +112,16 @@ facet_child_dashboard_url_config = UrlConfig(
     identifier_label='subject_identifier',
     identifier_pattern=subject_identifier)
 
+
+facet_export_listboard_url_config = UrlConfig(
+    url_name='facet_export_listboard_url',
+    view_class=FacetExportListBoardView,
+    label='facet_export_listboard_url',)
+
 urlpatterns += facet_mother_listboard_url_config.listboard_urls
 urlpatterns += flourish_consent_listboard_url_config.listboard_urls
 urlpatterns += facet_mother_dashboard_url_config.dashboard_urls
 urlpatterns += facet_child_listboard_url_config.listboard_urls
 urlpatterns += facet_child_dashboard_url_config.dashboard_urls
 urlpatterns += group_interview_listboard_url_config.listboard_urls
+urlpatterns += facet_export_listboard_url_config.listboard_urls
