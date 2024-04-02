@@ -66,15 +66,10 @@ class EligibleFacetParticipantsMixin:
         facet_screened_identifiers = self.facet_screening_cls.objects.values_list(
             'subject_identifier', flat=True)
 
-        subject_identifiers = set(
-            [*subject_identifiers, *facet_screened_identifiers])
 
         consent_ids = []
 
-        for subject_identifier in subject_identifiers:
-            consent = self.subject_consent_cls.objects.filter(
-                subject_identifier=subject_identifier
-            ).latest('version')
+        for _, row in subject_identifiers_df.iterrows():
 
             consent_ids.append(consent.id)
 
