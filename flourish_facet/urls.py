@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from flourish_facet.views.interview_forms.listboard_view import GroupInterviewListBoardView
 from .admin_site import flourish_facet_admin
-from django.urls import path
+from django.urls import path, re_path
 from django.apps import apps as django_apps
 from edc_dashboard import UrlConfig
 from django.views.generic.base import RedirectView
@@ -36,7 +36,7 @@ from .views import FacetChildConsentListboardView
 from .views import FacetExportListBoardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
-from .views import AdministrationView, HomeView
+from .views import AdministrationView, HomeView, CallHistoryView
 from .patterns import subject_identifier, group_identifier
 from .admin_site import flourish_facet_admin
 
@@ -61,6 +61,10 @@ urlpatterns = [
          name='administration_url'),
     path('home/', HomeView.as_view(), name='home_url'),
     path('', RedirectView.as_view(url='admin/'), name='admin_url'),
+    re_path(r'^events/'
+            f'(?P<subject_identifier>{subject_identifier})/',
+            CallHistoryView.as_view(),
+            name='callevent')
 
 ]
 
