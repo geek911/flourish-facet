@@ -88,8 +88,10 @@
 {% block listboard_table_header %}
 
 <th>#</th>
-<th>Flourish Consents</th>
+<th>Call log</th>
 
+
+<th>Flourish Consents</th>
 <th>Subject Identifier</th>
 <th>Child Age (Months)</th>
 <th>User Created</th>
@@ -99,6 +101,15 @@
 
 
 {% block listboard_table_button_column %}
+<td>
+  <div class="btn-group">
+    {% contact_button result.contact_wrapper %}
+    <button type="button" class="btn btn-default btn-sm" onclick="callModal('{{result.subject_identifier}}')">
+      <i class="fa fa-history fa-lg"></i>
+      <i class="fa fa-files-o fa-lg"></i>
+    </button>
+  </div>
+</td>
 
 <td style="white-space: nowrap">
     <div class="btn-group">
