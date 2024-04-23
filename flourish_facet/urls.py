@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from flourish_facet.views.interview_forms.listboard_view import GroupInterviewListBoardView
 from .admin_site import flourish_facet_admin
-from django.urls import path
+from django.urls import path, re_path
 from django.apps import apps as django_apps
 from edc_dashboard import UrlConfig
 from django.views.generic.base import RedirectView
@@ -33,9 +33,10 @@ from edc_identifier.admin_site import edc_identifier_admin
 from .views import FacetMotherConsentListboardView
 from .views import FlourishConsentListboardView
 from .views import FacetChildConsentListboardView
+from .views import FacetExportListBoardView
 from .views import FacetMotherDashboardView
 from .views import FacetChildDashboardView
-from .views import AdministrationView, HomeView
+from .views import AdministrationView, HomeView, CallHistoryView
 from .patterns import subject_identifier, group_identifier
 from .admin_site import flourish_facet_admin
 
@@ -60,6 +61,10 @@ urlpatterns = [
          name='administration_url'),
     path('home/', HomeView.as_view(), name='home_url'),
     path('', RedirectView.as_view(url='admin/'), name='admin_url'),
+    re_path(r'^events/'
+            f'(?P<subject_identifier>{subject_identifier})/',
+            CallHistoryView.as_view(),
+            name='callevent')
 
 ]
 
@@ -107,9 +112,16 @@ facet_child_dashboard_url_config = UrlConfig(
     identifier_pattern=subject_identifier)
 
 
+facet_export_listboard_url_config = UrlConfig(
+    url_name='facet_export_listboard_url',
+    view_class=FacetExportListBoardView,
+    label='facet_export_listboard_url',)
+
+
 urlpatterns += facet_mother_listboard_url_config.listboard_urls
 urlpatterns += flourish_consent_listboard_url_config.listboard_urls
 urlpatterns += facet_mother_dashboard_url_config.dashboard_urls
 urlpatterns += facet_child_listboard_url_config.listboard_urls
 urlpatterns += facet_child_dashboard_url_config.dashboard_urls
 urlpatterns += group_interview_listboard_url_config.listboard_urls
+urlpatterns += facet_export_listboard_url_config.listboard_urls
