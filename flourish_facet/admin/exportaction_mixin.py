@@ -169,7 +169,7 @@ class ExportActionMixin:
         consent = self.consent_obj(subject_identifier=subject_identifier)
 
         if consent:
-            return consent.screening_identifier
+            return getattr(consent, 'screening_identifier', None)
         return None
 
     def consent_obj(self, subject_identifier: str):
