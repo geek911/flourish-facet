@@ -89,8 +89,8 @@ class EligibleFacetParticipantsMixin:
         facet_screened_identifiers = self.facet_screening_cls.objects.values_list(
             'subject_identifier', flat=True)
 
-        # subject_identifiers = set(
-        #     [*subject_identifiers, *facet_screened_identifiers])
+
+
 
         consent_ids = []
 
