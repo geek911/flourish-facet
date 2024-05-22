@@ -5,7 +5,7 @@ from django.db.models import Subquery, OuterRef
 from edc_base.utils import get_utcnow
 from dateutil.relativedelta import relativedelta
 from edc_constants.constants import YES
-from django.db.models import Max, F, Min, Q, Value
+from django.db.models import Q
 from django.db.models.functions import Coalesce, Cast
 from django.db.models import DateField
 
@@ -58,6 +58,7 @@ class EligibleFacetParticipantsMixin:
             'subject_identifier', flat=True)
         return identifiers
 
+
     @property
     def caregiver_offstudy_identifiers(self):
         identifiers = self.caregiver_offstudy_cls.objects.values_list(
@@ -74,9 +75,11 @@ class EligibleFacetParticipantsMixin:
             child_subject_identifier__in=self.child_offstudy_identifiers).values_list(
             'child_subject_identifier', flat=True)
 
+
         subject_identifiers_dict = self.flourish_child_consent_cls.objects.filter(
             Q(child_dob__range=[dates_before, today]) | Q(
                 child_dob__isnull=True),
+
             subject_identifier__in=anc_subject_identifiers,
             subject_consent__future_contact=YES
         ).values('subject_consent__subject_identifier', 'subject_identifier')
@@ -86,9 +89,9 @@ class EligibleFacetParticipantsMixin:
         facet_screened_identifiers = self.facet_screening_cls.objects.values_list(
             'subject_identifier', flat=True)
 
-        consent_ids = set()
+        consent_ids = []
 
-        for _, row in subject_identifiers_df.iterrows():
+        for index, row in subject_identifiers_df.iterrows():
 
             try:
 
@@ -101,7 +104,7 @@ class EligibleFacetParticipantsMixin:
             except self.flourish_child_consent_cls.DoesNotExist:
                 pass
             else:
-                consent_ids.add(child_consent.subject_consent.id)
+                consent_ids.append(child_consent.subject_consent.id)
 
         return queryset.filter(id__in=consent_ids,
                                subject_identifier__startswith='B').annotate(
