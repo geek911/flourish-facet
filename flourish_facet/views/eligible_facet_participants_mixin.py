@@ -86,29 +86,28 @@ class EligibleFacetParticipantsMixin:
         facet_screened_identifiers = self.facet_screening_cls.objects.values_list(
             'subject_identifier', flat=True)
 
-
-        consent_ids = []
+        consent_ids = set()
 
         for _, row in subject_identifiers_df.iterrows():
 
             try:
 
                 child_consent = self.flourish_child_consent_cls.objects.filter(
-                    subject_identifier=row['subject_identifier'],
-                    subject_consent__subject_identifier=row['subject_consent__subject_identifier']
-
+                    Q(subject_identifier=row['subject_identifier']) | 
+                    Q(subject_consent__subject_identifier__in=facet_screened_identifiers),
+                    subject_consent__subject_identifier=row['subject_consent__subject_identifier'],
                 ).latest('version')
 
             except self.flourish_child_consent_cls.DoesNotExist:
                 pass
             else:
-                consent_ids.append(child_consent.subject_consent.id)
+                consent_ids.add(child_consent.subject_consent.id)
 
-        return queryset.filter(Q(subject_identifier__in=facet_screened_identifiers) | Q(id__in=consent_ids,),
+        return queryset.filter(id__in=consent_ids,
                                subject_identifier__startswith='B').annotate(
-                                   _child_dob=Subquery(self.flourish_child_consent_cls.objects.filter(
-                                       Q(child_dob__range=[dates_before, today]) | Q(
-                                           child_dob__isnull=True),
-                                       subject_consent=OuterRef('pk')).values('child_dob')[:1]),
+            _child_dob=Subquery(self.flourish_child_consent_cls.objects.filter(
+                Q(child_dob__range=[dates_before, today]) | Q(
+                    child_dob__isnull=True),
+                subject_consent=OuterRef('pk')).values('child_dob')[:1]),
             child_dob=Coalesce('_child_dob', Cast(get_utcnow().date(), DateField()))).exclude(
-                subject_identifier__in=self.caregiver_offstudy_identifiers).order_by('child_dob')
+            subject_identifier__in=self.caregiver_offstudy_identifiers).order_by('child_dob')
