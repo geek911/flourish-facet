@@ -104,7 +104,7 @@ class EligibleFacetParticipantsMixin:
             except self.flourish_child_consent_cls.DoesNotExist:
                 pass
             else:
-                consent_ids.add(child_consent.subject_consent.id)
+                consent_ids.append(child_consent.subject_consent.id)
 
         return queryset.filter(id__in=consent_ids,
                                subject_identifier__startswith='B').annotate(
